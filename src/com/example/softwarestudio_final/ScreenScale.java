@@ -1,6 +1,6 @@
 package com.example.softwarestudio_final;
 
-import com.example.testyo.Constant;
+import com.example.softwarestudio_final.Constant;
 
 
 public class ScreenScale {

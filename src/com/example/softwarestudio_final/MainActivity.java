@@ -99,7 +99,7 @@ public class MainActivity extends ActionBarActivity {
 	       // setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 	        audio = (AudioManager) getSystemService(Service.AUDIO_SERVICE); 
 			//取得屏幕尺寸
-	        temp = BitmapFactory.decodeResource(getResources(), R.drawable.back);
+	       temp = BitmapFactory.decodeResource(getResources(), R.drawable.background);
 	        Constant.WIDTH = temp.getWidth();
 	        Constant.HEIGHT = temp.getHeight();
 	        DisplayMetrics dm=new DisplayMetrics();
@@ -117,7 +117,7 @@ public class MainActivity extends ActionBarActivity {
 	        }
 	
 		ScreenScale.calScale(Constant.SCREEN_WIDTH,Constant.SCREEN_HEIGHT);
-		setContentView();
+		myHandler.sendEmptyMessage(1);
 	
 	}
 	
@@ -153,4 +153,7 @@ public class MainActivity extends ActionBarActivity {
 	    @Override
 	    public boolean onKeyDown(int keyCode, KeyEvent event) 
 	    {   
+	    	//Main則退出遊戲,非main則回到main;
+	    	return super.onKeyDown(keyCode, event);
+	    }
 }

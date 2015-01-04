@@ -1,5 +1,8 @@
 package com.example.softwarestudio_final;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 
 
 public class Constant {
@@ -13,5 +16,23 @@ public class Constant {
 	public static float RATIOY;
 	public static float RATIO;
 	public static whichPattern pattern;
+	
+	public static Bitmap[] Pictures;
+	public static boolean BGMenabled = true;
+	public static boolean effectenabled = true;
+	public static boolean bombOn = true;
+	public static int timeLimit=30;
+	public static int life=50;
+	
+	public static int[][] MainMenuOffset = {
+		{123,500} // GAME
+		,{123,930} // HELP
+		,{123,1358} //OPTION
+	};
+	
+	
+	
+	
+	
 	enum whichPattern { Vertical , Horizonal};
 }
