@@ -2,8 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.softwarestudio_final"
     android:versionCode="1"
-    android:versionName="1.0" >
-
+    android:versionName="1.0" 
+    >
+	Class-Path: lib/tween-engine-api-sources;
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="21" />

@@ -1,6 +1,7 @@
 package com.example.softwarestudio_final;
 
-import com.example.softwarestudio_final.Constant;
+import android.util.Log;
+
 
 
 public class ScreenScale {
@@ -20,13 +21,13 @@ public class ScreenScale {
 	)
 	{
 	
-		 sHpWidth=Constant.WIDTH;//原始橫式螢幕的寬度
+		 /*sHpWidth=Constant.WIDTH;//原始橫式螢幕的寬度
 		 sHpHeight=Constant.HEIGHT;//原始橫式螢幕的高度
 		 whHpRatio=sHpWidth/sHpHeight;//原始橫式螢幕的寬高比
 		
 		 sSpWidth=Constant.WIDTH;//原始直式螢幕的寬度
 		 sSpHeight=Constant.HEIGHT;//原始直式螢幕的高度
-		 whSpRatio=sSpWidth/sSpHeight;//原始直式螢幕的寬高比
+		 whSpRatio=sSpWidth/sSpHeight;//原始直式螢幕的寬高比*/
 		//首先判斷目標是橫式螢幕還是直式螢幕
 		/*if(targetWidth>targetHeight)
 		{
@@ -99,6 +100,7 @@ public class ScreenScale {
 		
 		Constant.RATIOX = targetWidth/sSpHeight;
 		Constant.RATIOY = targetHeight/sSpWidth;
+		Log.d("DEBUG","ratio ="+Constant.RATIO+" LCUX = "+Constant.LCUX+" LCUY = "+ Constant.LCUY);
 		return;
 	}
 }

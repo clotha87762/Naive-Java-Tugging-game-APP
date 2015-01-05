@@ -10,8 +10,8 @@ public class Constant {
 	public static int SCREEN_WIDTH;
 	public static int WIDTH =1080;
 	public static int HEIGHT = 1920;
-	public static int LCUX;
-	public static int LCUY;
+	public static int LCUX=0;
+	public static int LCUY=0;
 	public static float RATIOX;
 	public static float RATIOY;
 	public static float RATIO;
