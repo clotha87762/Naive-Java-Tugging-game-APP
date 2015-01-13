@@ -7,7 +7,8 @@ public class MovableAccessor implements TweenAccessor<Movable> {
 	 public static final int POSITION_X = 1;
 	 public static final int POSITION_Y = 2;
 	 public static final int POSITION_XY = 3;
-
+	 public static final int ALPHA = 4;
+	 public static final int SCALE = 5;
 	@Override
 	public int getValues(Movable target, int tweenType, float[] returnValues) {
 	        switch (tweenType) {
@@ -17,6 +18,8 @@ public class MovableAccessor implements TweenAccessor<Movable> {
 	                returnValues[0] = target.getX();
 	                returnValues[1] = target.getY();
 	                return 2;
+	            case ALPHA: returnValues[0] = target.getAlpha();return 1;
+	            case SCALE: returnValues[0] = target.getScale();return 1;
 	            default: assert false; return -1;
 	        }
 	    }
@@ -30,6 +33,8 @@ public class MovableAccessor implements TweenAccessor<Movable> {
 	                target.setX(newValues[0]);
 	                target.setY(newValues[1]);
 	                break;
+	            case ALPHA : target.setAlpha((int)newValues[0]);break;    
+	            case SCALE: target.setScale(newValues[0]);break;
 	            default: assert false; break;
 	        }
 	    }

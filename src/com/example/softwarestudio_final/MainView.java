@@ -35,15 +35,25 @@ public class MainView extends SurfaceView implements Callback {
 		Tween.registerAccessor(Movable.class,new MovableAccessor());
 		tm = new TweenManager();
 	
-		helpButton = new Movable ( BitmapFactory.decodeResource(getResources(), R.drawable.help_button),123f,-500f);
-		startButton = new Movable ( BitmapFactory.decodeResource(getResources(), R.drawable.start_button),123f,-500f);
+		helpButton = new Movable ( BitmapFactory.decodeResource(getResources(), R.drawable.help_button),123f,-500f,255,0);
+		startButton = new Movable ( BitmapFactory.decodeResource(getResources(), R.drawable.start_button),123f,-500f,255,0);
 		mainBack = new Movable( BitmapFactory.decodeResource(getResources(), R.drawable.background),0,0);
-		optionButton = new Movable ( BitmapFactory.decodeResource(getResources(), R.drawable.option_button),123f,-500f);
+		optionButton = new Movable ( BitmapFactory.decodeResource(getResources(), R.drawable.option_button),123f,-500f,255,0);
 		
 		
-		Timeline.createSequence().push(Tween.to(startButton,MovableAccessor.POSITION_Y,1.0f).target(500f))
+		Timeline.createSequence()
+				.beginParallel()
+				.push(Tween.to(startButton,MovableAccessor.POSITION_Y,1.0f).target(500f))
+				.push(Tween.to(startButton,MovableAccessor.SCALE,1.0f).target(1))
+				.end()
+				.beginParallel()
 				.push(Tween.to(helpButton,MovableAccessor.POSITION_Y,1.0f).target(930f))
+				.push(Tween.to(helpButton,MovableAccessor.SCALE,1.0f).target(1))
+				.end()
+				.beginParallel()
 				.push(Tween.to(optionButton,MovableAccessor.POSITION_Y,1.0f).target(1358f))
+				.push(Tween.to(optionButton,MovableAccessor.SCALE,1.0f).target(1))
+				.end()
 				.start(tm);
 		drawThread= new MainDrawThread();
 		drawThread.start();
@@ -79,6 +89,10 @@ public class MainView extends SurfaceView implements Callback {
 		    }
 		}); 
 		inAnimation.start();
+		
+		
+		
+		
 	}
 	
 	public void draw(Canvas canvas){
