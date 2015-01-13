@@ -25,7 +25,8 @@ public class MainView extends SurfaceView implements Callback {
 	Movable mainBack;
 	TweenManager tm ;
 	Thread inAnimation;
-	mainDrawThread drawThread=new MainDrawThread();
+	MainDrawThread drawThread=new MainDrawThread();
+	boolean isAnimationRunning=true;
 	public MainView(MainActivity main){
 		super(main);
 		this.mainActivity=main;
@@ -33,19 +34,23 @@ public class MainView extends SurfaceView implements Callback {
 		
 		Tween.registerAccessor(Movable.class,new MovableAccessor());
 		tm = new TweenManager();
-		/*startButton = BitmapFactory.decodeResource(getResources(), R.drawable.start_button);
-		helpButton = BitmapFactory.decodeResource(getResources(),R.drawable.help_button);
-		optionButton = BitmapFactory.decodeResource(getResources(), R.drawable.option_button);
-		mainBack = BitmapFactory.decodeResource(getResources(), R.drawable.background);*/
+	
+		helpButton = new Movable ( BitmapFactory.decodeResource(getResources(), R.drawable.help_button),123f,-500f);
 		startButton = new Movable ( BitmapFactory.decodeResource(getResources(), R.drawable.start_button),123f,-500f);
-		Timeline.createSequence().push(Tween.to(startButton,MovableAccessor.POSITION_Y,1.0f).target(250))
-				.pushPause(1.0f)
-				.push(Tween.to(startButton,MovableAccessor.POSITION_Y,1.0f).target(500))
+		mainBack = new Movable( BitmapFactory.decodeResource(getResources(), R.drawable.background),0,0);
+		optionButton = new Movable ( BitmapFactory.decodeResource(getResources(), R.drawable.option_button),123f,-500f);
+		
+		
+		Timeline.createSequence().push(Tween.to(startButton,MovableAccessor.POSITION_Y,1.0f).target(500f))
+				.push(Tween.to(helpButton,MovableAccessor.POSITION_Y,1.0f).target(930f))
+				.push(Tween.to(optionButton,MovableAccessor.POSITION_Y,1.0f).target(1358f))
 				.start(tm);
-		drawThread=
+		drawThread= new MainDrawThread();
+		drawThread.start();
+		
 		inAnimation = new Thread(new Runnable() {
 		    private long lastMillis = -1;
-		    boolean isAnimationRunning=true;
+		    
 		    @Override
 		    public void run() {
 		        while (isAnimationRunning) {
@@ -57,7 +62,7 @@ public class MainView extends SurfaceView implements Callback {
 		                mainActivity.runOnUiThread(new Runnable() {
 		                    public void run() {
 		                        tm.update(delta);
-		                        
+		                        if(optionButton.getY()==1358f)isAnimationRunning = false;
 		                    }
 		                });
 
@@ -67,7 +72,7 @@ public class MainView extends SurfaceView implements Callback {
 		            }
 
 		            try {
-		                Thread.sleep(1000/60);
+		                Thread.sleep(40);
 		            } catch(InterruptedException ex) {
 		            }
 		        }
@@ -82,7 +87,11 @@ public class MainView extends SurfaceView implements Callback {
 		canvas.save();
 		canvas.translate(Constant.LCUX, Constant.LCUY);
 		canvas.scale(Constant.RATIO, Constant.RATIO);
+		mainBack.draw(canvas);
 		startButton.draw(canvas);
+		helpButton.draw(canvas);
+		optionButton.draw(canvas);
+		
 		/*canvas.drawBitmap(mainBack,0,0,p);
 		canvas.drawBitmap(startButton,MainMenuOffset[0][0],MainMenuOffset[0][1],p);
 		canvas.drawBitmap(helpButton,MainMenuOffset[1][0],MainMenuOffset[1][1],p);
@@ -98,31 +107,51 @@ public class MainView extends SurfaceView implements Callback {
 	}
 	
 	
-	/*
+	
 	@Override
 	public boolean onTouchEvent(MotionEvent e)
 	{
 		int xx=(int)((e.getX()/Constant.RATIO)-Constant.LCUX);
 	 	int yy=(int)((e.getY()/Constant.RATIO)-Constant.LCUY);
 	 	Log.d("DEBUG","onMaintouch");
-		if(xx>=MainMenuOffset[0][0]&&xx<=MainMenuOffset[0][0]+startButton.getWidth()
-			&&yy>=MainMenuOffset[0][1]&&yy<=MainMenuOffset[0][1]+startButton.getHeight()){
+		if(!isAnimationRunning ){
+	 	
+	 	if(xx>=MainMenuOffset[0][0]&&xx<=MainMenuOffset[0][0]+startButton.bitmap.getWidth()
+			&&yy>=MainMenuOffset[0][1]&&yy<=MainMenuOffset[0][1]+startButton.bitmap.getHeight()){
 			mainActivity.myHandler.sendEmptyMessage(2);
 		}
-		else if(xx>=MainMenuOffset[1][0]&&xx<=MainMenuOffset[1][0]+helpButton.getWidth()
-				&&yy>=MainMenuOffset[1][1]&&yy<=MainMenuOffset[1][1]+helpButton.getHeight()){
+		else if(xx>=MainMenuOffset[1][0]&&xx<=MainMenuOffset[1][0]+helpButton.bitmap.getWidth()
+				&&yy>=MainMenuOffset[1][1]&&yy<=MainMenuOffset[1][1]+helpButton.bitmap.getHeight()){
 			mainActivity.myHandler.sendEmptyMessage(3);
 		}
-		else if(xx>=MainMenuOffset[2][0]&&xx<=MainMenuOffset[2][0]+optionButton.getWidth()
-				&&yy>=MainMenuOffset[2][1]&&yy<=MainMenuOffset[2][1]+optionButton.getHeight()){
+		else if(xx>=MainMenuOffset[2][0]&&xx<=MainMenuOffset[2][0]+optionButton.bitmap.getWidth()
+				&&yy>=MainMenuOffset[2][1]&&yy<=MainMenuOffset[2][1]+optionButton.bitmap.getHeight()){
 			mainActivity.myHandler.sendEmptyMessage(4);
 		}
-		return super.onTouchEvent(e); 
-		
+		 
+		}
+		return super.onTouchEvent(e);
 	}
-	*/
 	
 	
+	public void repaint(){
+		
+		SurfaceHolder holder=this.getHolder();
+		Canvas canvas = holder.lockCanvas();//取得畫布
+		try{
+			synchronized(holder){
+				draw(canvas);//繪製
+			}			
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		finally{
+			if(canvas != null){
+				holder.unlockCanvasAndPost(canvas);
+			}
+		}
+	}
 	
 	private class MainDrawThread extends Thread {
 	
@@ -130,7 +159,8 @@ public class MainView extends SurfaceView implements Callback {
 		@Override
 		public void run(){
 		
-				draw();				
+				while(isAnimationRunning)
+					repaint();		
 				try{
 					Thread.sleep(40);
 				}
