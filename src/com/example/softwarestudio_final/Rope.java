@@ -12,11 +12,12 @@ public class Rope {
 	public Rope(GameView gv,Bitmap bm){
 		this.gv=gv;
 		this.rope = bm;
-		position =0;//(int)(-Constant.HEIGHT/4*Constant.RATIO);
+		position =-890;//(int)(-Constant.HEIGHT/4*Constant.RATIO);
 	}
 	
 	public void drawself(Canvas canvas){
 		Paint p = new Paint();
+		p.setAntiAlias(true);
 		canvas.drawBitmap(rope,0,position,p);
 	
 	}

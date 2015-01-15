@@ -18,11 +18,14 @@ public class GameView extends SurfaceView implements Callback {
 	DrawThread dt;
 	boolean pause=true;
 	PlayTimeCounter playTime;
+	Bitmap background;
 	PlayerA playerA;
 	PlayerB playerB;
 	Rope rope;
 	Rect rec;
-	
+	Bitmap goalA;
+	Bitmap goalB;
+	Bitmap ropebit;
 	public GameView(MainActivity main){
 		super(main);
 		this.mainActivity = main;
@@ -30,16 +33,23 @@ public class GameView extends SurfaceView implements Callback {
 		dt = new DrawThread(this);
 		rec = new Rect(0,0,Constant.SCREEN_WIDTH,Constant.SCREEN_HEIGHT);
 		this.setLongClickable(true);
+		initBitmap();
 		drawThreadAlive =true;
 		dt.start();
 		this.getHolder().addCallback(this);
-		Bitmap ropebit = BitmapFactory.decodeResource(getResources(), R.drawable.rope);
 		rope = new Rope (this,ropebit);
 		playerA = new PlayerA(this,Constant.life,rope);
 		playerB = new PlayerB(this,Constant.life,rope);
-		PlayTimeCounter timeCounter = new PlayTimeCounter(this);
+		playTime= new PlayTimeCounter(this);
 		drawReady();
 	
+	}
+	
+	public void initBitmap(){
+		background = BitmapFactory.decodeResource(getResources(), R.drawable.gameback);
+		goalA=BitmapFactory.decodeResource(getResources(), R.drawable.goala);
+		goalB =BitmapFactory.decodeResource(getResources(), R.drawable.goalb);
+	    ropebit = BitmapFactory.decodeResource(getResources(), R.drawable.rope2);
 	}
 	
 	public void drawReady(){
@@ -80,6 +90,11 @@ public class GameView extends SurfaceView implements Callback {
 		canvas.translate(Constant.LCUX, Constant.LCUY);
 		canvas.scale(Constant.RATIO, Constant.RATIO);
 		p=new Paint();
+		p.setAntiAlias(true);
+		canvas.drawBitmap(background, 0, 0,p);
+		canvas.drawBitmap(goalA, Constant.goalOffset[1][0],Constant.goalOffset[1][1], p);
+		canvas.drawBitmap(goalB, Constant.goalOffset[0][0],Constant.goalOffset[0][1], p);
+		playTime.draw(canvas);
 		rope.drawself(canvas);
 			canvas.restore();
 			

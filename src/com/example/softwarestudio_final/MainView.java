@@ -37,7 +37,7 @@ public class MainView extends SurfaceView implements Callback {
 	
 		helpButton = new Movable ( BitmapFactory.decodeResource(getResources(), R.drawable.help_button),123f,-500f,255,0);
 		startButton = new Movable ( BitmapFactory.decodeResource(getResources(), R.drawable.start_button),123f,-500f,255,0);
-		mainBack = new Movable( BitmapFactory.decodeResource(getResources(), R.drawable.background),0,0);
+		mainBack = new Movable( BitmapFactory.decodeResource(getResources(), R.drawable.background2),0,0);
 		optionButton = new Movable ( BitmapFactory.decodeResource(getResources(), R.drawable.option_button),123f,-500f,255,0);
 		
 		
