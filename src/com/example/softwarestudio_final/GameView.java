@@ -67,7 +67,7 @@ public class GameView extends SurfaceView implements Callback {
 		background = BitmapFactory.decodeResource(getResources(), R.drawable.gameback);
 		goalA=BitmapFactory.decodeResource(getResources(), R.drawable.goala);
 		goalB =BitmapFactory.decodeResource(getResources(), R.drawable.goalb);
-	    ropebit = BitmapFactory.decodeResource(getResources(), R.drawable.rope2);
+	    ropebit = BitmapFactory.decodeResource(getResources(), R.drawable.ropenormal);
 	    one = new Movable(BitmapFactory.decodeResource(getResources(), R.drawable.count1),0,0,255,1);
 	    two = new Movable(BitmapFactory.decodeResource(getResources(), R.drawable.count2),0,0,255,1);
 	    three = new Movable(BitmapFactory.decodeResource(getResources(), R.drawable.count3),0,0,255,1);
@@ -83,7 +83,7 @@ public class GameView extends SurfaceView implements Callback {
 	}
 	
 	public void drawReady(){
-		//­n¥[¤J¹w³Æ°Êµe
+		//ï¿½nï¿½[ï¿½Jï¿½wï¿½Æ°Êµe
 		pause = false;
 		Timeline.createSequence()
 				.push(Tween.to(three,MovableAccessor.SCALE,1.0f).target(0))
@@ -217,11 +217,11 @@ public class GameView extends SurfaceView implements Callback {
 	public void repaint()
 	{
 		SurfaceHolder holder=this.getHolder();
-		Canvas canvas = holder.lockCanvas();//¨ú±oµe¥¬
+		Canvas canvas = holder.lockCanvas();//ï¿½ï¿½ï¿½oï¿½eï¿½ï¿½
 		if(resaultRunning&&whoWins==1)canvas.rotate(180,540,960);
 		try{
 			synchronized(holder){
-				draw(canvas);//Ã¸»s
+				draw(canvas);//Ã¸ï¿½s
 			}			
 		}
 		catch(Exception e){
@@ -271,7 +271,7 @@ public class GameView extends SurfaceView implements Callback {
 	
 	
 	float HDownX,HDownY,HUpX,HUpY,LDownX,LDownY,LUpX,LUpY;
-	int mainWhich,subWhich; // 1 => ¤W­±   0 => ¤U­±
+	int mainWhich,subWhich; // 1 => ï¿½Wï¿½ï¿½   0 => ï¿½Uï¿½ï¿½
 	@Override
 	public boolean onTouchEvent(MotionEvent e){
 		
