@@ -67,7 +67,7 @@ public class GameView extends SurfaceView implements Callback {
 		background = BitmapFactory.decodeResource(getResources(), R.drawable.gameback);
 		goalA=BitmapFactory.decodeResource(getResources(), R.drawable.goala);
 		goalB =BitmapFactory.decodeResource(getResources(), R.drawable.goalb);
-	    ropebit = BitmapFactory.decodeResource(getResources(), R.drawable.ropenormal);
+	    ropebit = BitmapFactory.decodeResource(getResources(), R.drawable.ropewin);
 	    one = new Movable(BitmapFactory.decodeResource(getResources(), R.drawable.count1),0,0,255,1);
 	    two = new Movable(BitmapFactory.decodeResource(getResources(), R.drawable.count2),0,0,255,1);
 	    three = new Movable(BitmapFactory.decodeResource(getResources(), R.drawable.count3),0,0,255,1);
