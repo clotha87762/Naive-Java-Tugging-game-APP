@@ -18,7 +18,7 @@ public class DrawThread extends Thread {
 			
 			try {
 				// 40 fps = 40 frames / s = 1 frame / (1/40)s = 1 / 0.025 s = 1/ 25ms
-				Thread.sleep(10);
+				Thread.sleep(8);
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {

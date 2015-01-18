@@ -49,7 +49,11 @@ public class GameView extends SurfaceView implements Callback {
 		rec = new Rect(0, 0, Constant.SCREEN_WIDTH, Constant.SCREEN_HEIGHT);
 		this.setLongClickable(true);
 		initBitmap();
+		
 		drawThreadAlive = true;
+		countRunning = true;
+		resaultRunning = false;
+		
 		dt.start();
 		tm = new TweenManager();
 		this.getHolder().addCallback(this);
@@ -159,11 +163,12 @@ public class GameView extends SurfaceView implements Callback {
 	}
 
 	public void drawResault(int who) { // 0==A , 1==B;
-
+		
 		whoWins = who;
 		resaultRunning = true;
 		tm = new TweenManager();
-
+		
+		
 		Timeline.createSequence()
 				.beginParallel()
 				.push(Tween.to(W, MovableAccessor.POSITION_Y, 1.0f)
@@ -198,7 +203,10 @@ public class GameView extends SurfaceView implements Callback {
 								time++;
 								if (time > 150) {
 									resaultRunning = false;
+									drawThreadAlive = false;
+									
 									mainActivity.myHandler.sendEmptyMessage(1);
+									
 								}
 
 							}
@@ -221,6 +229,23 @@ public class GameView extends SurfaceView implements Callback {
 		// mainActivity.myHandler.sendEmptyMessage(1);
 	}
 
+	public void freeBitmap(){
+		background.recycle();
+		goalA.recycle();
+		goalB.recycle();
+		ropebit.recycle();
+		one = null;
+		two =  null;
+		three = null;
+		L = null;
+		O = null;
+		S = null;
+		E = null;
+		W = null;
+		I = null;
+		N = null;
+	}
+	
 	public void repaint() {
 		SurfaceHolder holder = this.getHolder();
 		Canvas canvas = holder.lockCanvas();// ���o�e��

@@ -2,7 +2,7 @@ package com.example.softwarestudio_final;
 
 public class RopeThread extends Thread {
 	Rope father;
-	private int sleepSpan = 3;
+	private int sleepSpan = 8;
 	private boolean flag;
 	
 	public RopeThread(Rope father){
