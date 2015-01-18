@@ -68,7 +68,7 @@ public class GameView extends SurfaceView implements Callback {
 		goalA = BitmapFactory.decodeResource(getResources(), R.drawable.goala);
 		goalB = BitmapFactory.decodeResource(getResources(), R.drawable.goalb);
 		ropebit = BitmapFactory.decodeResource(getResources(),
-				R.drawable.ropewin);
+				R.drawable.ropenormal);
 		one = new Movable(BitmapFactory.decodeResource(getResources(),
 				R.drawable.count1), 0, 0, 255, 1);
 		two = new Movable(BitmapFactory.decodeResource(getResources(),
@@ -151,7 +151,7 @@ public class GameView extends SurfaceView implements Callback {
 
 	public void judgeResault() {
 		pause = true;
-		if (rope.getPosition() < 890)
+		if (rope.getCurrentPosition() < 890)
 			drawResault(1);
 		else {
 			drawResault(0);
@@ -278,7 +278,7 @@ public class GameView extends SurfaceView implements Callback {
 
 	float HDownX, HDownY, HUpX, HUpY, LDownX, LDownY, LUpX, LUpY;
 	int mainWhich, subWhich; // 1 => �W�� 0 => �U��
-
+	int moveRange = 50;
 	@Override
 	public boolean onTouchEvent(MotionEvent e) {
 
@@ -321,11 +321,15 @@ public class GameView extends SurfaceView implements Callback {
 		case MotionEvent.ACTION_UP:
 			Log.d("DEBUG", "MU " + xx + "  " + yy);
 			if (yy < 960) {
-				if (yy - HDownY < -90 && Math.abs(xx - HDownX) < 200)
-					rope.setPosition(-20);
+				if (yy - HDownY < -90 && Math.abs(xx - HDownX) < 200){
+					moveRange = Math.abs((int)(yy - HDownY));
+					rope.setPosition(-moveRange);
+				}
 			} else {
-				if (yy - LDownY > 90 && Math.abs(xx - LDownX) < 200)
-					rope.setPosition(20);
+				if (yy - LDownY > 90 && Math.abs(xx - LDownX) < 200){
+					moveRange = Math.abs((int)(yy - LDownY));
+					rope.setPosition(moveRange);
+				}
 			}
 			/*
 			 * mainUpX = e.getX(0); mainUpY = e.getY(0); Log.d("DEBUG","MU");
@@ -357,11 +361,15 @@ public class GameView extends SurfaceView implements Callback {
 			Log.d("DEBUG", "SU " + xx + "  " + yy);
 
 			if (yy < 960) {
-				if (yy - HDownY < -90 && Math.abs(xx - HDownX) < 200)
-					rope.setPosition(-20);
+				if (yy - HDownY < -90 && Math.abs(xx - HDownX) < 200){
+					moveRange = Math.abs((int)(yy - HDownY));
+					rope.setPosition(-moveRange);
+				}
 			} else {
-				if (yy - LDownY > 90 && Math.abs(xx - LDownX) < 200)
-					rope.setPosition(20);
+				if (yy - LDownY > 90 && Math.abs(xx - LDownX) < 200){
+					moveRange = Math.abs((int)(yy - LDownY));
+					rope.setPosition(moveRange);
+				}
 			}
 			/*
 			 * subUpX = e.getX(1); subUpY = e.getY(1); Log.d("DEBUG","SU");
@@ -374,7 +382,7 @@ public class GameView extends SurfaceView implements Callback {
 
 			break;
 		case MotionEvent.ACTION_MOVE:
-
+			
 			break;
 
 		}
