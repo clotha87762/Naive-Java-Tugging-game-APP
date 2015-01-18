@@ -1,5 +1,8 @@
 package com.example.softwarestudio_final;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -16,6 +19,7 @@ import aurelienribon.tweenengine.TweenManager;
 
 public class GameView extends SurfaceView implements Callback {
 
+	
 	MainActivity mainActivity;
 	boolean drawThreadAlive;
 	DrawThread dt;
@@ -34,7 +38,9 @@ public class GameView extends SurfaceView implements Callback {
 	Movable three;
 	Movable L,O,S,E;
 	Movable W,I,N;
-	Thread count;
+	
+	BombThread bombThread;
+	Thread count; 
 	Thread resault;
 	TweenManager tm ;
 	boolean countRunning =true;
@@ -50,15 +56,19 @@ public class GameView extends SurfaceView implements Callback {
 		rec = new Rect(0,0,Constant.SCREEN_WIDTH,Constant.SCREEN_HEIGHT);
 		this.setLongClickable(true);
 		initBitmap();
-		drawThreadAlive =true;
-		dt.start();
+		
 		tm = new TweenManager();
 		this.getHolder().addCallback(this);
 		rope = new Rope (this,ropebit);
+		
 		playerA = new PlayerA(this,Constant.life,rope);
 		playerB = new PlayerB(this,Constant.life,rope);
 		playTime= new PlayTimeCounter(this);
 		
+		bombThread = new BombThread(this);
+		drawThreadAlive =true;
+		dt.start();
+		bombThread.start();
 		drawReady();
 	
 	}
@@ -68,9 +78,9 @@ public class GameView extends SurfaceView implements Callback {
 		goalA=BitmapFactory.decodeResource(getResources(), R.drawable.goala);
 		goalB =BitmapFactory.decodeResource(getResources(), R.drawable.goalb);
 	    ropebit = BitmapFactory.decodeResource(getResources(), R.drawable.rope2);
-	    one = new Movable(BitmapFactory.decodeResource(getResources(), R.drawable.count1),0,0,255,1);
-	    two = new Movable(BitmapFactory.decodeResource(getResources(), R.drawable.count2),0,0,255,1);
-	    three = new Movable(BitmapFactory.decodeResource(getResources(), R.drawable.count3),0,0,255,1);
+	    one = new Movable(BitmapFactory.decodeResource(getResources(), R.drawable.count1),0,0,255,0.5f);
+	    two = new Movable(BitmapFactory.decodeResource(getResources(), R.drawable.count2),0,0,255,0.5f);
+	    three = new Movable(BitmapFactory.decodeResource(getResources(), R.drawable.count3),0,0,255,0.5f);
 	    two.visible=false;
 	    one.visible=false;
 	    L  = new Movable(BitmapFactory.decodeResource(getResources(), R.drawable.ll),140,-300); 
@@ -80,6 +90,7 @@ public class GameView extends SurfaceView implements Callback {
 	    W = new Movable(BitmapFactory.decodeResource(getResources(), R.drawable.w),290,-300);
 	    I= new Movable(BitmapFactory.decodeResource(getResources(), R.drawable.i),490,-300);
 	    N = new Movable(BitmapFactory.decodeResource(getResources(), R.drawable.n),590,-300);
+	
 	}
 	
 	public void drawReady(){
@@ -118,7 +129,8 @@ public class GameView extends SurfaceView implements Callback {
 		         		            } catch(InterruptedException ex) {
 		         		            }
 		                        	countRunning = false;
-		                        	
+		                        
+		                        	Constant.fps = 40;
 		                        }
 		                    }
 		                });
@@ -129,7 +141,7 @@ public class GameView extends SurfaceView implements Callback {
 		            }
 
 		            try {
-		                Thread.sleep(40);
+		                Thread.sleep(Constant.fps);
 		            } catch(InterruptedException ex) {
 		            }
 		        }
@@ -143,7 +155,7 @@ public class GameView extends SurfaceView implements Callback {
 	}
 	
 	public void judgeResault(){
-		pause =true;
+		
 		if(rope.getPosition()<890)drawResault(1);
 		else{drawResault(0);}
 	}
@@ -152,17 +164,18 @@ public class GameView extends SurfaceView implements Callback {
 		
 		whoWins= who;
 		resaultRunning = true;
+		
 		tm = new TweenManager();
-	
+		Constant.fps = 25;
 		Timeline.createSequence()
 		.beginParallel()
-		.push(Tween.to(W,MovableAccessor.POSITION_Y,1.0f).target(1300))
-		.push(Tween.to(L,MovableAccessor.POSITION_Y,1.5f).target(1300))
-		.push(Tween.to(I,MovableAccessor.POSITION_Y,2.0f).target(1300))
-		.push(Tween.to(O,MovableAccessor.POSITION_Y,1.0f).target(1300))
-		.push(Tween.to(N,MovableAccessor.POSITION_Y,1.33f).target(1300))
-		.push(Tween.to(S,MovableAccessor.POSITION_Y,1.66f).target(1300))
-		.push(Tween.to(E,MovableAccessor.POSITION_Y,2.0f).target(1300))
+		.push(Tween.to(W,MovableAccessor.POSITION_Y,2.0f).target(1300))
+		.push(Tween.to(L,MovableAccessor.POSITION_Y,2.5f).target(1300))
+		.push(Tween.to(I,MovableAccessor.POSITION_Y,3.0f).target(1300))
+		.push(Tween.to(O,MovableAccessor.POSITION_Y,2.0f).target(1300))
+		.push(Tween.to(N,MovableAccessor.POSITION_Y,2.33f).target(1300))
+		.push(Tween.to(S,MovableAccessor.POSITION_Y,2.66f).target(1300))
+		.push(Tween.to(E,MovableAccessor.POSITION_Y,3.0f).target(1300))
 		.end()
 		.start(tm);
 		
@@ -183,6 +196,8 @@ public class GameView extends SurfaceView implements Callback {
 		                        time++;
 		 		               if(time>150){
 		 		            	  resaultRunning=false;
+		 		            	  Constant.fps = 40;
+		 		            	 drawThreadAlive = false;
 		 		            	  mainActivity.myHandler.sendEmptyMessage(1);
 		 		               }
 		                       
@@ -196,7 +211,7 @@ public class GameView extends SurfaceView implements Callback {
 		            }
 
 		            try {
-		                Thread.sleep(40);
+		                Thread.sleep(Constant.fps);
 		            } catch(InterruptedException ex) {
 		            }
 		        }
@@ -218,7 +233,7 @@ public class GameView extends SurfaceView implements Callback {
 	{
 		SurfaceHolder holder=this.getHolder();
 		Canvas canvas = holder.lockCanvas();//取得畫布
-		if(resaultRunning&&whoWins==1)canvas.rotate(180,540,960);
+	
 		try{
 			synchronized(holder){
 				draw(canvas);//繪製
@@ -236,7 +251,7 @@ public class GameView extends SurfaceView implements Callback {
 	public void draw(Canvas canvas){
 		
 		Paint p = new Paint();
-		
+		Log.d("DEBUG","draw");
 		p.setARGB(255,255,255,255);
 		canvas.drawRect(rec, p);
 		canvas.save();
@@ -248,6 +263,14 @@ public class GameView extends SurfaceView implements Callback {
 		canvas.drawBitmap(goalA, Constant.goalOffset[1][0],Constant.goalOffset[1][1], p);
 		canvas.drawBitmap(goalB, Constant.goalOffset[0][0],Constant.goalOffset[0][1], p);
 		playTime.draw(canvas);
+		/*for(Bomb b:playerA.bombs){
+			Log.d("DEBUG","drawbomba");
+			b.draw(canvas);
+		}
+		for(Bomb b:playerB.bombs){
+			Log.d("DEBUG","drawbombb");
+			b.draw(canvas);
+		}*/
 		rope.drawself(canvas);
 			
 		if(countRunning){
@@ -256,6 +279,7 @@ public class GameView extends SurfaceView implements Callback {
 			one.draw(canvas);
 		}
 		else if(resaultRunning){
+			if(resaultRunning&&whoWins==1)canvas.rotate(180,540,960);
 			W.draw(canvas);
 			I.draw(canvas);
 			N.draw(canvas);
@@ -276,6 +300,7 @@ public class GameView extends SurfaceView implements Callback {
 	public boolean onTouchEvent(MotionEvent e){
 		
 		if(countRunning||resaultRunning||pause)  return false;
+		//Log.d("DEBUG","touch!!");
 		int action=e.getAction()&MotionEvent.ACTION_MASK;
 		int xx0,xx1=0,yy0,yy1=0;
 		
@@ -289,8 +314,8 @@ public class GameView extends SurfaceView implements Callback {
 		 xx1=(int)((e.getX(1)/Constant.RATIO)-Constant.LCUX);
 	 	 yy1=(int)((e.getY(1)/Constant.RATIO)-Constant.LCUY);
 		}*/
-		float xx = e.getX(id);
-		float yy = e.getY(id);
+		float xx = ((e.getX(id)/Constant.RATIO)-Constant.LCUX);
+		float yy = ((e.getY(id)/Constant.RATIO)-Constant.LCUY);
 	 	
 	 	switch(action){
 	 	
@@ -298,10 +323,14 @@ public class GameView extends SurfaceView implements Callback {
 	 		Log.d("DEBUG","MD "+xx+"  "+yy);
 	 		
 	 		if(yy<960){
+
+	 			Log.d("DEBUG","YY<960");	
+	 			playerB.judgeBombDel((int)xx,(int) yy);
 	 			HDownY=yy;
 	 			HDownX=xx;
 	 		}
 	 		else {
+	 			playerA.judgeBombDel((int)xx,(int) yy);
 	 			LDownY=yy;
 	 			LDownX=xx;
 	 		} 		
@@ -319,12 +348,14 @@ public class GameView extends SurfaceView implements Callback {
 	 	case MotionEvent.ACTION_UP:
 	 		Log.d("DEBUG","MU "+xx+"  "+yy);
 	 		if(yy<960){
-	 			if(yy-HDownY<-90&&Math.abs(xx-HDownX)<200)
+
+	 			Log.d("DEBUG","YY<960UP");	
+	 			if(yy-HDownY<-90&&Math.abs(xx-HDownX)<200&&playerB.isPullEnabled==true)
 	 			rope.setPosition(-20);
 	 		}
 	 		else 
 	 		{
-	 			if(yy-LDownY>90&&Math.abs(xx-LDownX)<200)
+	 			if(yy-LDownY>90&&Math.abs(xx-LDownX)<200&&playerA.isPullEnabled==true)
 	 			rope.setPosition(20);
 	 		}
 	 		/*mainUpX = e.getX(0);
@@ -339,10 +370,12 @@ public class GameView extends SurfaceView implements Callback {
 	 		
 	 		Log.d("DEBUG","SD "+xx+"  "+yy);
 	 		if(yy<960){
+	 			playerB.judgeBombDel((int)xx,(int) yy);
 	 			HDownY=yy;
 	 			HDownX=xx;
 	 		}
 	 		else {
+	 			playerA.judgeBombDel((int)xx,(int) yy);
 	 			LDownY=yy;
 	 			LDownX=xx;
 	 		} 		
@@ -362,12 +395,12 @@ public class GameView extends SurfaceView implements Callback {
 	    	Log.d("DEBUG","SU "+xx+"  "+yy);
 	    	
 	    	if(yy<960){
-	 			if(yy-HDownY<-90&&Math.abs(xx-HDownX)<200)
+	 			if(yy-HDownY<-90&&Math.abs(xx-HDownX)<200&&playerB.isPullEnabled)
 	 			rope.setPosition(-20);
 	 		}
 	 		else 
 	 		{
-	 			if(yy-LDownY>90&&Math.abs(xx-LDownX)<200)
+	 			if(yy-LDownY>90&&Math.abs(xx-LDownX)<200&&playerA.isPullEnabled)
 	 			rope.setPosition(20);
 	 		}
 	    	/*subUpX = e.getX(1);

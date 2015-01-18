@@ -82,7 +82,7 @@ public class MainView extends SurfaceView implements Callback {
 		            }
 
 		            try {
-		                Thread.sleep(40);
+		                Thread.sleep(25);
 		            } catch(InterruptedException ex) {
 		            }
 		        }
@@ -176,7 +176,7 @@ public class MainView extends SurfaceView implements Callback {
 				while(isAnimationRunning)
 					repaint();		
 				try{
-					Thread.sleep(40);
+					Thread.sleep(Constant.fps);
 				}
 				catch(Exception e){
 					e.printStackTrace();

@@ -102,7 +102,7 @@ public class PlayTimeCounter {
 					
 					e.printStackTrace();
 				}
-				gv.drawThreadAlive=false;//gameview 畫的線程停止
+				//gv.drawThreadAlive=false;//gameview 畫的線程停止
 				gv.judgeResault();
 			}
 		}

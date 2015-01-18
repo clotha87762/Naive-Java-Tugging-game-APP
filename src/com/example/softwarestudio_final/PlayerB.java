@@ -1,5 +1,8 @@
 package com.example.softwarestudio_final;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import android.util.Log;
 import android.view.MotionEvent;
 
@@ -8,12 +11,39 @@ public class PlayerB extends Player {
 	
 	float downX,upX,downY,upY;
 	long start,end;
+	boolean isPullEnabled = true;
+	Random r;
+	ArrayList<Bomb> bombs ;
 	public PlayerB(GameView gv,int life,Rope rope){
 		super(gv,life,rope);
-		
+		r = new Random();
+		bombs = new ArrayList<Bomb>();
+		isPullEnabled =true;
 	}
 	
+	public void addBomb(){
 		
+		if(this.bombs.size()<=4){
+			int x = r.nextInt(800);
+			int y =r.nextInt(660);
+			
+			this.bombs.add(new Bomb(x,y,gv));
+			Log.d("DEBUG","ADDB");
+		}
+	}
+		
+	public void judgeBombDel(int x , int y){
+
+		Log.d("DEBUG","JUDGE");	
+		for(Bomb b:bombs){
+			if(x>=b.getX()&&x<=b.getX()+300&&
+					y>=b.getY()&&y<=b.getY()+300){
+				b.next();
+				if(b.cur==3)bombs.remove(b);
+			}
+		}
+	}
+	
 		public void eventHandler(MotionEvent e,int which){
 			
 			float xx=((e.getX(which)/Constant.RATIO)-Constant.LCUX);

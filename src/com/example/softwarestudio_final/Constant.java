@@ -21,10 +21,10 @@ public class Constant {
 	public static boolean BGMenabled = true;
 	public static boolean effectenabled = true;
 	public static boolean bombOn = true;
-	public static int timeLimit=70;
+	public static int timeLimit=30;
 	public static int life=50;
 	public static boolean onePlayer = false;
-	
+	public static int fps = 25;
 	public static int[][] MainMenuOffset = {
 		{123,500} // GAME
 		,{123,930} // HELP
@@ -36,8 +36,8 @@ public class Constant {
 		{593,805},
 	};
 	public static int[][]numberOffset2P ={
-		{200,1100},
-		{593,1100},
+		{200,1300},
+		{593,1300},
 	};
 	
 	public static int[][] goalOffset = {

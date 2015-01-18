@@ -201,6 +201,7 @@ public class MainActivity extends ActionBarActivity {
 	    					new DialogInterface.OnClickListener(){
 	    						@Override
 	    						public void onClick(DialogInterface dialog,int which){
+	    							Constant.fps = 25;
 	    							MainActivity.this.myHandler.sendEmptyMessage(1);
 	    							
 	    						}

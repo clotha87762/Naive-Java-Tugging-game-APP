@@ -18,7 +18,7 @@ public class DrawThread extends Thread {
 			}
 				
 			try{
-				Thread.sleep(40);
+				Thread.sleep(Constant.fps);
 			}
 			catch(Exception e){
 				e.printStackTrace();
