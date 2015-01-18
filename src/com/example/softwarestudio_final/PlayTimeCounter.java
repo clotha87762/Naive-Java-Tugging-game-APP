@@ -14,11 +14,13 @@ public class PlayTimeCounter {
 		
 	int runTime=-1;
 	GameView gv;
-	int index10S=3,indexS=0;
+	int index10S,indexS;
 	Bitmap[] numbers=new Bitmap[10];
 	
 
 	public PlayTimeCounter(GameView gv){
+		index10S=Constant.timeLimit/10;
+		indexS=Constant.timeLimit%10;
 		this.gv = gv;
 		numbers[0]= BitmapFactory.decodeResource(gv.getResources(), R.drawable.zero);
 		numbers[1]  = BitmapFactory.decodeResource(gv.getResources(), R.drawable.one);
@@ -74,13 +76,13 @@ public class PlayTimeCounter {
 		public void run() {
 			while(runTime<Constant.timeLimit)
 			{
-				if(!gv.pause)
+				if(!gv.pause&&!gv.countRunning&&!gv.resaultRunning)
 				{
 					runTime++;
 				
 					
-					index10S=(Constant.timeLimit-runTime)%60/10;//絤策家Α10
-					indexS=(Constant.timeLimit-runTime)%60%10;//絤策家Α
+					index10S=(Constant.timeLimit-runTime)/10;//絤策家Α10
+					indexS=(Constant.timeLimit-runTime)%10;//絤策家Α
 				}
 				
 				try {
@@ -101,7 +103,7 @@ public class PlayTimeCounter {
 					e.printStackTrace();
 				}
 				gv.drawThreadAlive=false;//gameview 礶絬祘氨ゎ
-				gv.drawResault();
+				gv.judgeResault();
 			}
 		}
 	}

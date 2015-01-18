@@ -1,15 +1,17 @@
 package com.example.softwarestudio_final;
 
+import android.app.AlertDialog;
 import android.app.Service;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -154,6 +156,76 @@ public class MainActivity extends ActionBarActivity {
 	    @Override
 	    public boolean onKeyDown(int keyCode, KeyEvent event) 
 	    {   
+	    	
+	    	Log.d("DEBUG","QQQ");
+	    	
+	    	if(keyCode==KeyEvent.KEYCODE_BACK){
+	    		
+	    		if(curr==WhichView.main){
+	    			//跳dialog
+	    			Log.d("DEBUG","AAA");
+	    			AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+	    			builder.setTitle("Exit Game");
+	    			builder.setMessage("Would You Like to Exit this Game??");
+	    			builder.setIcon(android.R.drawable.ic_dialog_info);
+	    			builder.setCancelable(false);
+	    			builder.setPositiveButton("Yes",
+	    					new DialogInterface.OnClickListener(){
+	    						@Override
+	    						public void onClick(DialogInterface dialog,int which){
+	    							MainActivity.this.finish();
+	    						}
+	    				}
+	    			);
+	    			
+	    			builder.setNegativeButton("No",
+	    					new DialogInterface.OnClickListener(){
+	    						@Override
+	    						public void onClick(DialogInterface dialog,int which){
+	    							
+	    						}
+	    				}
+	    			);
+	    			builder.show();
+	    		}
+	    		else{
+	    			if(curr==WhichView.game)
+	    			gameView.pause=true;
+	    			
+	    			AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+	    			builder.setTitle("Go to Main Menu");
+	    			builder.setMessage("Would You Like to Go to Main Menu??");
+	    			builder.setIcon(android.R.drawable.ic_dialog_info);
+	    			builder.setCancelable(false);
+	    			builder.setPositiveButton("Yes",
+	    					new DialogInterface.OnClickListener(){
+	    						@Override
+	    						public void onClick(DialogInterface dialog,int which){
+	    							MainActivity.this.myHandler.sendEmptyMessage(1);
+	    							
+	    						}
+	    				}
+	    			);
+	    			
+	    			builder.setNegativeButton("No",
+	    					new DialogInterface.OnClickListener(){
+	    						@Override
+	    						public void onClick(DialogInterface dialog,int which){
+	    							if(curr==WhichView.game)
+	    							gameView.pause = false;
+	    						}
+	    				}
+	    			);
+	    			builder.show();
+	    			
+	    		}
+	    		
+	    		return true;
+	    	}	
+	    		
+	    	
+	    	
+	    	
 	    	//Main則退出遊戲,非main則回到main;
 	    	return super.onKeyDown(keyCode, event);
 	    }

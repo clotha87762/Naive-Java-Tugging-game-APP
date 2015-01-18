@@ -8,6 +8,7 @@ public class Movable {
 	float x,y,scale;
 	int alpha;
 	Bitmap bitmap;
+	public boolean visible =true;
 	public Movable(Bitmap b,float x,float y){
 		this.bitmap= b;
 		this.x=x;
@@ -24,15 +25,30 @@ public class Movable {
 		this.scale = scale;
 	}
 
-	
+	//說不定需要一個沒有scale的
 	public void draw(Canvas canvas){
+		if(visible){
 		Paint p = new Paint();
 		p.setAlpha(alpha);
 		canvas.save();
-		canvas.scale(scale, scale, x, y);
+		canvas.scale(scale, scale, 540, 960);
 		canvas.drawBitmap(bitmap, x, y,p);
 		canvas.restore();
+		}
 	}
+	
+	public void drawReverse(Canvas canvas){
+		if(visible){
+			Paint p = new Paint();
+			p.setAlpha(alpha);
+			canvas.save();
+			canvas.rotate(180,540,960);
+			canvas.drawBitmap(bitmap, x, y,p);
+			canvas.restore();
+			
+		}
+	}
+	
 	public float getX() {
         return x;
     }
@@ -55,10 +71,14 @@ public class Movable {
     	this.alpha = a;
     }
     public float getScale(){
+    	
     	return scale;
     }
     public void setScale(float scale){
+    	
     	this.scale = scale;
+    	if(this.scale==0)this.visible=false;
+    	else{this.visible=true;}
     }
 	
 }

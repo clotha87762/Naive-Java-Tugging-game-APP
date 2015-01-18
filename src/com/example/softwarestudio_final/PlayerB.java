@@ -5,24 +5,19 @@ import android.view.MotionEvent;
 
 
 public class PlayerB extends Player {
-	TouchHandler th;
 	
+	float downX,upX,downY,upY;
+	long start,end;
 	public PlayerB(GameView gv,int life,Rope rope){
 		super(gv,life,rope);
-		th = new TouchHandler();
+		
 	}
 	
-	public class TouchHandler{
 		
-
-		float downX,upX,downY,upY;
-		long start,end;
-		
-		
-		public void eventHandler(MotionEvent e){
+		public void eventHandler(MotionEvent e,int which){
 			
-			float xx=((e.getX()/Constant.RATIO)-Constant.LCUX);
-		 	float yy=((e.getY()/Constant.RATIO)-Constant.LCUY);
+			float xx=((e.getX(which)/Constant.RATIO)-Constant.LCUX);
+		 	float yy=((e.getY(which)/Constant.RATIO)-Constant.LCUY);
 			switch(e.getAction()){
 			
 			
@@ -51,10 +46,6 @@ public class PlayerB extends Player {
 			
 			}
 			
-			
+		
 		}
-		
-		
-		
-	}
 }

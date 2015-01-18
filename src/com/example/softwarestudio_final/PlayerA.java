@@ -17,10 +17,10 @@ public class PlayerA extends Player {
 		
 		
 		
-		public void eventHandler(MotionEvent e){
+	public void eventHandler(MotionEvent e,int which){
 			
-			float xx=((e.getX()/Constant.RATIO)-Constant.LCUX);
-		 	float yy=((e.getY()/Constant.RATIO)-Constant.LCUY);
+			float xx=((e.getX(which)/Constant.RATIO)-Constant.LCUX);
+		 	float yy=((e.getY(which)/Constant.RATIO)-Constant.LCUY);
 			switch(e.getAction()){
 			
 			
