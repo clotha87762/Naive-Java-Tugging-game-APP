@@ -30,6 +30,7 @@ public class PlayerA extends Player {
 			int y =r.nextInt(660)+960;
 			
 			this.bombs.add(new Bomb(x,y,gv));
+			this.isPullEnabled=false;
 			Log.d("DEBUG","ADDA");
 		}
 		
@@ -43,6 +44,8 @@ public class PlayerA extends Player {
 						y>=b.getY()&&y<=b.getY()+300){
 					b.next();
 					if(b.cur==3)bombs.remove(b);
+					if(bombs.isEmpty())this.isPullEnabled=true;
+					break;
 				}
 			}
 		

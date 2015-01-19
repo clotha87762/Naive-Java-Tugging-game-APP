@@ -68,7 +68,9 @@ public class GameView extends SurfaceView implements Callback {
 		bombThread = new BombThread(this);
 		drawThreadAlive =true;
 		dt.start();
+		if(Constant.bombOn){
 		bombThread.start();
+		}
 		drawReady();
 	
 	}
@@ -129,7 +131,7 @@ public class GameView extends SurfaceView implements Callback {
 		         		            } catch(InterruptedException ex) {
 		         		            }
 		                        	countRunning = false;
-		                        
+		                        	
 		                        	Constant.fps = 40;
 		                        }
 		                    }
@@ -156,7 +158,7 @@ public class GameView extends SurfaceView implements Callback {
 	
 	public void judgeResault(){
 		
-		if(rope.getPosition()<890)drawResault(1);
+		if(rope.getPosition()<-890)drawResault(1);
 		else{drawResault(0);}
 	}
 	
@@ -197,7 +199,7 @@ public class GameView extends SurfaceView implements Callback {
 		 		               if(time>150){
 		 		            	  resaultRunning=false;
 		 		            	  Constant.fps = 40;
-		 		            	 drawThreadAlive = false;
+		 		            	  drawThreadAlive = false;
 		 		            	  mainActivity.myHandler.sendEmptyMessage(1);
 		 		               }
 		                       
@@ -251,7 +253,7 @@ public class GameView extends SurfaceView implements Callback {
 	public void draw(Canvas canvas){
 		
 		Paint p = new Paint();
-		Log.d("DEBUG","draw");
+		//Log.d("DEBUG","draw");
 		p.setARGB(255,255,255,255);
 		canvas.drawRect(rec, p);
 		canvas.save();
@@ -263,15 +265,16 @@ public class GameView extends SurfaceView implements Callback {
 		canvas.drawBitmap(goalA, Constant.goalOffset[1][0],Constant.goalOffset[1][1], p);
 		canvas.drawBitmap(goalB, Constant.goalOffset[0][0],Constant.goalOffset[0][1], p);
 		playTime.draw(canvas);
-		/*for(Bomb b:playerA.bombs){
-			Log.d("DEBUG","drawbomba");
+		rope.drawself(canvas);
+		for(Bomb b:playerA.bombs){
+			//Log.d("DEBUG","drawbomba");
 			b.draw(canvas);
 		}
 		for(Bomb b:playerB.bombs){
-			Log.d("DEBUG","drawbombb");
+			//Log.d("DEBUG","drawbombb");
 			b.draw(canvas);
-		}*/
-		rope.drawself(canvas);
+		}
+		
 			
 		if(countRunning){
 			three.draw(canvas);
@@ -328,6 +331,7 @@ public class GameView extends SurfaceView implements Callback {
 	 			playerB.judgeBombDel((int)xx,(int) yy);
 	 			HDownY=yy;
 	 			HDownX=xx;
+	 			
 	 		}
 	 		else {
 	 			playerA.judgeBombDel((int)xx,(int) yy);

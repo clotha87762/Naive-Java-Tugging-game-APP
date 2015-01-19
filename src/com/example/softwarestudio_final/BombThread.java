@@ -6,7 +6,7 @@ import android.util.Log;
 
 public class BombThread extends Thread {
 
-	private boolean flag = false;
+	private boolean flag = true;
 	GameView gv;
 	int runTime;
 	int temp;
@@ -27,10 +27,12 @@ public class BombThread extends Thread {
 			if(gv.pause||gv.countRunning||gv.resaultRunning)continue;
 			
 			runTime++;
-			if(runTime%12==0){
+			try{
+			if(runTime%8==0){
 				runTime = 0;
-				Log.d("DEBUG","aaa");
+				
 				temp = r.nextInt(20)+1;
+				Log.d("DEBUG","temp= "+temp);
 				if(temp==1||temp==2){
 					gv.playerA.addBomb();
 				}
@@ -45,11 +47,16 @@ public class BombThread extends Thread {
 				
 				
 			}
-			
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			finally{
+				
+			}
 			
 			
 			try{
-				Log.d("DEBUG","bbb");
+				Log.d("DEBUG","sleep");
 				Thread.sleep(Constant.fps);//ºÎ¯v¥ð®§
 			}
 			catch(Exception e){
