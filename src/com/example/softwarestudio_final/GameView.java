@@ -84,7 +84,7 @@ public class GameView extends SurfaceView implements Callback {
 		background = BitmapFactory.decodeResource(getResources(), R.drawable.gameback);
 		goalA=BitmapFactory.decodeResource(getResources(), R.drawable.goala);
 		goalB =BitmapFactory.decodeResource(getResources(), R.drawable.goalb);
-	    ropebit = BitmapFactory.decodeResource(getResources(), R.drawable.rope2);
+	    ropebit = BitmapFactory.decodeResource(getResources(), R.drawable.ropenormal);
 	    one = new Movable(BitmapFactory.decodeResource(getResources(), R.drawable.count1),0,0,255,0.5f);
 	    two = new Movable(BitmapFactory.decodeResource(getResources(), R.drawable.count2),0,0,255,0.5f);
 	    three = new Movable(BitmapFactory.decodeResource(getResources(), R.drawable.count3),0,0,255,0.5f);
@@ -147,7 +147,7 @@ public class GameView extends SurfaceView implements Callback {
 					}
 
 					try {
-						Thread.sleep(Constant.fps = 40;);
+						Thread.sleep(Constant.fps = 40);
 					} catch (InterruptedException ex) {
 					}
 				}
@@ -185,7 +185,7 @@ public class GameView extends SurfaceView implements Callback {
 		.push(Tween.to(E,MovableAccessor.POSITION_Y,3.0f).target(1300))
 		.end()
 		.start(tm);
-
+		resault = new Thread(new Runnable() {
 		    private long lastMillis = -1;
 		    private int time=0;
 		    @Override
