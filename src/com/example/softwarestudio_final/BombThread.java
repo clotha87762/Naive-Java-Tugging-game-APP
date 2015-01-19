@@ -28,21 +28,26 @@ public class BombThread extends Thread {
 			
 			runTime++;
 			try{
-			if(runTime%8==0){
+			if(runTime%12==0){
 				runTime = 0;
 				
 				temp = r.nextInt(20)+1;
 				Log.d("DEBUG","temp= "+temp);
-				if(temp==1||temp==2){
+				if(temp==1||temp==2){ //出現在下面
 					gv.playerA.addBomb();
 				}
-				else if(temp==3||temp==4){
+				else if(temp==3||temp==4){ //出現在上面
 					gv.playerB.addBomb();
 				}
-				else if(temp==4||temp==5){
+				else if(temp==4||temp==5){  //同時出現
 					gv.playerA.addBomb();
-					gv.playerB.addBomb();
-					
+					gv.playerB.addBomb();					
+				}
+				else if(temp==6){  //道具出現在下面
+					gv.playerA.addBombItem();
+				}
+				else if(temp==7){ //道具出現在上面
+					gv.playerB.addBombItem();
 				}
 				
 				

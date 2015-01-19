@@ -14,6 +14,8 @@ public class PlayerB extends Player {
 	boolean isPullEnabled = true;
 	Random r;
 	ArrayList<Bomb> bombs ;
+	BombItem item;
+	
 	public PlayerB(GameView gv,int life,Rope rope){
 		super(gv,life,rope);
 		r = new Random();
@@ -33,6 +35,15 @@ public class PlayerB extends Player {
 		}
 	}
 		
+	
+	public void addBombItem(){
+		if(item==null){
+			int x = r.nextInt(820);
+			int y = r.nextInt(700);
+			item = new BombItem(x,y,gv);		
+		}	
+	}
+	
 	public void judgeBombDel(int x , int y){
 
 		Log.d("DEBUG","JUDGE");	
