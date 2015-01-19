@@ -19,7 +19,6 @@ import aurelienribon.tweenengine.TweenManager;
 
 public class GameView extends SurfaceView implements Callback {
 
-	
 	MainActivity mainActivity;
 	boolean drawThreadAlive;
 	DrawThread dt;
@@ -37,11 +36,11 @@ public class GameView extends SurfaceView implements Callback {
 	Movable two;
 	Movable three;
 
-	Movable L,O,S,E;
-	Movable W,I,N;
-	
+	Movable L, O, S, E;
+	Movable W, I, N;
+
 	BombThread bombThread;
-	Thread count; 
+	Thread count;
 
 	Thread resault;
 	TweenManager tm;
@@ -57,46 +56,59 @@ public class GameView extends SurfaceView implements Callback {
 		rec = new Rect(0, 0, Constant.SCREEN_WIDTH, Constant.SCREEN_HEIGHT);
 		this.setLongClickable(true);
 		initBitmap();
-		
+
 		drawThreadAlive = true;
 		countRunning = true;
 		resaultRunning = false;
 
 		tm = new TweenManager();
 		this.getHolder().addCallback(this);
-		rope = new Rope (this,ropebit);
-		
-		playerA = new PlayerA(this,Constant.life,rope);
-		playerB = new PlayerB(this,Constant.life,rope);
-		playTime= new PlayTimeCounter(this);
-		
+		rope = new Rope(this, ropebit);
+
+		playerA = new PlayerA(this, Constant.life, rope);
+		playerB = new PlayerB(this, Constant.life, rope);
+		playTime = new PlayTimeCounter(this);
+
 		bombThread = new BombThread(this);
-		drawThreadAlive =true;
+		drawThreadAlive = true;
 		dt.start();
-		if(Constant.bombOn){
-		bombThread.start();
+		if (Constant.bombOn) {
+			bombThread.start();
 		}
 
 		drawReady();
 
 	}
-	public void initBitmap(){
-		background = BitmapFactory.decodeResource(getResources(), R.drawable.gameback);
-		goalA=BitmapFactory.decodeResource(getResources(), R.drawable.goala);
-		goalB =BitmapFactory.decodeResource(getResources(), R.drawable.goalb);
-	    ropebit = BitmapFactory.decodeResource(getResources(), R.drawable.ropenormal);
-	    one = new Movable(BitmapFactory.decodeResource(getResources(), R.drawable.count1),0,0,255,0.5f);
-	    two = new Movable(BitmapFactory.decodeResource(getResources(), R.drawable.count2),0,0,255,0.5f);
-	    three = new Movable(BitmapFactory.decodeResource(getResources(), R.drawable.count3),0,0,255,0.5f);
-	    two.visible=false;
-	    one.visible=false;
-	    L  = new Movable(BitmapFactory.decodeResource(getResources(), R.drawable.ll),140,-300); 
-	    O = new Movable(BitmapFactory.decodeResource(getResources(), R.drawable.o),340,-300);
-	    S = new Movable(BitmapFactory.decodeResource(getResources(), R.drawable.s),540,-300);
-	    E= new Movable(BitmapFactory.decodeResource(getResources(), R.drawable.e),740,-300);
-	    W = new Movable(BitmapFactory.decodeResource(getResources(), R.drawable.w),290,-300);
-	    I= new Movable(BitmapFactory.decodeResource(getResources(), R.drawable.i),490,-300);
-	    N = new Movable(BitmapFactory.decodeResource(getResources(), R.drawable.n),590,-300);
+
+	public void initBitmap() {
+		background = BitmapFactory.decodeResource(getResources(),
+				R.drawable.gameback);
+		goalA = BitmapFactory.decodeResource(getResources(), R.drawable.goala);
+		goalB = BitmapFactory.decodeResource(getResources(), R.drawable.goalb);
+		ropebit = BitmapFactory.decodeResource(getResources(),
+				R.drawable.ropenormal);
+		one = new Movable(BitmapFactory.decodeResource(getResources(),
+				R.drawable.count1), 0, 0, 255, 0.5f);
+		two = new Movable(BitmapFactory.decodeResource(getResources(),
+				R.drawable.count2), 0, 0, 255, 0.5f);
+		three = new Movable(BitmapFactory.decodeResource(getResources(),
+				R.drawable.count3), 0, 0, 255, 0.5f);
+		two.visible = false;
+		one.visible = false;
+		L = new Movable(BitmapFactory.decodeResource(getResources(),
+				R.drawable.ll), 140, -300);
+		O = new Movable(BitmapFactory.decodeResource(getResources(),
+				R.drawable.o), 340, -300);
+		S = new Movable(BitmapFactory.decodeResource(getResources(),
+				R.drawable.s), 540, -300);
+		E = new Movable(BitmapFactory.decodeResource(getResources(),
+				R.drawable.e), 740, -300);
+		W = new Movable(BitmapFactory.decodeResource(getResources(),
+				R.drawable.w), 290, -300);
+		I = new Movable(BitmapFactory.decodeResource(getResources(),
+				R.drawable.i), 490, -300);
+		N = new Movable(BitmapFactory.decodeResource(getResources(),
+				R.drawable.n), 590, -300);
 
 	}
 
@@ -167,74 +179,79 @@ public class GameView extends SurfaceView implements Callback {
 	}
 
 	public void drawResault(int who) { // 0==A , 1==B;
-		
+
 		whoWins = who;
 		resaultRunning = true;
-		
+
 		tm = new TweenManager();
 
 		Constant.fps = 25;
 		Timeline.createSequence()
-		.beginParallel()
-		.push(Tween.to(W,MovableAccessor.POSITION_Y,2.0f).target(1300))
-		.push(Tween.to(L,MovableAccessor.POSITION_Y,2.5f).target(1300))
-		.push(Tween.to(I,MovableAccessor.POSITION_Y,3.0f).target(1300))
-		.push(Tween.to(O,MovableAccessor.POSITION_Y,2.0f).target(1300))
-		.push(Tween.to(N,MovableAccessor.POSITION_Y,2.33f).target(1300))
-		.push(Tween.to(S,MovableAccessor.POSITION_Y,2.66f).target(1300))
-		.push(Tween.to(E,MovableAccessor.POSITION_Y,3.0f).target(1300))
-		.end()
-		.start(tm);
+				.beginParallel()
+				.push(Tween.to(W, MovableAccessor.POSITION_Y, 2.0f)
+						.target(1300))
+				.push(Tween.to(L, MovableAccessor.POSITION_Y, 2.5f)
+						.target(1300))
+				.push(Tween.to(I, MovableAccessor.POSITION_Y, 3.0f)
+						.target(1300))
+				.push(Tween.to(O, MovableAccessor.POSITION_Y, 2.0f)
+						.target(1300))
+				.push(Tween.to(N, MovableAccessor.POSITION_Y, 2.33f).target(
+						1300))
+				.push(Tween.to(S, MovableAccessor.POSITION_Y, 2.66f).target(
+						1300))
+				.push(Tween.to(E, MovableAccessor.POSITION_Y, 3.0f)
+						.target(1300)).end().start(tm);
 		resault = new Thread(new Runnable() {
-		    private long lastMillis = -1;
-		    private int time=0;
-		    @Override
-		    public void run() {
-		        while (resaultRunning) {
-		            if (lastMillis > 0) {
-		                long currentMillis = System.currentTimeMillis();
-		                final float delta = (currentMillis - lastMillis) / 1000f;
-		                
-		                mainActivity.runOnUiThread(new Runnable() {
-		                    public void run() {
-		                        tm.update(delta);
-		                        time++;
-		 		               if(time>150){
-		 		            	  resaultRunning=false;
-		 		            	  Constant.fps = 40;
-		 		            	  drawThreadAlive = false;
-		 		            	  mainActivity.myHandler.sendEmptyMessage(1);
-		 		               }
-		                       
-		                        
-		                    }
-		                });
+			private long lastMillis = -1;
+			private int time = 0;
 
-		                lastMillis = currentMillis;
-		            } else {
-		                lastMillis = System.currentTimeMillis();
-		            }
+			@Override
+			public void run() {
+				while (resaultRunning) {
+					if (lastMillis > 0) {
+						long currentMillis = System.currentTimeMillis();
+						final float delta = (currentMillis - lastMillis) / 1000f;
 
-		            try {
-		                Thread.sleep(Constant.fps);
-		            } catch(InterruptedException ex) {
-		            }
-		        }
-		    }
-		}); 
+						mainActivity.runOnUiThread(new Runnable() {
+							public void run() {
+								tm.update(delta);
+								time++;
+								if (time > 150) {
+									resaultRunning = false;
+									Constant.fps = 40;
+									drawThreadAlive = false;
+									mainActivity.myHandler.sendEmptyMessage(1);
+								}
+
+							}
+						});
+
+						lastMillis = currentMillis;
+					} else {
+						lastMillis = System.currentTimeMillis();
+					}
+
+					try {
+						Thread.sleep(Constant.fps);
+					} catch (InterruptedException ex) {
+					}
+				}
+			}
+		});
 
 		resault.start();
 
 		// mainActivity.myHandler.sendEmptyMessage(1);
 	}
 
-	public void freeBitmap(){
+	public void freeBitmap() {
 		background.recycle();
 		goalA.recycle();
 		goalB.recycle();
 		ropebit.recycle();
 		one = null;
-		two =  null;
+		two = null;
 		three = null;
 		L = null;
 		O = null;
@@ -244,19 +261,16 @@ public class GameView extends SurfaceView implements Callback {
 		I = null;
 		N = null;
 	}
-	
 
-	public void repaint()
-	{
-		SurfaceHolder holder=this.getHolder();
-		Canvas canvas = holder.lockCanvas();//���o�e��
-	
-		try{
-			synchronized(holder){
-				draw(canvas);//ø�s
-			}			
-		}
-		catch(Exception e){
+	public void repaint() {
+		SurfaceHolder holder = this.getHolder();
+		Canvas canvas = holder.lockCanvas();// ���o�e��
+
+		try {
+			synchronized (holder) {
+				draw(canvas);// ø�s
+			}
+		} catch (Exception e) {
 
 			e.printStackTrace();
 		} finally {
@@ -269,7 +283,6 @@ public class GameView extends SurfaceView implements Callback {
 	public void draw(Canvas canvas) {
 
 		Paint p = new Paint();
-
 
 		p.setARGB(255, 255, 255, 255);
 
@@ -287,23 +300,22 @@ public class GameView extends SurfaceView implements Callback {
 		playTime.draw(canvas);
 		rope.drawself(canvas);
 
-		for(Bomb b:playerA.bombs){
-			//Log.d("DEBUG","drawbomba");
+		for (Bomb b : playerA.bombs) {
+			// Log.d("DEBUG","drawbomba");
 			b.draw(canvas);
 		}
-		for(Bomb b:playerB.bombs){
-			//Log.d("DEBUG","drawbombb");
+		for (Bomb b : playerB.bombs) {
+			// Log.d("DEBUG","drawbombb");
 			b.draw(canvas);
 		}
-		
-			
-		if(countRunning){
+
+		if (countRunning) {
 			three.draw(canvas);
 			two.draw(canvas);
 			one.draw(canvas);
-		}
-		else if(resaultRunning){
-			if(resaultRunning&&whoWins==1)canvas.rotate(180,540,960);
+		} else if (resaultRunning) {
+			if (resaultRunning && whoWins == 1)
+				canvas.rotate(180, 540, 960);
 
 			W.draw(canvas);
 			I.draw(canvas);
@@ -321,8 +333,8 @@ public class GameView extends SurfaceView implements Callback {
 	float HDownX, HDownY, HUpX, HUpY, LDownX, LDownY, LUpX, LUpY;
 	int mainWhich, subWhich; // 1 => �W�� 0 => �U��
 	int moveRange = 50;
-	@Override
 
+	@Override
 	public boolean onTouchEvent(MotionEvent e) {
 
 		if (countRunning || resaultRunning || pause)
@@ -349,12 +361,12 @@ public class GameView extends SurfaceView implements Callback {
 			Log.d("DEBUG", "MD " + xx + "  " + yy);
 
 			if (yy < 960) {
-				Log.d("DEBUG","YY<960");	
-	 			playerB.judgeBombDel((int)xx,(int) yy);
+				Log.d("DEBUG", "YY<960");
+				playerB.judgeBombDel((int) xx, (int) yy);
 				HDownY = yy;
 				HDownX = xx;
 			} else {
-				playerA.judgeBombDel((int)xx,(int) yy);
+				playerA.judgeBombDel((int) xx, (int) yy);
 				LDownY = yy;
 				LDownX = xx;
 			}
@@ -367,13 +379,13 @@ public class GameView extends SurfaceView implements Callback {
 		case MotionEvent.ACTION_UP:
 			Log.d("DEBUG", "MU " + xx + "  " + yy);
 			if (yy < 960) {
-				if (yy - HDownY < -90 && Math.abs(xx - HDownX) < 200){
-					moveRange = Math.abs((int)(yy - HDownY));
+				if (yy - HDownY < -90 && Math.abs(xx - HDownX) < 200) {
+					moveRange = Math.abs((int) (yy - HDownY));
 					rope.setPosition(-moveRange);
 				}
 			} else {
-				if (yy - LDownY > 90 && Math.abs(xx - LDownX) < 200){
-					moveRange = Math.abs((int)(yy - LDownY));
+				if (yy - LDownY > 90 && Math.abs(xx - LDownX) < 200) {
+					moveRange = Math.abs((int) (yy - LDownY));
 					rope.setPosition(moveRange);
 				}
 			}
@@ -390,11 +402,11 @@ public class GameView extends SurfaceView implements Callback {
 
 			Log.d("DEBUG", "SD " + xx + "  " + yy);
 			if (yy < 960) {
-				playerB.judgeBombDel((int)xx,(int) yy);
+				playerB.judgeBombDel((int) xx, (int) yy);
 				HDownY = yy;
 				HDownX = xx;
 			} else {
-				playerA.judgeBombDel((int)xx,(int) yy);
+				playerA.judgeBombDel((int) xx, (int) yy);
 				LDownY = yy;
 				LDownX = xx;
 			}
@@ -409,13 +421,13 @@ public class GameView extends SurfaceView implements Callback {
 			Log.d("DEBUG", "SU " + xx + "  " + yy);
 
 			if (yy < 960) {
-				if (yy - HDownY < -90 && Math.abs(xx - HDownX) < 200){
-					moveRange = Math.abs((int)(yy - HDownY));
+				if (yy - HDownY < -90 && Math.abs(xx - HDownX) < 200) {
+					moveRange = Math.abs((int) (yy - HDownY));
 					rope.setPosition(-moveRange);
 				}
 			} else {
-				if (yy - LDownY > 90 && Math.abs(xx - LDownX) < 200){
-					moveRange = Math.abs((int)(yy - LDownY));
+				if (yy - LDownY > 90 && Math.abs(xx - LDownX) < 200) {
+					moveRange = Math.abs((int) (yy - LDownY));
 					rope.setPosition(moveRange);
 				}
 			}
