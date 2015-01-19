@@ -70,7 +70,7 @@ public class GameView extends SurfaceView implements Callback {
 		playTime = new PlayTimeCounter(this);
 
 		bombThread = new BombThread(this);
-		drawThreadAlive = true;
+	
 		dt.start();
 		if (Constant.bombOn) {
 			bombThread.start();
@@ -170,8 +170,8 @@ public class GameView extends SurfaceView implements Callback {
 	}
 
 	public void judgeResault() {
-		pause = true;
-		if (rope.getCurrentPosition() < 890)
+		
+		if (rope.getCurrentPosition() < -890)
 			drawResault(1);
 		else {
 			drawResault(0);
@@ -352,8 +352,8 @@ public class GameView extends SurfaceView implements Callback {
 		 * xx1=(int)((e.getX(1)/Constant.RATIO)-Constant.LCUX);
 		 * yy1=(int)((e.getY(1)/Constant.RATIO)-Constant.LCUY); }
 		 */
-		float xx = e.getX(id);
-		float yy = e.getY(id);
+		float xx = ((e.getX(id)/Constant.RATIO)-Constant.LCUY);
+		float yy = ((e.getY(id)/Constant.RATIO)-Constant.LCUY);
 
 		switch (action) {
 
@@ -379,13 +379,13 @@ public class GameView extends SurfaceView implements Callback {
 		case MotionEvent.ACTION_UP:
 			Log.d("DEBUG", "MU " + xx + "  " + yy);
 			if (yy < 960) {
-				if (yy - HDownY < -90 && Math.abs(xx - HDownX) < 200) {
-					moveRange = Math.abs((int) (yy - HDownY));
+				if (yy - HDownY < -90 && Math.abs(xx - HDownX) < 200 && playerB.isPullEnabled) {
+					moveRange = Math.abs((int) 40/*( yy - HDownY)*/);
 					rope.setPosition(-moveRange);
 				}
 			} else {
-				if (yy - LDownY > 90 && Math.abs(xx - LDownX) < 200) {
-					moveRange = Math.abs((int) (yy - LDownY));
+				if (yy - LDownY > 90 && Math.abs(xx - LDownX) < 200 && playerA.isPullEnabled) {
+					moveRange = Math.abs((int)40 /*(yy - HDownY)*/);
 					rope.setPosition(moveRange);
 				}
 			}
@@ -421,13 +421,13 @@ public class GameView extends SurfaceView implements Callback {
 			Log.d("DEBUG", "SU " + xx + "  " + yy);
 
 			if (yy < 960) {
-				if (yy - HDownY < -90 && Math.abs(xx - HDownX) < 200) {
-					moveRange = Math.abs((int) (yy - HDownY));
+				if (yy - HDownY < -90 && Math.abs(xx - HDownX) < 200&& playerB.isPullEnabled) {
+					moveRange = Math.abs((int) (40/*yy - HDownY*/));
 					rope.setPosition(-moveRange);
 				}
 			} else {
-				if (yy - LDownY > 90 && Math.abs(xx - LDownX) < 200) {
-					moveRange = Math.abs((int) (yy - LDownY));
+				if (yy - LDownY > 90 && Math.abs(xx - LDownX) < 200&& playerA.isPullEnabled) {
+					moveRange = Math.abs((int) (40/*yy - HDownY*/));
 					rope.setPosition(moveRange);
 				}
 			}

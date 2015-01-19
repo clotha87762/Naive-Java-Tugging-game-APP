@@ -20,7 +20,9 @@ public class Constant {
 	public static Bitmap[] Pictures;
 	public static boolean BGMenabled = true;
 	public static boolean effectenabled = true;
-	public static boolean bombOn = true;
+	public static boolean bombOn = false//////
+			
+			;
 
 	public static int timeLimit=30;
 
