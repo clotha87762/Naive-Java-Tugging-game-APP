@@ -182,7 +182,7 @@ public class GameView extends SurfaceView implements Callback {
 
 		whoWins = who;
 		resaultRunning = true;
-
+		bombThread.setFlag(false);
 		tm = new TweenManager();
 
 		Constant.fps = 25;
