@@ -21,7 +21,9 @@ public class Constant {
 	public static boolean BGMenabled = true;
 	public static boolean effectenabled = true;
 	public static boolean bombOn = true;
+
 	public static int timeLimit=30;
+
 	public static int life=50;
 	public static boolean onePlayer = false;
 	public static int fps = 25;

@@ -28,19 +28,19 @@ public class MainActivity extends ActionBarActivity {
 	Bitmap temp;
 	WhichView curr=WhichView.main;
 	enum WhichView{game,option,help,main};
-	Handler myHandler = new Handler(){//¥Î¨Ó§ó·sUI½uµ{¤¤ªº±±¥ó
+	Handler myHandler = new Handler(){//ï¿½Î¨Ó§ï¿½sUIï¿½uï¿½{ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         public void handleMessage(Message msg) {
-        	if(msg.what == 1){//¤Á´«¦^¨ìMainView
+        	if(msg.what == 1){//ï¿½ï¿½ï¿½ï¿½ï¿½^ï¿½ï¿½MainView
         		gotoMain();
         		
         	}
-        	else if(msg.what == 2){//Main¤Á´«¨ìGameView
+        	else if(msg.what == 2){//Mainï¿½ï¿½ï¿½ï¿½ï¿½ï¿½GameView
         		gotoGame();
         	}
-        	else if(msg.what == 3){//Main¤Á´«¨ìHelpView
+        	else if(msg.what == 3){//Mainï¿½ï¿½ï¿½ï¿½ï¿½ï¿½HelpView
         		gotoHelp();
         	}
-        	else if(msg.what == 4){//Main¤Á´«¨ìOptionView
+        	else if(msg.what == 4){//Mainï¿½ï¿½ï¿½ï¿½ï¿½ï¿½OptionView
         		gotoOption();
         		
         	}
@@ -57,6 +57,7 @@ public class MainActivity extends ActionBarActivity {
 	}
 	public void gotoMain(){
 		if(gameView!=null){
+			gameView.freeBitmap();
 			gameView=null;
 		}
 		else if(helpView!=null){
@@ -96,11 +97,11 @@ public class MainActivity extends ActionBarActivity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 	        getWindow().setFlags(WindowManager.LayoutParams. FLAG_FULLSCREEN ,   
 	        WindowManager.LayoutParams. FLAG_FULLSCREEN); 
-	        //³]¸m¬°¾î¦¡¿Ã¹õ
-	    	setVolumeControlStream(AudioManager.STREAM_MUSIC);//Án­µ±±¨î
+	        //ï¿½]ï¿½mï¿½ï¿½ï¿½î¦¡ï¿½Ã¹ï¿½
+	    	setVolumeControlStream(AudioManager.STREAM_MUSIC);//ï¿½nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	       // setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 	        audio = (AudioManager) getSystemService(Service.AUDIO_SERVICE); 
-			//¨ú±o«Ì¹õ¤Ø¤o
+			//ï¿½ï¿½ï¿½oï¿½Ì¹ï¿½ï¿½Ø¤o
 	       temp = BitmapFactory.decodeResource(getResources(), R.drawable.background);
 	        Constant.WIDTH = temp.getWidth();
 	        Constant.HEIGHT = temp.getHeight();
@@ -162,7 +163,7 @@ public class MainActivity extends ActionBarActivity {
 	    	if(keyCode==KeyEvent.KEYCODE_BACK){
 	    		
 	    		if(curr==WhichView.main){
-	    			//¸õdialog
+	    			//ï¿½ï¿½dialog
 	    			Log.d("DEBUG","AAA");
 	    			AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 	    			builder.setTitle("Exit Game");
@@ -227,7 +228,7 @@ public class MainActivity extends ActionBarActivity {
 	    	
 	    	
 	    	
-	    	//Main«h°h¥X¹CÀ¸,«Dmain«h¦^¨ìmain;
+	    	//Mainï¿½hï¿½hï¿½Xï¿½Cï¿½ï¿½,ï¿½Dmainï¿½hï¿½^ï¿½ï¿½main;
 	    	return super.onKeyDown(keyCode, event);
 	    }
 }

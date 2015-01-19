@@ -3,32 +3,32 @@ package com.example.softwarestudio_final;
 import com.example.softwarestudio_final.GameView;
 
 public class DrawThread extends Thread {
-	GameView gv ;
-	public DrawThread (GameView gv){
-		
-		this.gv=gv;
+	GameView gv;
+	public DrawThread(GameView gv) {
+
+		this.gv = gv;
 	}
 	@Override
-	public void run(){
-		while(gv.drawThreadAlive){
-			
-			
-			if(!gv.pause){
-			gv.repaint();
+	public void run() {
+		while (gv.drawThreadAlive) {
+
+			if (!gv.pause) {
+				gv.repaint();
 			}
-				
-			try{
+			
+			try {
+				// 40 fps = 40 frames / s = 1 frame / (1/40)s = 1 / 0.025 s = 1/ 25ms
 				Thread.sleep(Constant.fps);
-			}
-			catch(Exception e){
+			} catch (Exception e) {
 				e.printStackTrace();
+			} finally {
+
 			}
-			finally{
-				
-			}
-			
+
 		}
-		gv.drawThreadAlive=true; //<---------------¤£½T©w­n¤£­n¯dµÛ
-	
+		gv.drawThreadAlive = true; // <---------------ï¿½ï¿½ï¿½Tï¿½wï¿½nï¿½ï¿½ï¿½nï¿½dï¿½ï¿½
+
 	}
+	
+	
 }
