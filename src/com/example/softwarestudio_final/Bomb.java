@@ -16,9 +16,9 @@ public class Bomb {
 		this.y = y;
 		this.gv=gv;
 		cur = 0;
-		bitmaps[0] = BitmapFactory.decodeResource(gv.getResources(), R.drawable.test);
-		bitmaps[1] = BitmapFactory.decodeResource(gv.getResources(), R.drawable.test2);
-		bitmaps[2] = BitmapFactory.decodeResource(gv.getResources(), R.drawable.test3);
+		bitmaps[0] = BitmapFactory.decodeResource(gv.getResources(), R.drawable.cute1);
+		bitmaps[1] = BitmapFactory.decodeResource(gv.getResources(), R.drawable.cute2);
+		bitmaps[2] = BitmapFactory.decodeResource(gv.getResources(), R.drawable.cute3);
 		
 	}
 	

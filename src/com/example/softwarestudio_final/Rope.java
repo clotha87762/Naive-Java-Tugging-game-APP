@@ -22,11 +22,10 @@ public class Rope {
 		this.rope = bm;
 		imageStatus = 0;
 		currentPosition = position = -890;// (int)(-Constant.HEIGHT/4*Constant.RATIO);
-		win = BitmapFactory.decodeResource(gv.getResources(),
-				R.drawable.rope2);
-		lose = BitmapFactory.decodeResource(gv.getResources(),
-				R.drawable.rope2);
-		
+
+		win = gv.ropeWin;
+		lose = gv.ropeLose;
+
 		ropeThread = new RopeThread(this);
 		ropeThread.start();
 	}
