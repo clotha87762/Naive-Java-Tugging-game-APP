@@ -10,19 +10,26 @@ public class BombItem {
 	int x,y,cur;
 	GameView gv;
 	Bitmap bitmap;
-	public BombItem(int x, int y,GameView gv){
+	public BombItem(int x, int y,GameView gv,boolean a){
 		this.x = x;
 		this.y = y;
 		this.gv=gv;
 		cur = 0;
-		bitmap = BitmapFactory.decodeResource(gv.getResources(), R.drawable.test);
-		
+		if(a){
+		bitmap = BitmapFactory.decodeResource(gv.getResources(),R.drawable.crystal);
+		}
+		else{
+			bitmap = BitmapFactory.decodeResource(gv.getResources(),R.drawable.crystalb);
+		}	
 		
 	}
 	
 	public  void draw(Canvas canvas){
 		Paint p = new Paint();
 		canvas.drawBitmap(bitmap, x, y, p);
+	}
+	public void drawB(Canvas canvas){
+		
 	}
 	
 	public void setX(int x){

@@ -18,22 +18,26 @@ public class Constant {
 	public static whichPattern pattern;
 	
 	public static Bitmap[] Pictures;
-	public static boolean BGMenabled = true;
+	public static boolean soundOn = true;
+	public static boolean soundTitle =true;
+	
 	public static boolean effectenabled = true;
-	public static boolean bombOn = false//////
+	public static boolean bombOn = true;//////
 			
-			;
+			
 
 	public static int timeLimit=30;
-
+	
 	public static int life=50;
 	public static boolean onePlayer = false;
 	public static int fps = 25;
 	public static int[][] MainMenuOffset = {
-		{123,500} // GAME
-		,{123,930} // HELP
-		,{123,1358} //OPTION
+		{123,600} // GAME
+		,{123,1030} // HELP
+		,{123,1458} //OPTION
+
 	};
+	
 	
 	public static int[][]numberOffset1P ={
 		{200,805},

@@ -13,8 +13,8 @@ public class OptionView extends SurfaceView implements Callback {
 		this.getHolder().addCallback(this);
 		
 	}
-	
-	
+	// stop sound ---> sound_bg_off();soundOn = false; 
+	// start sound ---> soundOn = true; sound_bg_off(); sound_bg_on();
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
 		// TODO Auto-generated method stub

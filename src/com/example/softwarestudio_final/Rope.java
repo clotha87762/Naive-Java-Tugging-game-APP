@@ -23,9 +23,9 @@ public class Rope {
 		imageStatus = 0;
 		currentPosition = position = -890;// (int)(-Constant.HEIGHT/4*Constant.RATIO);
 		win = BitmapFactory.decodeResource(gv.getResources(),
-				R.drawable.ropewin);
+				R.drawable.rope2);
 		lose = BitmapFactory.decodeResource(gv.getResources(),
-				R.drawable.ropelose);
+				R.drawable.rope2);
 		
 		ropeThread = new RopeThread(this);
 		ropeThread.start();

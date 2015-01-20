@@ -10,6 +10,8 @@ public class BombThread extends Thread {
 	GameView gv;
 	int runTime;
 	int temp;
+	int itemTimeA=0,itemTimeB=0;
+	boolean itemAflag=false,itemBflag=false;
 	Random r = new Random();
 	public  BombThread(GameView gv ){
 		this.gv = gv;
@@ -26,28 +28,49 @@ public class BombThread extends Thread {
 			
 			if(gv.pause||gv.countRunning||gv.resaultRunning)continue;
 			
+			if(itemAflag)itemTimeA++;
+			if(itemBflag)itemTimeB++;
+			
 			runTime++;
 			try{
-			if(runTime%12==0){
+			
+				if(itemTimeA>20){
+					gv.playerA.item = null;
+					itemAflag=false;
+				}
+				if(itemTimeB>20){
+					gv.playerB.item = null;
+					itemBflag=false;
+				}
+				
+				if(runTime%15==0){
 				runTime = 0;
 				
-				temp = r.nextInt(20)+1;
+				temp = r.nextInt(30)+1;
 				Log.d("DEBUG","temp= "+temp);
-				if(temp==1||temp==2){ //出現在下面
+				if(temp==1||temp==2||temp==3){ //出現在下面
 					gv.playerA.addBomb();
 				}
-				else if(temp==3||temp==4){ //出現在上面
+				else if(temp==5||temp==4||temp==6){ //出現在上面
 					gv.playerB.addBomb();
 				}
-				else if(temp==4||temp==5){  //同時出現
+				else if(temp==7||temp==8||temp==9){  //同時出現
 					gv.playerA.addBomb();
 					gv.playerB.addBomb();					
 				}
-				else if(temp==6){  //道具出現在下面
+				else if(temp==10){  //道具出現在下面
+					if(!itemAflag&&gv.rope.getPosition()<-890){
+					itemAflag=true;
+					itemTimeA=0;
 					gv.playerA.addBombItem();
+					}
 				}
-				else if(temp==7){ //道具出現在上面
+				else if(temp==11){ //道具出現在上面
+					if(!itemBflag&&gv.rope.getPosition()>-890){
+					itemBflag=true;
+					itemTimeB=0;
 					gv.playerB.addBombItem();
+					}
 				}
 				
 				

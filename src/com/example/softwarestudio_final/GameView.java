@@ -70,7 +70,7 @@ public class GameView extends SurfaceView implements Callback {
 		playTime = new PlayTimeCounter(this);
 
 		bombThread = new BombThread(this);
-	
+
 		dt.start();
 		if (Constant.bombOn) {
 			bombThread.start();
@@ -86,7 +86,7 @@ public class GameView extends SurfaceView implements Callback {
 		goalA = BitmapFactory.decodeResource(getResources(), R.drawable.goala);
 		goalB = BitmapFactory.decodeResource(getResources(), R.drawable.goalb);
 		ropebit = BitmapFactory.decodeResource(getResources(),
-				R.drawable.ropenormal);
+				R.drawable.rope2);
 		one = new Movable(BitmapFactory.decodeResource(getResources(),
 				R.drawable.count1), 0, 0, 255, 0.5f);
 		two = new Movable(BitmapFactory.decodeResource(getResources(),
@@ -124,7 +124,7 @@ public class GameView extends SurfaceView implements Callback {
 		count = new Thread(new Runnable() {
 
 			private long lastMillis = -1;
-
+			boolean whistle = true;
 			@Override
 			public void run() {
 				while (countRunning) {
@@ -132,8 +132,8 @@ public class GameView extends SurfaceView implements Callback {
 						long currentMillis = System.currentTimeMillis();
 						final float delta = (currentMillis - lastMillis) / 1000f;
 
-						mainActivity.runOnUiThread(new Runnable() {
-							public void run() {
+						/*mainActivity.runOnUiThread(new Runnable() {
+							public void run() {*/
 								tm.update(delta);
 								if (three.visible == false) {
 									two.visible = true;
@@ -141,17 +141,26 @@ public class GameView extends SurfaceView implements Callback {
 										&& two.visible == false) {
 									one.visible = true;
 								}
-
+								
+								if(one.getScale()<0.3){
+									if(whistle){
+										mainActivity.soundUtil.playEffectsSound(5, 0);
+										whistle=false;
+									}
+								}
+								
 								if (one.getScale() == 0) {
+									
 									try {
 										Thread.sleep(500);
 									} catch (InterruptedException ex) {
 									}
 									countRunning = false;
+									
 									Constant.fps = 40;
 								}
-							}
-						});
+							//}
+						//});
 
 						lastMillis = currentMillis;
 					} else {
@@ -159,7 +168,7 @@ public class GameView extends SurfaceView implements Callback {
 					}
 
 					try {
-						Thread.sleep(Constant.fps = 40);
+						Thread.sleep(Constant.fps );
 					} catch (InterruptedException ex) {
 					}
 				}
@@ -170,7 +179,7 @@ public class GameView extends SurfaceView implements Callback {
 	}
 
 	public void judgeResault() {
-		
+
 		if (rope.getCurrentPosition() < -890)
 			drawResault(1);
 		else {
@@ -178,6 +187,16 @@ public class GameView extends SurfaceView implements Callback {
 		}
 	}
 
+	public void endGameViewbyKEYBACK(){
+		countRunning = false;
+		resaultRunning = false;
+		drawThreadAlive=false;
+		bombThread.setFlag(false);
+		Constant.soundTitle =true;
+		
+		
+	}
+	
 	public void drawResault(int who) { // 0==A , 1==B;
 
 		whoWins = who;
@@ -213,19 +232,21 @@ public class GameView extends SurfaceView implements Callback {
 						long currentMillis = System.currentTimeMillis();
 						final float delta = (currentMillis - lastMillis) / 1000f;
 
-						mainActivity.runOnUiThread(new Runnable() {
-							public void run() {
+						//mainActivity.runOnUiThread(new Runnable() {
+							//public void run() {
 								tm.update(delta);
 								time++;
 								if (time > 150) {
 									resaultRunning = false;
 									Constant.fps = 40;
 									drawThreadAlive = false;
+									Constant.soundTitle =true;
+									
 									mainActivity.myHandler.sendEmptyMessage(1);
 								}
 
-							}
-						});
+							//}
+						//});
 
 						lastMillis = currentMillis;
 					} else {
@@ -304,11 +325,18 @@ public class GameView extends SurfaceView implements Callback {
 			// Log.d("DEBUG","drawbomba");
 			b.draw(canvas);
 		}
+		if(playerA.item!=null)playerA.item.draw(canvas);
 		for (Bomb b : playerB.bombs) {
 			// Log.d("DEBUG","drawbombb");
 			b.draw(canvas);
 		}
-
+		if(playerB.item!=null){
+			
+			playerB.item.draw(canvas);
+			
+		}
+		
+		
 		if (countRunning) {
 			three.draw(canvas);
 			two.draw(canvas);
@@ -352,8 +380,8 @@ public class GameView extends SurfaceView implements Callback {
 		 * xx1=(int)((e.getX(1)/Constant.RATIO)-Constant.LCUX);
 		 * yy1=(int)((e.getY(1)/Constant.RATIO)-Constant.LCUY); }
 		 */
-		float xx = ((e.getX(id)/Constant.RATIO)-Constant.LCUY);
-		float yy = ((e.getY(id)/Constant.RATIO)-Constant.LCUY);
+		float xx = ((e.getX(id) / Constant.RATIO) - Constant.LCUY);
+		float yy = ((e.getY(id) / Constant.RATIO) - Constant.LCUY);
 
 		switch (action) {
 
@@ -362,11 +390,14 @@ public class GameView extends SurfaceView implements Callback {
 
 			if (yy < 960) {
 				Log.d("DEBUG", "YY<960");
-				playerB.judgeBombDel((int) xx, (int) yy);
+				if (!playerB.judgeBombDel((int) xx, (int) yy))
+					playerB.judgeItemGet((int) xx, (int) yy);
+
 				HDownY = yy;
 				HDownX = xx;
 			} else {
-				playerA.judgeBombDel((int) xx, (int) yy);
+				if (!playerA.judgeBombDel((int) xx, (int) yy))
+					playerA.judgeItemGet((int) xx, (int) yy);
 				LDownY = yy;
 				LDownX = xx;
 			}
@@ -379,13 +410,17 @@ public class GameView extends SurfaceView implements Callback {
 		case MotionEvent.ACTION_UP:
 			Log.d("DEBUG", "MU " + xx + "  " + yy);
 			if (yy < 960) {
-				if (yy - HDownY < -90 && Math.abs(xx - HDownX) < 200 && playerB.isPullEnabled) {
-					moveRange = Math.abs((int) 40/*( yy - HDownY)*/);
+				if (yy - HDownY < -90 && Math.abs(xx - HDownX) < 200
+						&& playerB.isPullEnabled) {
+					moveRange = Math.abs((int) 40/* ( yy - HDownY) */);
+					mainActivity.soundUtil.playEffectsSound(0, 0);
 					rope.setPosition(-moveRange);
 				}
 			} else {
-				if (yy - LDownY > 90 && Math.abs(xx - LDownX) < 200 && playerA.isPullEnabled) {
-					moveRange = Math.abs((int)40 /*(yy - HDownY)*/);
+				if (yy - LDownY > 90 && Math.abs(xx - LDownX) < 200
+						&& playerA.isPullEnabled) {
+					moveRange = Math.abs((int) 40 /* (yy - HDownY) */);
+					mainActivity.soundUtil.playEffectsSound(0, 0);
 					rope.setPosition(moveRange);
 				}
 			}
@@ -402,11 +437,13 @@ public class GameView extends SurfaceView implements Callback {
 
 			Log.d("DEBUG", "SD " + xx + "  " + yy);
 			if (yy < 960) {
-				playerB.judgeBombDel((int) xx, (int) yy);
+				if (!playerB.judgeBombDel((int) xx, (int) yy))
+					playerB.judgeItemGet((int) xx, (int) yy);
 				HDownY = yy;
 				HDownX = xx;
 			} else {
-				playerA.judgeBombDel((int) xx, (int) yy);
+				if (!playerA.judgeBombDel((int) xx, (int) yy))
+					playerA.judgeItemGet((int) xx, (int) yy);
 				LDownY = yy;
 				LDownX = xx;
 			}
@@ -421,13 +458,17 @@ public class GameView extends SurfaceView implements Callback {
 			Log.d("DEBUG", "SU " + xx + "  " + yy);
 
 			if (yy < 960) {
-				if (yy - HDownY < -90 && Math.abs(xx - HDownX) < 200&& playerB.isPullEnabled) {
-					moveRange = Math.abs((int) (40/*yy - HDownY*/));
+				if (yy - HDownY < -90 && Math.abs(xx - HDownX) < 200
+						&& playerB.isPullEnabled) {
+					moveRange = Math.abs((int) (40/* yy - HDownY */));
+					mainActivity.soundUtil.playEffectsSound(0, 0);
 					rope.setPosition(-moveRange);
 				}
 			} else {
-				if (yy - LDownY > 90 && Math.abs(xx - LDownX) < 200&& playerA.isPullEnabled) {
-					moveRange = Math.abs((int) (40/*yy - HDownY*/));
+				if (yy - LDownY > 90 && Math.abs(xx - LDownX) < 200
+						&& playerA.isPullEnabled) {
+					moveRange = Math.abs((int) (40/* yy - HDownY */));
+					mainActivity.soundUtil.playEffectsSound(0, 0);
 					rope.setPosition(moveRange);
 				}
 			}
@@ -484,7 +525,15 @@ public class GameView extends SurfaceView implements Callback {
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
 		// TODO Auto-generated method stub
-
+		if(Constant.soundOn)
+		{
+		
+				
+				this.mainActivity.soundUtil.stop_bg_sound();//停止播放背景音樂
+				this.mainActivity.soundUtil.play_bg_sound();//開始停止播放背景音樂
+			
+		
+		}
 	}
 
 	@Override
@@ -497,7 +546,7 @@ public class GameView extends SurfaceView implements Callback {
 	@Override
 	public void surfaceDestroyed(SurfaceHolder holder) {
 		// TODO Auto-generated method stub
-
+		freeBitmap();
 	}
 
 }

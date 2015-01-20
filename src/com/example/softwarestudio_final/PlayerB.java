@@ -28,7 +28,7 @@ public class PlayerB extends Player {
 		if(this.bombs.size()<=4){
 			int x = r.nextInt(800);
 			int y =r.nextInt(660);
-			
+			gv.mainActivity.soundUtil.playEffectsSound(1, 0);
 			this.bombs.add(new Bomb(x,y,gv));
 			this.isPullEnabled=false;
 			Log.d("DEBUG","ADDB");
@@ -40,22 +40,40 @@ public class PlayerB extends Player {
 		if(item==null){
 			int x = r.nextInt(820);
 			int y = r.nextInt(700);
-			item = new BombItem(x,y,gv);		
+			item = new BombItem(x,y,gv,false);		
 		}	
 	}
 	
-	public void judgeBombDel(int x , int y){
+	public void judgeItemGet(int x,int y){
+		Log.d("DEBUG", "JUDGE Item");
+		if(item!=null){
+		if(x >= item.getX() && x <= item.getX() + 250 && y >= item.getY()
+					&& y <= item.getY() +250){
+			//¼½©ñ­µ®Ä
+			gv.mainActivity.soundUtil.playEffectsSound(3, 0);
+			item = null;
+			while(gv.playerA.bombs.size()<5){
+				gv.playerA.addBomb();
+			}
+		}
+		}
+	}
+	
+	
+	public boolean judgeBombDel(int x , int y){
 
 		Log.d("DEBUG","JUDGE");	
 		for(Bomb b:bombs){
 			if(x>=b.getX()&&x<=b.getX()+300&&
 					y>=b.getY()&&y<=b.getY()+300){
 				b.next();
+				gv.mainActivity.soundUtil.playEffectsSound(2, 0);
 				if(b.cur==3)bombs.remove(b);
 				if(bombs.isEmpty())this.isPullEnabled=true;
-				break;
+				return true;
 			}
 		}
+		return false;
 	}
 	
 		public void eventHandler(MotionEvent e,int which){

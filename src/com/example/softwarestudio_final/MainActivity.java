@@ -28,6 +28,8 @@ public class MainActivity extends ActionBarActivity {
 	Bitmap temp;
 	WhichView curr=WhichView.main;
 	enum WhichView{game,option,help,main};
+	SoundUtil soundUtil;
+	
 	Handler myHandler = new Handler(){//�Ψӧ�sUI�u�{��������
         public void handleMessage(Message msg) {
         	if(msg.what == 1){//�����^��MainView
@@ -120,6 +122,8 @@ public class MainActivity extends ActionBarActivity {
 	        }
 	
 		ScreenScale.calScale(Constant.SCREEN_WIDTH,Constant.SCREEN_HEIGHT);
+		soundUtil = new SoundUtil(this);
+		soundUtil.initSounds();
 		myHandler.sendEmptyMessage(1);
 	
 	}
@@ -203,6 +207,8 @@ public class MainActivity extends ActionBarActivity {
 	    						@Override
 	    						public void onClick(DialogInterface dialog,int which){
 	    							Constant.fps = 25;
+	    							if(gameView!=null)
+	    							gameView.endGameViewbyKEYBACK();
 	    							MainActivity.this.myHandler.sendEmptyMessage(1);
 	    							
 	    						}

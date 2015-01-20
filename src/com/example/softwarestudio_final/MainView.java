@@ -1,6 +1,7 @@
 package com.example.softwarestudio_final;
 
 import static com.example.softwarestudio_final.Constant.MainMenuOffset;
+
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -23,6 +24,7 @@ public class MainView extends SurfaceView implements Callback {
 	Movable optionButton;
 	Movable rope;
 	Movable mainBack;
+	Movable title;
 	TweenManager tm ;
 	Thread inAnimation;
 	MainDrawThread drawThread=new MainDrawThread();
@@ -39,20 +41,28 @@ public class MainView extends SurfaceView implements Callback {
 		startButton = new Movable ( BitmapFactory.decodeResource(getResources(), R.drawable.start_button),123f,-500f,255,0);
 		mainBack = new Movable( BitmapFactory.decodeResource(getResources(), R.drawable.background2),0,0);
 		optionButton = new Movable ( BitmapFactory.decodeResource(getResources(), R.drawable.option_button),123f,-500f,255,0);
-		
+		title = new Movable ( BitmapFactory.decodeResource(getResources(), R.drawable.title2),0,-500,255,1);
 		
 		Timeline.createSequence()
+				.pushPause(1f)
+				.push(Tween.to(title,MovableAccessor.POSITION_Y,0.4f).target(2000f))
+				.pushPause(0.2f)
+				.push(Tween.to(title,MovableAccessor.POSITION_Y,0.4f).target(-500f))
+				.pushPause(0.3f)
+				.push(Tween.to(title,MovableAccessor.POSITION_Y,0.8f).target(2000f))
+				.push(Tween.to(title,MovableAccessor.POSITION_Y,0.8f).target(-500f))
+				.push(Tween.to(title,MovableAccessor.POSITION_Y,1.0f).target(0f))	
 				.beginParallel()
-				.push(Tween.to(startButton,MovableAccessor.POSITION_Y,1.0f).target(500f))
-				.push(Tween.to(startButton,MovableAccessor.SCALE,1.0f).target(1))
+				.push(Tween.to(startButton,MovableAccessor.POSITION_Y,0.8f).target(500f))
+				.push(Tween.to(startButton,MovableAccessor.SCALE,0.8f).target(1))
 				.end()
 				.beginParallel()
-				.push(Tween.to(helpButton,MovableAccessor.POSITION_Y,1.0f).target(930f))
-				.push(Tween.to(helpButton,MovableAccessor.SCALE,1.0f).target(1))
+				.push(Tween.to(helpButton,MovableAccessor.POSITION_Y,0.8f).target(930f))
+				.push(Tween.to(helpButton,MovableAccessor.SCALE,0.8f).target(1))
 				.end()
 				.beginParallel()
-				.push(Tween.to(optionButton,MovableAccessor.POSITION_Y,1.0f).target(1358f))
-				.push(Tween.to(optionButton,MovableAccessor.SCALE,1.0f).target(1))
+				.push(Tween.to(optionButton,MovableAccessor.POSITION_Y,0.8f).target(1358f))
+				.push(Tween.to(optionButton,MovableAccessor.SCALE,0.8f).target(1))
 				.end()
 				.start(tm);
 		drawThread= new MainDrawThread();
@@ -101,11 +111,12 @@ public class MainView extends SurfaceView implements Callback {
 		canvas.save();
 		canvas.translate(Constant.LCUX, Constant.LCUY);
 		canvas.scale(Constant.RATIO, Constant.RATIO);
+		
 		mainBack.draw(canvas);
 		startButton.draw(canvas);
 		helpButton.draw(canvas);
 		optionButton.draw(canvas);
-		
+		title.draw(canvas);
 		/*canvas.drawBitmap(mainBack,0,0,p);
 		canvas.drawBitmap(startButton,MainMenuOffset[0][0],MainMenuOffset[0][1],p);
 		canvas.drawBitmap(helpButton,MainMenuOffset[1][0],MainMenuOffset[1][1],p);
@@ -132,14 +143,19 @@ public class MainView extends SurfaceView implements Callback {
 	 	
 	 	if(xx>=MainMenuOffset[0][0]&&xx<=MainMenuOffset[0][0]+startButton.bitmap.getWidth()
 			&&yy>=MainMenuOffset[0][1]&&yy<=MainMenuOffset[0][1]+startButton.bitmap.getHeight()){
+			mainActivity.soundUtil.playEffectsSound(4, 0);
+	 		Constant.soundTitle = false;
 			mainActivity.myHandler.sendEmptyMessage(2);
+	 		
 		}
 		else if(xx>=MainMenuOffset[1][0]&&xx<=MainMenuOffset[1][0]+helpButton.bitmap.getWidth()
 				&&yy>=MainMenuOffset[1][1]&&yy<=MainMenuOffset[1][1]+helpButton.bitmap.getHeight()){
+			mainActivity.soundUtil.playEffectsSound(4, 0);
 			mainActivity.myHandler.sendEmptyMessage(3);
 		}
 		else if(xx>=MainMenuOffset[2][0]&&xx<=MainMenuOffset[2][0]+optionButton.bitmap.getWidth()
 				&&yy>=MainMenuOffset[2][1]&&yy<=MainMenuOffset[2][1]+optionButton.bitmap.getHeight()){
+			mainActivity.soundUtil.playEffectsSound(4, 0);
 			mainActivity.myHandler.sendEmptyMessage(4);
 		}
 		 
@@ -197,6 +213,17 @@ public class MainView extends SurfaceView implements Callback {
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
 		// TODO Auto-generated method stub
+		if(Constant.soundOn)
+		{
+		
+				
+				this.mainActivity.soundUtil.stop_bg_sound();//停止播放背景音樂
+				this.mainActivity.soundUtil.play_bg_sound();//開始停止播放背景音樂
+			
+		
+		}
+		
+		
 		Canvas canvas=holder.lockCanvas();
 		try
 		{

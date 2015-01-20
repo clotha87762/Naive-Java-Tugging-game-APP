@@ -29,7 +29,7 @@ public class DrawThread extends Thread {
 			}
 
 		}
-		gv.drawThreadAlive = true; // <---------------���T�w�n���n�d��
+		//gv.drawThreadAlive = true; // <---------------���T�w�n���n�d��
 
 	}
 
