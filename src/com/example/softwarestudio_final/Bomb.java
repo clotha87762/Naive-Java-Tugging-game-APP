@@ -16,10 +16,17 @@ public class Bomb {
 		this.y = y;
 		this.gv=gv;
 		cur = 0;
+		if(Constant.StlyeCute){
 		bitmaps[0] = BitmapFactory.decodeResource(gv.getResources(), R.drawable.cute1);
 		bitmaps[1] = BitmapFactory.decodeResource(gv.getResources(), R.drawable.cute2);
 		bitmaps[2] = BitmapFactory.decodeResource(gv.getResources(), R.drawable.cute3);
-		
+		}
+		else{
+			bitmaps[0] = BitmapFactory.decodeResource(gv.getResources(), R.drawable.rock3);
+			bitmaps[1] = BitmapFactory.decodeResource(gv.getResources(), R.drawable.rock2);
+			bitmaps[2] = BitmapFactory.decodeResource(gv.getResources(), R.drawable.rock1);
+			
+		}
 	}
 	
 	public void next(){
@@ -30,6 +37,14 @@ public class Bomb {
 		Paint p = new Paint();
 		if(cur<3)
 		canvas.drawBitmap(bitmaps[cur], x, y, p);
+	}
+	public void drawR(Canvas canvas){
+		Paint p = new Paint();
+		canvas.save();
+		canvas.rotate(180, 540, 960);
+		if(cur<3)
+		canvas.drawBitmap(bitmaps[cur], x, y, p);
+		canvas.restore();
 	}
 	
 	public void setX(int x){

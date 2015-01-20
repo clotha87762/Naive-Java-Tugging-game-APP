@@ -40,6 +40,7 @@ public class SoundUtil {
 	     soundPoolMap.put(4, soundPool.load(ma, R.raw.press, 1)); // 按下標題介面按鈕
 	     soundPoolMap.put(5, soundPool.load(ma, R.raw.whistle, 1));
 	     soundPoolMap.put(6, soundPool.load(ma, R.raw.count, 1));
+	     soundPoolMap.put(7, soundPool.load(ma, R.raw.exchange, 1));
 	     //有幾個音效就有當前這個幾句  R.raw.gamestart返回編號 不定     後面的1為優先級 目前不考慮
 	} 
        

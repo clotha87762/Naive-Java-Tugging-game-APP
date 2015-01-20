@@ -370,7 +370,7 @@ public class GameView extends SurfaceView implements Callback {
 		if(playerA.item!=null)playerA.item.draw(canvas);
 		for (Bomb b : playerB.bombs) {
 			// Log.d("DEBUG","drawbombb");
-			b.draw(canvas);
+			b.drawR(canvas);
 		}
 		if(playerB.item!=null){
 			

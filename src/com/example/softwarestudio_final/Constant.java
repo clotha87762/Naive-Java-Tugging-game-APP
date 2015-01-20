@@ -26,7 +26,7 @@ public class Constant {
 	public static boolean soundOn = true;
 	public static boolean bombOn = true;//////
 	public static int timeLimit=30;
-	public static boolean StlyeCute = false;
+	public static boolean StlyeCute = true;
 	public static boolean onePlayer = false;
 	
 	

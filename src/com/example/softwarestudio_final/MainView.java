@@ -143,18 +143,21 @@ public class MainView extends SurfaceView implements Callback {
 	 	
 	 	if(xx>=MainMenuOffset[0][0]&&xx<=MainMenuOffset[0][0]+startButton.bitmap.getWidth()
 			&&yy>=MainMenuOffset[0][1]&&yy<=MainMenuOffset[0][1]+startButton.bitmap.getHeight()){
-			mainActivity.soundUtil.playEffectsSound(4, 0);
+			if(Constant.soundOn)
+	 		mainActivity.soundUtil.playEffectsSound(4, 0);
 	 		Constant.soundTitle = false;
 			mainActivity.myHandler.sendEmptyMessage(2);
 	 		
 		}
 		else if(xx>=MainMenuOffset[1][0]&&xx<=MainMenuOffset[1][0]+helpButton.bitmap.getWidth()
 				&&yy>=MainMenuOffset[1][1]&&yy<=MainMenuOffset[1][1]+helpButton.bitmap.getHeight()){
+			if(Constant.soundOn)
 			mainActivity.soundUtil.playEffectsSound(4, 0);
 			mainActivity.myHandler.sendEmptyMessage(3);
 		}
 		else if(xx>=MainMenuOffset[2][0]&&xx<=MainMenuOffset[2][0]+optionButton.bitmap.getWidth()
 				&&yy>=MainMenuOffset[2][1]&&yy<=MainMenuOffset[2][1]+optionButton.bitmap.getHeight()){
+			if(Constant.soundOn)
 			mainActivity.soundUtil.playEffectsSound(4, 0);
 			mainActivity.myHandler.sendEmptyMessage(4);
 		}
