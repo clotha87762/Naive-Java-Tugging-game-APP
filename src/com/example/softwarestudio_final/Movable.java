@@ -30,6 +30,7 @@ public class Movable {
 		if(visible){
 		Paint p = new Paint();
 		p.setAlpha(alpha);
+		p.setAntiAlias(true);
 		canvas.save();
 		canvas.scale(scale, scale, 540, 960);
 		canvas.drawBitmap(bitmap, x, y,p);

@@ -35,6 +35,7 @@ public class MainActivity extends ActionBarActivity {
 	Handler myHandler = new Handler(){//�Ψӧ�sUI�u�{��������
         public void handleMessage(Message msg) {
         	if(msg.what == 1){//�����^��MainView
+        		Log.d("DEBUG","----------> I GO TO MAIN <---------");
         		gotoMain();
         		
         	}
