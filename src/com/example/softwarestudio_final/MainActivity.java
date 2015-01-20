@@ -202,13 +202,13 @@ public class MainActivity extends ActionBarActivity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-
+		this.soundUtil.stop_bg_sound();
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-
+		this.soundUtil.play_bg_sound();
 	}
 
 	@Override

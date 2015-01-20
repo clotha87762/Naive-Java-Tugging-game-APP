@@ -254,7 +254,7 @@ public class MainView extends SurfaceView implements Callback {
 	@Override
 	public void surfaceDestroyed(SurfaceHolder holder) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 }
