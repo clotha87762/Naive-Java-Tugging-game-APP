@@ -99,7 +99,7 @@ public class GameView extends SurfaceView implements Callback {
 		bombThread = new BombThread(this);
 
 		dt.start();
-		//secDrawThread.start();
+		secDrawThread.start();
 		if (Constant.bombOn) {
 			bombThread.start();
 		}
