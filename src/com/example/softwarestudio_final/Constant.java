@@ -18,18 +18,21 @@ public class Constant {
 	public static whichPattern pattern;
 	
 	public static Bitmap[] Pictures;
-	public static boolean soundOn = true;
+	
 	public static boolean soundTitle =true;
 	
+	
 	public static boolean effectenabled = true;
+	public static boolean soundOn = true;
 	public static boolean bombOn = true;//////
-			
-			
-
 	public static int timeLimit=30;
+	public static boolean StlyeCute = false;
+	public static boolean onePlayer = false;
+	
+	
 	
 	public static int life=50;
-	public static boolean onePlayer = false;
+	
 	public static int fps = 25;
 	public static int[][] MainMenuOffset = {
 		{123,600} // GAME
@@ -47,6 +50,29 @@ public class Constant {
 		{200,1300},
 		{593,1300},
 	};
+	public static int[][]gearOffset={
+		{0,0},
+		{0,350},
+		{0,700},
+		{0,1050},
+		{0,1400},	
+	};
+	public static int[][]whatOffset={
+		{350,0},
+		{350,350},
+		{350,700},
+		{350,1050},
+		{350,1400},
+	};
+	
+	public static int[][]switchBtn={
+		{700,0},
+		{700,350},
+		{700,700},
+		{700,1050},
+		{700,1400},	
+	};
+	
 	
 	public static int[][] goalOffset = {
 		{0,0},
