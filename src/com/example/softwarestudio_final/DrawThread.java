@@ -4,15 +4,15 @@ import com.example.softwarestudio_final.GameView;
 
 public class DrawThread extends Thread {
 	GameView gv;
-
+	boolean isAlive;
 	public DrawThread(GameView gv) {
-
+		isAlive = true;
 		this.gv = gv;
 	}
 
 	@Override
 	public void run() {
-		while (gv.drawThreadAlive) {
+		while ( isAlive ) {
 
 			if (!gv.pause) {
 				gv.repaint();
@@ -32,5 +32,8 @@ public class DrawThread extends Thread {
 		//gv.drawThreadAlive = true; // <---------------���T�w�n���n�d��
 
 	}
-
+	
+	public void drawStop(){
+		isAlive = false;
+	}
 }

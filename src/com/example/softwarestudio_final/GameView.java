@@ -22,13 +22,16 @@ public class GameView extends SurfaceView implements Callback {
 	MainActivity mainActivity;
 	boolean drawThreadAlive;
 	DrawThread dt;
+	DrawThread secDrawThread;
 	boolean pause = true;
 	PlayTimeCounter playTime;
-	Bitmap background;
+
 	PlayerA playerA;
 	PlayerB playerB;
 	Rope rope;
 	Rect rec;
+
+	Bitmap background;
 	Bitmap goalA;
 	Bitmap goalB;
 	Bitmap ropebit;
@@ -38,7 +41,7 @@ public class GameView extends SurfaceView implements Callback {
 	Bitmap imgOne, imgTwo, imgThree;
 
 	Bitmap ropeWin, ropeLose;
-	
+
 	Movable one;
 	Movable two;
 	Movable three;
@@ -60,6 +63,8 @@ public class GameView extends SurfaceView implements Callback {
 		this.mainActivity = main;
 		this.getHolder().addCallback(this);
 		dt = new DrawThread(this);
+		secDrawThread = new DrawThread(this);
+		
 		rec = new Rect(0, 0, Constant.SCREEN_WIDTH, Constant.SCREEN_HEIGHT);
 		this.setLongClickable(true);
 		initBitmap();
@@ -74,7 +79,7 @@ public class GameView extends SurfaceView implements Callback {
 
 		two.visible = false;
 		one.visible = false;
-		
+
 		L = new Movable(imgL, 140, -300);
 		O = new Movable(imgO, 340, -300);
 		S = new Movable(imgS, 540, -300);
@@ -82,7 +87,7 @@ public class GameView extends SurfaceView implements Callback {
 		W = new Movable(imgW, 290, -300);
 		I = new Movable(imgI, 490, -300);
 		N = new Movable(imgN, 590, -300);
-		
+
 		tm = new TweenManager();
 		this.getHolder().addCallback(this);
 		rope = new Rope(this, ropebit);
@@ -94,6 +99,7 @@ public class GameView extends SurfaceView implements Callback {
 		bombThread = new BombThread(this);
 
 		dt.start();
+		//secDrawThread.start();
 		if (Constant.bombOn) {
 			bombThread.start();
 		}
@@ -102,46 +108,37 @@ public class GameView extends SurfaceView implements Callback {
 	}
 
 	public void initBitmap() {
-		background = BitmapFactory.decodeResource(getResources(),
-				R.drawable.gameback);
-		goalA = BitmapFactory.decodeResource(getResources(), R.drawable.goala);
-		goalB = BitmapFactory.decodeResource(getResources(), R.drawable.goalb);
-		ropebit = BitmapFactory.decodeResource(getResources(),
-				R.drawable.ropenormal);
+		background = ImageCollection.background;
+		
+		goalA = ImageCollection.goalA;
+		
+		goalB = ImageCollection.goalB;
+		
+		ropebit = ImageCollection.ropebit;
 
-		ropeWin = BitmapFactory.decodeResource(getResources(), R.drawable.ropewin);
-		ropeLose = BitmapFactory.decodeResource(getResources(), R.drawable.ropelose);
+		ropeWin = ImageCollection.ropeWin;
 		
-		imgOne = BitmapFactory
-				.decodeResource(getResources(), R.drawable.count1);
+		ropeLose = ImageCollection.ropeLose;
 
-		imgTwo = BitmapFactory
-				.decodeResource(getResources(), R.drawable.count2);
+		imgOne = ImageCollection.imgOne;
 
-		imgThree = BitmapFactory.decodeResource(getResources(),
-				R.drawable.count3);
-		
-		imgL = BitmapFactory.decodeResource(getResources(),
-				R.drawable.ll);
-		
-		imgO = BitmapFactory.decodeResource(getResources(),
-				R.drawable.o);
-		
-		imgS = BitmapFactory.decodeResource(getResources(),
-				R.drawable.s);
-		
-		imgE = BitmapFactory.decodeResource(getResources(),
-				R.drawable.e);
-		
-		imgW = BitmapFactory.decodeResource(getResources(),
-				R.drawable.w);
-		
-		imgI = BitmapFactory.decodeResource(getResources(),
-				R.drawable.i);
-		
-		imgN = BitmapFactory.decodeResource(getResources(),
-				R.drawable.n);
-	
+		imgTwo = ImageCollection.imgTwo;
+
+		imgThree = ImageCollection.imgThree;
+
+		imgL = ImageCollection.imgL;
+
+		imgO = ImageCollection.imgO;
+
+		imgS = ImageCollection.imgS;
+
+		imgE = ImageCollection.imgE;
+
+		imgW = ImageCollection.imgW;
+
+		imgI = ImageCollection.imgI;
+
+		imgN = ImageCollection.imgN;
 
 
 	}
@@ -274,8 +271,11 @@ public class GameView extends SurfaceView implements Callback {
 									resaultRunning = false;
 									Constant.fps = 40;
 									drawThreadAlive = false;
+
+									dt.drawStop();
+									secDrawThread.drawStop();
 									Constant.soundTitle =true;
-									
+
 									mainActivity.myHandler.sendEmptyMessage(1);
 								}
 
@@ -307,15 +307,16 @@ public class GameView extends SurfaceView implements Callback {
 		ropebit.recycle();
 		ropeWin.recycle();
 		ropeLose.recycle();
-		imgL.recycle(); 
-		imgO.recycle();  
-		imgS.recycle(); 
-		imgE.recycle();;
-		imgW.recycle(); 
-		imgI.recycle(); 
+		imgL.recycle();
+		imgO.recycle();
+		imgS.recycle();
+		imgE.recycle();
+		;
+		imgW.recycle();
+		imgI.recycle();
 		imgN.recycle();
-		imgOne.recycle(); 
-		imgTwo.recycle(); 
+		imgOne.recycle();
+		imgTwo.recycle();
 		imgThree.recycle();
 	}
 
@@ -450,6 +451,7 @@ public class GameView extends SurfaceView implements Callback {
 						&& playerB.isPullEnabled) {
 					moveRange = Math.abs((int) 40/* ( yy - HDownY) */);
 					mainActivity.soundUtil.playEffectsSound(0, 0);
+
 					rope.setPosition(-moveRange);
 				}
 			} else {
@@ -498,12 +500,14 @@ public class GameView extends SurfaceView implements Callback {
 						&& playerB.isPullEnabled) {
 					moveRange = Math.abs((int) (40/* yy - HDownY */));
 					mainActivity.soundUtil.playEffectsSound(0, 0);
+
 					rope.setPosition(-moveRange);
 				}
 			} else {
 				if (yy - LDownY > 90 && Math.abs(xx - LDownX) < 200
 						&& playerA.isPullEnabled) {
 					moveRange = Math.abs((int) (40/* yy - HDownY */));
+
 					mainActivity.soundUtil.playEffectsSound(0, 0);
 					rope.setPosition(moveRange);
 				}
@@ -565,8 +569,8 @@ public class GameView extends SurfaceView implements Callback {
 		{
 		
 				
-				this.mainActivity.soundUtil.stop_bg_sound();//°±¤î¼½©ñ­I´º­µ¼Ö
-				this.mainActivity.soundUtil.play_bg_sound();//¶}©l°±¤î¼½©ñ­I´º­µ¼Ö
+				this.mainActivity.soundUtil.stop_bg_sound();//ï¿½ï¿½ï¿½î¼½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				this.mainActivity.soundUtil.play_bg_sound();//ï¿½}ï¿½lï¿½ï¿½ï¿½î¼½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			
 		
 		}
@@ -582,7 +586,7 @@ public class GameView extends SurfaceView implements Callback {
 	@Override
 	public void surfaceDestroyed(SurfaceHolder holder) {
 		// TODO Auto-generated method stub
-		freeBitmap();
+		
 	}
 
 }
