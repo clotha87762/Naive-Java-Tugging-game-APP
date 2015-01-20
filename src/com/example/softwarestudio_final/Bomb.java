@@ -41,7 +41,7 @@ public class Bomb {
 	public void drawR(Canvas canvas){
 		Paint p = new Paint();
 		canvas.save();
-		canvas.rotate(180, 540, 960);
+		canvas.rotate(180, x+175, y+175);
 		if(cur<3)
 		canvas.drawBitmap(bitmaps[cur], x, y, p);
 		canvas.restore();
