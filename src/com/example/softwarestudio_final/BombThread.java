@@ -48,24 +48,24 @@ public class BombThread extends Thread {
 				
 				temp = r.nextInt(30)+1;
 				Log.d("DEBUG","temp= "+temp);
-				if(temp==1||temp==2||temp==3){ //¥X²{¦b¤U­±
+				if(temp==1||temp==2||temp==3){ //ï¿½Xï¿½{ï¿½bï¿½Uï¿½ï¿½
 					gv.playerA.addBomb();
 				}
-				else if(temp==5||temp==4||temp==6){ //¥X²{¦b¤W­±
+				else if(temp==5||temp==4||temp==6){ //ï¿½Xï¿½{ï¿½bï¿½Wï¿½ï¿½
 					gv.playerB.addBomb();
 				}
-				else if(temp==7||temp==8||temp==9){  //¦P®É¥X²{
+				else if(temp==7||temp==8||temp==9){  //ï¿½Pï¿½É¥Xï¿½{
 					gv.playerA.addBomb();
 					gv.playerB.addBomb();					
 				}
-				else if(temp==10){  //¹D¨ã¥X²{¦b¤U­±
+				else if(temp==10){  //ï¿½Dï¿½ï¿½Xï¿½{ï¿½bï¿½Uï¿½ï¿½
 					if(!itemAflag&&gv.rope.getPosition()<-890){
 					itemAflag=true;
 					itemTimeA=0;
 					gv.playerA.addBombItem();
 					}
 				}
-				else if(temp==11){ //¹D¨ã¥X²{¦b¤W­±
+				else if(temp==11){ //ï¿½Dï¿½ï¿½Xï¿½{ï¿½bï¿½Wï¿½ï¿½
 					if(!itemBflag&&gv.rope.getPosition()>-890){
 					itemBflag=true;
 					itemTimeB=0;
@@ -84,8 +84,8 @@ public class BombThread extends Thread {
 			
 			
 			try{
-				Log.d("DEBUG","sleep");
-				Thread.sleep(Constant.fps);//ºÎ¯v¥ð®§
+				//Log.d("DEBUG","sleep");
+				Thread.sleep(Constant.fps);//ï¿½Î¯vï¿½ï¿½
 			}
 			catch(Exception e){
 				e.printStackTrace();

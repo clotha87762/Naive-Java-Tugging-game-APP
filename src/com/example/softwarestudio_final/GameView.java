@@ -56,12 +56,16 @@ public class GameView extends SurfaceView implements Callback {
 	TweenManager tm;
 	boolean countRunning = true;
 	boolean resaultRunning = false;
+	boolean isSendActivityRequest;
 	int whoWins = 0;
 
 	public GameView(MainActivity main) {
 		super(main);
 		this.mainActivity = main;
 		this.getHolder().addCallback(this);
+		
+		isSendActivityRequest = false;
+		
 		dt = new DrawThread(this);
 		secDrawThread = new DrawThread(this);
 		
@@ -224,7 +228,8 @@ public class GameView extends SurfaceView implements Callback {
 		drawThreadAlive=false;
 		bombThread.setFlag(false);
 		Constant.soundTitle =true;
-		
+		dt.drawStop();
+		secDrawThread.drawStop();
 		
 	}
 	
@@ -268,15 +273,15 @@ public class GameView extends SurfaceView implements Callback {
 								tm.update(delta);
 								time++;
 								if (time > 150) {
-									resaultRunning = false;
+									
 									Constant.fps = 40;
-									drawThreadAlive = false;
-
-									dt.drawStop();
-									secDrawThread.drawStop();
+									endGameViewbyKEYBACK();
+										
 									Constant.soundTitle =true;
-
-									mainActivity.myHandler.sendEmptyMessage(1);
+									if( !isSendActivityRequest ){
+										mainActivity.myHandler.sendEmptyMessage(1);
+										isSendActivityRequest = true;
+									}
 								}
 
 							//}
