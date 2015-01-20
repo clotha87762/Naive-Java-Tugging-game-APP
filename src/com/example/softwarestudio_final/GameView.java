@@ -22,6 +22,7 @@ public class GameView extends SurfaceView implements Callback {
 	MainActivity mainActivity;
 	boolean drawThreadAlive;
 	DrawThread dt;
+	DrawThread secDrawThread;
 	boolean pause = true;
 	PlayTimeCounter playTime;
 
@@ -62,6 +63,7 @@ public class GameView extends SurfaceView implements Callback {
 		this.mainActivity = main;
 		this.getHolder().addCallback(this);
 		dt = new DrawThread(this);
+		secDrawThread = new DrawThread(this);
 		rec = new Rect(0, 0, Constant.SCREEN_WIDTH, Constant.SCREEN_HEIGHT);
 		this.setLongClickable(true);
 		initBitmap();
@@ -96,6 +98,7 @@ public class GameView extends SurfaceView implements Callback {
 		bombThread = new BombThread(this);
 
 		dt.start();
+		secDrawThread.start();
 		if (Constant.bombOn) {
 			bombThread.start();
 		}
@@ -247,6 +250,8 @@ public class GameView extends SurfaceView implements Callback {
 									resaultRunning = false;
 									Constant.fps = 40;
 									drawThreadAlive = false;
+									dt.drawStop();
+									secDrawThread.drawStop();
 									mainActivity.myHandler.sendEmptyMessage(1);
 								}
 
