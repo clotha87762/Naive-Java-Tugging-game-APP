@@ -24,11 +24,13 @@ public class GameView extends SurfaceView implements Callback {
 	DrawThread dt;
 	boolean pause = true;
 	PlayTimeCounter playTime;
-	Bitmap background;
+
 	PlayerA playerA;
 	PlayerB playerB;
 	Rope rope;
 	Rect rec;
+
+	Bitmap background;
 	Bitmap goalA;
 	Bitmap goalB;
 	Bitmap ropebit;
@@ -38,7 +40,7 @@ public class GameView extends SurfaceView implements Callback {
 	Bitmap imgOne, imgTwo, imgThree;
 
 	Bitmap ropeWin, ropeLose;
-	
+
 	Movable one;
 	Movable two;
 	Movable three;
@@ -74,7 +76,7 @@ public class GameView extends SurfaceView implements Callback {
 
 		two.visible = false;
 		one.visible = false;
-		
+
 		L = new Movable(imgL, 140, -300);
 		O = new Movable(imgO, 340, -300);
 		S = new Movable(imgS, 540, -300);
@@ -82,7 +84,7 @@ public class GameView extends SurfaceView implements Callback {
 		W = new Movable(imgW, 290, -300);
 		I = new Movable(imgI, 490, -300);
 		N = new Movable(imgN, 590, -300);
-		
+
 		tm = new TweenManager();
 		this.getHolder().addCallback(this);
 		rope = new Rope(this, ropebit);
@@ -92,7 +94,7 @@ public class GameView extends SurfaceView implements Callback {
 		playTime = new PlayTimeCounter(this);
 
 		bombThread = new BombThread(this);
-	
+
 		dt.start();
 		if (Constant.bombOn) {
 			bombThread.start();
@@ -102,46 +104,37 @@ public class GameView extends SurfaceView implements Callback {
 	}
 
 	public void initBitmap() {
-		background = BitmapFactory.decodeResource(getResources(),
-				R.drawable.gameback);
-		goalA = BitmapFactory.decodeResource(getResources(), R.drawable.goala);
-		goalB = BitmapFactory.decodeResource(getResources(), R.drawable.goalb);
-		ropebit = BitmapFactory.decodeResource(getResources(),
-				R.drawable.ropenormal);
+		background = ImageCollection.background;
+		
+		goalA = ImageCollection.goalA;
+		
+		goalB = ImageCollection.goalB;
+		
+		ropebit = ImageCollection.ropebit;
 
-		ropeWin = BitmapFactory.decodeResource(getResources(), R.drawable.ropewin);
-		ropeLose = BitmapFactory.decodeResource(getResources(), R.drawable.ropelose);
+		ropeWin = ImageCollection.ropeWin;
 		
-		imgOne = BitmapFactory
-				.decodeResource(getResources(), R.drawable.count1);
+		ropeLose = ImageCollection.ropeLose;
 
-		imgTwo = BitmapFactory
-				.decodeResource(getResources(), R.drawable.count2);
+		imgOne = ImageCollection.imgOne;
 
-		imgThree = BitmapFactory.decodeResource(getResources(),
-				R.drawable.count3);
-		
-		imgL = BitmapFactory.decodeResource(getResources(),
-				R.drawable.ll);
-		
-		imgO = BitmapFactory.decodeResource(getResources(),
-				R.drawable.o);
-		
-		imgS = BitmapFactory.decodeResource(getResources(),
-				R.drawable.s);
-		
-		imgE = BitmapFactory.decodeResource(getResources(),
-				R.drawable.e);
-		
-		imgW = BitmapFactory.decodeResource(getResources(),
-				R.drawable.w);
-		
-		imgI = BitmapFactory.decodeResource(getResources(),
-				R.drawable.i);
-		
-		imgN = BitmapFactory.decodeResource(getResources(),
-				R.drawable.n);
-	
+		imgTwo = ImageCollection.imgTwo;
+
+		imgThree = ImageCollection.imgThree;
+
+		imgL = ImageCollection.imgL;
+
+		imgO = ImageCollection.imgO;
+
+		imgS = ImageCollection.imgS;
+
+		imgE = ImageCollection.imgE;
+
+		imgW = ImageCollection.imgW;
+
+		imgI = ImageCollection.imgI;
+
+		imgN = ImageCollection.imgN;
 
 	}
 
@@ -203,7 +196,7 @@ public class GameView extends SurfaceView implements Callback {
 	}
 
 	public void judgeResault() {
-		
+
 		if (rope.getCurrentPosition() < -890)
 			drawResault(1);
 		else {
@@ -285,15 +278,16 @@ public class GameView extends SurfaceView implements Callback {
 		ropebit.recycle();
 		ropeWin.recycle();
 		ropeLose.recycle();
-		imgL.recycle(); 
-		imgO.recycle();  
-		imgS.recycle(); 
-		imgE.recycle();;
-		imgW.recycle(); 
-		imgI.recycle(); 
+		imgL.recycle();
+		imgO.recycle();
+		imgS.recycle();
+		imgE.recycle();
+		;
+		imgW.recycle();
+		imgI.recycle();
 		imgN.recycle();
-		imgOne.recycle(); 
-		imgTwo.recycle(); 
+		imgOne.recycle();
+		imgTwo.recycle();
 		imgThree.recycle();
 	}
 
@@ -387,8 +381,8 @@ public class GameView extends SurfaceView implements Callback {
 		 * xx1=(int)((e.getX(1)/Constant.RATIO)-Constant.LCUX);
 		 * yy1=(int)((e.getY(1)/Constant.RATIO)-Constant.LCUY); }
 		 */
-		float xx = ((e.getX(id)/Constant.RATIO)-Constant.LCUY);
-		float yy = ((e.getY(id)/Constant.RATIO)-Constant.LCUY);
+		float xx = ((e.getX(id) / Constant.RATIO) - Constant.LCUY);
+		float yy = ((e.getY(id) / Constant.RATIO) - Constant.LCUY);
 
 		switch (action) {
 
@@ -414,13 +408,15 @@ public class GameView extends SurfaceView implements Callback {
 		case MotionEvent.ACTION_UP:
 			Log.d("DEBUG", "MU " + xx + "  " + yy);
 			if (yy < 960) {
-				if (yy - HDownY < -90 && Math.abs(xx - HDownX) < 200 && playerB.isPullEnabled) {
-					moveRange = Math.abs((int) 40/*( yy - HDownY)*/);
+				if (yy - HDownY < -90 && Math.abs(xx - HDownX) < 200
+						&& playerB.isPullEnabled) {
+					moveRange = Math.abs((int) 40/* ( yy - HDownY) */);
 					rope.setPosition(-moveRange);
 				}
 			} else {
-				if (yy - LDownY > 90 && Math.abs(xx - LDownX) < 200 && playerA.isPullEnabled) {
-					moveRange = Math.abs((int)40 /*(yy - HDownY)*/);
+				if (yy - LDownY > 90 && Math.abs(xx - LDownX) < 200
+						&& playerA.isPullEnabled) {
+					moveRange = Math.abs((int) 40 /* (yy - HDownY) */);
 					rope.setPosition(moveRange);
 				}
 			}
@@ -456,13 +452,15 @@ public class GameView extends SurfaceView implements Callback {
 			Log.d("DEBUG", "SU " + xx + "  " + yy);
 
 			if (yy < 960) {
-				if (yy - HDownY < -90 && Math.abs(xx - HDownX) < 200&& playerB.isPullEnabled) {
-					moveRange = Math.abs((int) (40/*yy - HDownY*/));
+				if (yy - HDownY < -90 && Math.abs(xx - HDownX) < 200
+						&& playerB.isPullEnabled) {
+					moveRange = Math.abs((int) (40/* yy - HDownY */));
 					rope.setPosition(-moveRange);
 				}
 			} else {
-				if (yy - LDownY > 90 && Math.abs(xx - LDownX) < 200&& playerA.isPullEnabled) {
-					moveRange = Math.abs((int) (40/*yy - HDownY*/));
+				if (yy - LDownY > 90 && Math.abs(xx - LDownX) < 200
+						&& playerA.isPullEnabled) {
+					moveRange = Math.abs((int) (40/* yy - HDownY */));
 					rope.setPosition(moveRange);
 				}
 			}
