@@ -96,7 +96,7 @@ public class MainActivity extends ActionBarActivity {
 
 	public void loadBitmapImage() {
 		ImageCollection.background = BitmapFactory.decodeResource(
-				getResources(), R.drawable.gameback);
+				getResources(), R.drawable.playbackground);
 		ImageCollection.goalA = BitmapFactory.decodeResource(getResources(),
 				R.drawable.goala);
 		ImageCollection.goalB = BitmapFactory.decodeResource(getResources(),
