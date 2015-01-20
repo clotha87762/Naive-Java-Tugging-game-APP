@@ -27,6 +27,7 @@ public class PlayerA extends Player {
 
 			int x = r.nextInt(800);
 			int y = r.nextInt(660) + 960;
+			if(Constant.soundOn)
 			gv.mainActivity.soundUtil.playEffectsSound(1, 0);
 			this.bombs.add(new Bomb(x, y, gv));
 			this.isPullEnabled = false;
@@ -50,6 +51,7 @@ public class PlayerA extends Player {
 		if(x >= item.getX() && x <= item.getX() + 250 && y >= item.getY()
 					&& y <= item.getY() +250){
 			//¼½©ñ­µ®Ä
+			if(Constant.soundOn)
 			gv.mainActivity.soundUtil.playEffectsSound(3, 0);
 			item = null;
 			while(gv.playerB.bombs.size()<5){
@@ -67,6 +69,7 @@ public class PlayerA extends Player {
 			if (x >= b.getX() && x <= b.getX() + 300 && y >= b.getY()
 					&& y <= b.getY() + 300) {
 				b.next();
+				if(Constant.soundOn)
 				gv.mainActivity.soundUtil.playEffectsSound(2, 0);
 				if (b.cur == 3)
 					bombs.remove(b);

@@ -178,7 +178,7 @@ public class GameView extends SurfaceView implements Callback {
 								}
 								
 								if(one.getScale()<0.3){
-									if(whistle){
+									if(whistle&&Constant.soundOn){
 										mainActivity.soundUtil.playEffectsSound(5, 0);
 										whistle=false;
 									}
@@ -370,7 +370,7 @@ public class GameView extends SurfaceView implements Callback {
 		if(playerA.item!=null)playerA.item.draw(canvas);
 		for (Bomb b : playerB.bombs) {
 			// Log.d("DEBUG","drawbombb");
-			b.draw(canvas);
+			b.drawR(canvas);
 		}
 		if(playerB.item!=null){
 			
@@ -455,6 +455,8 @@ public class GameView extends SurfaceView implements Callback {
 				if (yy - HDownY < -90 && Math.abs(xx - HDownX) < 200
 						&& playerB.isPullEnabled) {
 					moveRange = Math.abs((int) 40/* ( yy - HDownY) */);
+					
+					if(Constant.soundOn)
 					mainActivity.soundUtil.playEffectsSound(0, 0);
 
 					rope.setPosition(-moveRange);
@@ -463,6 +465,8 @@ public class GameView extends SurfaceView implements Callback {
 				if (yy - LDownY > 90 && Math.abs(xx - LDownX) < 200
 						&& playerA.isPullEnabled) {
 					moveRange = Math.abs((int) 40 /* (yy - HDownY) */);
+					
+					if(Constant.soundOn)
 					mainActivity.soundUtil.playEffectsSound(0, 0);
 					rope.setPosition(moveRange);
 				}
@@ -504,6 +508,7 @@ public class GameView extends SurfaceView implements Callback {
 				if (yy - HDownY < -90 && Math.abs(xx - HDownX) < 200
 						&& playerB.isPullEnabled) {
 					moveRange = Math.abs((int) (40/* yy - HDownY */));
+					if(Constant.soundOn)
 					mainActivity.soundUtil.playEffectsSound(0, 0);
 
 					rope.setPosition(-moveRange);
@@ -513,6 +518,7 @@ public class GameView extends SurfaceView implements Callback {
 						&& playerA.isPullEnabled) {
 					moveRange = Math.abs((int) (40/* yy - HDownY */));
 
+					if(Constant.soundOn)
 					mainActivity.soundUtil.playEffectsSound(0, 0);
 					rope.setPosition(moveRange);
 				}

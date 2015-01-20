@@ -138,7 +138,34 @@ public class MainActivity extends ActionBarActivity {
 
 		ImageCollection.imgN = BitmapFactory.decodeResource(getResources(),
 				R.drawable.n);
-
+		ImageCollection.player = BitmapFactory.decodeResource(getResources(),
+				R.drawable.player);
+		ImageCollection.mode =BitmapFactory.decodeResource(getResources(),
+				R.drawable.mode);
+		ImageCollection.time = BitmapFactory.decodeResource(getResources(),
+				R.drawable.time);
+		ImageCollection.obstacle = BitmapFactory.decodeResource(getResources(),
+				R.drawable.obstacle);
+		ImageCollection.music = BitmapFactory.decodeResource(getResources(),
+				R.drawable.music);
+		ImageCollection.on = BitmapFactory.decodeResource(getResources(),
+				R.drawable.on);
+		ImageCollection.off = BitmapFactory.decodeResource(getResources(),
+				R.drawable.off);
+		ImageCollection.thirty = BitmapFactory.decodeResource(getResources(),
+				R.drawable.thirty);
+		ImageCollection.sixty = BitmapFactory.decodeResource(getResources(),
+				R.drawable.sixty);
+		ImageCollection.onep = BitmapFactory.decodeResource(getResources(),
+				R.drawable.onep);
+		ImageCollection.twop = BitmapFactory.decodeResource(getResources(),
+				R.drawable.twop);
+		ImageCollection.rope = BitmapFactory.decodeResource(getResources(),
+				R.drawable.rope);
+		ImageCollection.cute = BitmapFactory.decodeResource(getResources(),
+				R.drawable.cute);
+		ImageCollection.gear = BitmapFactory.decodeResource(getResources(),
+				R.drawable.gear);
 	}
 
 	@Override
@@ -204,12 +231,16 @@ public class MainActivity extends ActionBarActivity {
 	protected void onPause() {
 		super.onPause();
 		this.soundUtil.stop_bg_sound();
+		if(gameView!=null)
+		this.gameView.pause =true;
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
 		this.soundUtil.play_bg_sound();
+		if(gameView!=null)
+		this.gameView.pause = false;
 	}
 
 	@Override
