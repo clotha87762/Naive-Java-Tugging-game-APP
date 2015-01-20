@@ -153,7 +153,7 @@ public class OptionView extends SurfaceView implements Callback {
 		rope = ImageCollection.rope;
 		cute = ImageCollection.cute;
 		gear= ImageCollection.gear;
-		back = BitmapFactory.decodeResource(getResources(), R.drawable.background2);;
+		back = BitmapFactory.decodeResource(getResources(), R.drawable.background3);
 		
 	}
 	
