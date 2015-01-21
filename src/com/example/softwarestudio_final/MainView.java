@@ -170,10 +170,10 @@ public class MainView extends SurfaceView implements Callback {
 	public void repaint(){
 		
 		SurfaceHolder holder=this.getHolder();
-		Canvas canvas = holder.lockCanvas();//¨ú±oµe¥¬
+		Canvas canvas = holder.lockCanvas();//ï¿½ï¿½ï¿½oï¿½eï¿½ï¿½
 		try{
 			synchronized(holder){
-				draw(canvas);//Ã¸»s
+				draw(canvas);//Ã¸ï¿½s
 			}			
 		}
 		catch(Exception e){
@@ -188,7 +188,7 @@ public class MainView extends SurfaceView implements Callback {
 	
 	private class MainDrawThread extends Thread {
 	
-		//³oÃä¥i¯à¤]­n°O±oÄÀ©ñ?????????? oAo
+		//ï¿½oï¿½ï¿½iï¿½ï¿½]ï¿½nï¿½Oï¿½oï¿½ï¿½ï¿½ï¿½?????????? oAo
 		@Override
 		public void run(){
 		
@@ -205,7 +205,7 @@ public class MainView extends SurfaceView implements Callback {
 				}
 				
 			
-		//	gv.drawThreadAlive=true; //<---------------¤£½T©w­n¤£­n¯dµÛ
+		//	gv.drawThreadAlive=true; //<---------------ï¿½ï¿½ï¿½Tï¿½wï¿½nï¿½ï¿½ï¿½nï¿½dï¿½ï¿½
 		}
 	}
 	
@@ -220,8 +220,8 @@ public class MainView extends SurfaceView implements Callback {
 		{
 		
 				
-				this.mainActivity.soundUtil.stop_bg_sound();//°±¤î¼½©ñ­I´º­µ¼Ö
-				this.mainActivity.soundUtil.play_bg_sound();//¶}©l°±¤î¼½©ñ­I´º­µ¼Ö
+				this.mainActivity.soundUtil.stop_bg_sound();//ï¿½ï¿½ï¿½î¼½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				this.mainActivity.soundUtil.play_bg_sound();//ï¿½}ï¿½lï¿½ï¿½ï¿½î¼½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			
 		
 		}
