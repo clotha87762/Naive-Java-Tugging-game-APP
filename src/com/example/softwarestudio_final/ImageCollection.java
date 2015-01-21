@@ -18,6 +18,8 @@ public class ImageCollection{
 	public static Bitmap on,off,thirty,sixty,onep,twop,cute,rope;
 	public static Bitmap gear;
 	
+	public static Bitmap helps[] = new Bitmap[8];
+	
 	public static Bitmap ropeWin, ropeLose;
 	public static Bitmap ropeCuteWin, ropeCuteLose, ropeCuteNormal;
 

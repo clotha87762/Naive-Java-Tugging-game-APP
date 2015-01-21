@@ -183,6 +183,22 @@ public class MainActivity extends ActionBarActivity {
 				R.drawable.cute);
 		ImageCollection.gear = BitmapFactory.decodeResource(getResources(),
 				R.drawable.gear);
+		ImageCollection.helps[0] = BitmapFactory.decodeResource(getResources(),
+				R.drawable.help1);
+		ImageCollection.helps[1] = BitmapFactory.decodeResource(getResources(),
+				R.drawable.help2);
+		ImageCollection.helps[2] = BitmapFactory.decodeResource(getResources(),
+				R.drawable.help3);
+		ImageCollection.helps[3] = BitmapFactory.decodeResource(getResources(),
+				R.drawable.help4);
+		ImageCollection.helps[4] = BitmapFactory.decodeResource(getResources(),
+				R.drawable.help5);
+		ImageCollection.helps[5] = BitmapFactory.decodeResource(getResources(),
+				R.drawable.help6);
+		ImageCollection.helps[6] = BitmapFactory.decodeResource(getResources(),
+				R.drawable.help7);
+		ImageCollection.helps[7] = BitmapFactory.decodeResource(getResources(),
+				R.drawable.help8);
 	}
 
 	@Override
@@ -308,6 +324,7 @@ public class MainActivity extends ActionBarActivity {
 							public void onClick(DialogInterface dialog,
 									int which) {
 								Constant.fps = 25;
+								Constant.soundTitle=true;
 								MainActivity.this.myHandler.sendEmptyMessage(1);
 
 							}
