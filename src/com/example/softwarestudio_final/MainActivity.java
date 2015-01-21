@@ -28,29 +28,30 @@ public class MainActivity extends ActionBarActivity {
 	AudioManager audio;
 	Bitmap temp;
 
-	WhichView curr=WhichView.main;
-	enum WhichView{game,option,help,main};
+	WhichView curr = WhichView.main;
+
+	enum WhichView {
+		game, option, help, main
+	};
+
 	SoundUtil soundUtil;
-	
-	Handler myHandler = new Handler(){//�Ψӧ�sUI�u�{��������
-        public void handleMessage(Message msg) {
-        	if(msg.what == 1){//�����^��MainView
-        		Log.d("DEBUG","----------> I GO TO MAIN <---------");
-        		gotoMain();
-        		
-        	}
-        	else if(msg.what == 2){//Main������GameView
-        		gotoGame();
-        	}
-        	else if(msg.what == 3){//Main������HelpView
-        		gotoHelp();
-        	}
-        	else if(msg.what == 4){//Main������OptionView
-        		gotoOption();
-        		
-        	}
-        	   	
-        }
+
+	Handler myHandler = new Handler() {// �Ψӧ�sUI�u�{��������
+		public void handleMessage(Message msg) {
+			if (msg.what == 1) {// �����^��MainView
+				Log.d("DEBUG", "----------> I GO TO MAIN <---------");
+				gotoMain();
+
+			} else if (msg.what == 2) {// Main������GameView
+				gotoGame();
+			} else if (msg.what == 3) {// Main������HelpView
+				gotoHelp();
+			} else if (msg.what == 4) {// Main������OptionView
+				gotoOption();
+
+			}
+
+		}
 
 	};
 
@@ -97,6 +98,10 @@ public class MainActivity extends ActionBarActivity {
 	public void loadBitmapImage() {
 		ImageCollection.background = BitmapFactory.decodeResource(
 				getResources(), R.drawable.playbackground);
+
+		ImageCollection.background3 = BitmapFactory.decodeResource(
+				getResources(), R.drawable.background3);
+
 		ImageCollection.goalA = BitmapFactory.decodeResource(getResources(),
 				R.drawable.goala);
 		ImageCollection.goalB = BitmapFactory.decodeResource(getResources(),
@@ -104,11 +109,23 @@ public class MainActivity extends ActionBarActivity {
 		ImageCollection.ropebit = BitmapFactory.decodeResource(getResources(),
 				R.drawable.ropenormal);
 
+		ImageCollection.rope2 = BitmapFactory.decodeResource(getResources(),
+				R.drawable.rope2);
+
 		ImageCollection.ropeWin = BitmapFactory.decodeResource(getResources(),
 				R.drawable.ropewin);
 		ImageCollection.ropeLose = BitmapFactory.decodeResource(getResources(),
 				R.drawable.ropelose);
 
+		ImageCollection.ropeCuteWin = BitmapFactory.decodeResource(getResources(),
+				R.drawable.ropewin);
+		
+		ImageCollection.ropeCuteLose = BitmapFactory.decodeResource(getResources(),
+				R.drawable.ropelose);
+		
+		ImageCollection.ropeCuteNormal = BitmapFactory.decodeResource(getResources(),
+				R.drawable.ropenormal);
+		
 		ImageCollection.imgOne = BitmapFactory.decodeResource(getResources(),
 				R.drawable.count1);
 
@@ -140,7 +157,7 @@ public class MainActivity extends ActionBarActivity {
 				R.drawable.n);
 		ImageCollection.player = BitmapFactory.decodeResource(getResources(),
 				R.drawable.player);
-		ImageCollection.mode =BitmapFactory.decodeResource(getResources(),
+		ImageCollection.mode = BitmapFactory.decodeResource(getResources(),
 				R.drawable.mode);
 		ImageCollection.time = BitmapFactory.decodeResource(getResources(),
 				R.drawable.time);
@@ -172,35 +189,33 @@ public class MainActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-	        getWindow().setFlags(WindowManager.LayoutParams. FLAG_FULLSCREEN ,   
-	        WindowManager.LayoutParams. FLAG_FULLSCREEN); 
-	        
-	        loadBitmapImage();
-	        //�]�m����ù�
-	    	setVolumeControlStream(AudioManager.STREAM_MUSIC);//�n������
-	       // setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-	        audio = (AudioManager) getSystemService(Service.AUDIO_SERVICE); 
-			//���o�̹��ؤo
-	       temp = BitmapFactory.decodeResource(getResources(), R.drawable.background);
-	        Constant.WIDTH = temp.getWidth();
-	        Constant.HEIGHT = temp.getHeight();
-	        DisplayMetrics dm=new DisplayMetrics();
-	        getWindowManager().getDefaultDisplay().getMetrics(dm);  
-	        
-	        if(dm.widthPixels>dm.heightPixels)
-	        {
-	        	 Constant.SCREEN_WIDTH=dm.widthPixels;
-	        	 Constant.SCREEN_HEIGHT=dm.heightPixels;
-	        }
-	        else
-	        {
-	        	Constant.SCREEN_WIDTH=dm.widthPixels;
-	        	Constant.SCREEN_HEIGHT=dm.heightPixels;
-	        }
-	
-		ScreenScale.calScale(Constant.SCREEN_WIDTH,Constant.SCREEN_HEIGHT);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+		loadBitmapImage();
+		// �]�m����ù�
+		setVolumeControlStream(AudioManager.STREAM_MUSIC);// �n������
+		// setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+		audio = (AudioManager) getSystemService(Service.AUDIO_SERVICE);
+		// ���o�̹��ؤo
+		temp = BitmapFactory.decodeResource(getResources(),
+				R.drawable.background);
+		Constant.WIDTH = temp.getWidth();
+		Constant.HEIGHT = temp.getHeight();
+		DisplayMetrics dm = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(dm);
+
+		if (dm.widthPixels > dm.heightPixels) {
+			Constant.SCREEN_WIDTH = dm.widthPixels;
+			Constant.SCREEN_HEIGHT = dm.heightPixels;
+		} else {
+			Constant.SCREEN_WIDTH = dm.widthPixels;
+			Constant.SCREEN_HEIGHT = dm.heightPixels;
+		}
+
+		ScreenScale.calScale(Constant.SCREEN_WIDTH, Constant.SCREEN_HEIGHT);
 		soundUtil = new SoundUtil(this);
 		soundUtil.initSounds();
 
@@ -231,16 +246,16 @@ public class MainActivity extends ActionBarActivity {
 	protected void onPause() {
 		super.onPause();
 		this.soundUtil.stop_bg_sound();
-		if(gameView!=null)
-		this.gameView.pause =true;
+		if (gameView != null)
+			this.gameView.pause = true;
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
 		this.soundUtil.play_bg_sound();
-		if(gameView!=null)
-		this.gameView.pause = false;
+		if (gameView != null)
+			this.gameView.pause = false;
 	}
 
 	@Override

@@ -30,12 +30,12 @@ public class OptionView extends SurfaceView implements Callback {
 	public void draw(Canvas canvas){
 		
 		/*
-		¶¶§Ç:
-		ª±®a     1p 2p
-		»ÙÃª     on  off
-		­µ¼Ö     on  off
-		®É¶¡    thirty  sixty
-		¼Ò¦¡    Ã·¤l   ¥i·R
+		ï¿½ï¿½ï¿½ï¿½:
+		ï¿½ï¿½ï¿½a     1p 2p
+		ï¿½ï¿½Ãª     on  off
+		ï¿½ï¿½ï¿½ï¿½     on  off
+		ï¿½É¶ï¿½    thirty  sixty
+		ï¿½Ò¦ï¿½    Ã·ï¿½l   ï¿½iï¿½R
 		
 		*/
 		//Log.d("DEBUG","draw!?!?");
@@ -120,10 +120,10 @@ public class OptionView extends SurfaceView implements Callback {
 	public void repaint(){
 		
 		SurfaceHolder holder=this.getHolder();
-		Canvas canvas = holder.lockCanvas();//¨ú±oµe¥¬
+		Canvas canvas = holder.lockCanvas();//ï¿½ï¿½ï¿½oï¿½eï¿½ï¿½
 		try{
 			synchronized(holder){
-				draw(canvas);//Ã¸»s
+				draw(canvas);//Ã¸ï¿½s
 			}			
 		}
 		catch(Exception e){
@@ -153,7 +153,7 @@ public class OptionView extends SurfaceView implements Callback {
 		rope = ImageCollection.rope;
 		cute = ImageCollection.cute;
 		gear= ImageCollection.gear;
-		back = BitmapFactory.decodeResource(getResources(), R.drawable.background3);
+		back =  ImageCollection.background3;
 		
 	}
 	
@@ -226,16 +226,16 @@ public class OptionView extends SurfaceView implements Callback {
 	 			&&yy>=Constant.switchBtn[4][1]&&yy<=Constant.switchBtn[4][1]+350){
 	 		
 	 		if(Constant.StlyeCute){
-	 			Constant.StlyeCute=false; //»¡¤£©w³oÃäªºgetresource()¨ú±oªº¸ê·½¬O¤£¤@¼Ëªº¡H¡H¡H
-	 			ImageCollection.ropeLose=BitmapFactory.decodeResource(getResources(), R.drawable.rope2);
-	 			ImageCollection.ropeWin=BitmapFactory.decodeResource(getResources(), R.drawable.rope2);
-	 			ImageCollection.ropebit=BitmapFactory.decodeResource(getResources(), R.drawable.rope2);
+	 			Constant.StlyeCute=false; //ï¿½ï¿½ï¿½ï¿½ï¿½wï¿½oï¿½äªºgetresource()ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½ê·½ï¿½Oï¿½ï¿½ï¿½@ï¿½Ëªï¿½ï¿½Hï¿½Hï¿½H
+	 			ImageCollection.ropeLose= ImageCollection.rope2;
+	 			ImageCollection.ropeWin = ImageCollection.rope2;
+	 			ImageCollection.ropebit = ImageCollection.rope2;
 	 		}
 	 		else{
 	 			Constant.StlyeCute=true;
-	 			ImageCollection.ropeLose=BitmapFactory.decodeResource(getResources(), R.drawable.ropelose);
-	 			ImageCollection.ropeWin=BitmapFactory.decodeResource(getResources(), R.drawable.ropewin);
-	 			ImageCollection.ropebit=BitmapFactory.decodeResource(getResources(), R.drawable.ropenormal);
+	 			ImageCollection.ropeLose = ImageCollection.ropeCuteLose;  
+	 			ImageCollection.ropeWin = ImageCollection.ropeCuteWin;
+	 			ImageCollection.ropebit = ImageCollection.ropeCuteNormal;
 	 		}
 	 		
 	 		if(Constant.soundOn)

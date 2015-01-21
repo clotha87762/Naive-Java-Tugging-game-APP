@@ -5,11 +5,12 @@ import android.graphics.Bitmap;
 
 public class ImageCollection{
 
-	public static Bitmap background;
+	public static Bitmap background, background3;
 	public static Bitmap goalA;
 	public static Bitmap goalB;
 	public static Bitmap ropebit;
-
+	public static Bitmap rope2;
+	
 	public static Bitmap imgL, imgO, imgS, imgE;
 	public static Bitmap imgW, imgI, imgN;
 	public static Bitmap imgOne, imgTwo, imgThree;
@@ -18,6 +19,6 @@ public class ImageCollection{
 	public static Bitmap gear;
 	
 	public static Bitmap ropeWin, ropeLose;
-	
+	public static Bitmap ropeCuteWin, ropeCuteLose, ropeCuteNormal;
 
 }
