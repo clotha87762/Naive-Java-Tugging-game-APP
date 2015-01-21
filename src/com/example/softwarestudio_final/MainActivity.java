@@ -70,8 +70,8 @@ public class MainActivity extends ActionBarActivity {
 		if (gameView != null) {
 			gameView = null;
 		} else if (helpView != null) {
-			freeHelpImage();
-			loadBitmapImage();
+			//freeHelpImage();
+			//loadBitmapImage();
 			helpView = null;
 		} else if (optionView != null) {
 			optionView = null;
@@ -96,8 +96,8 @@ public class MainActivity extends ActionBarActivity {
 		if (mainView != null) {
 			mainView = null;
 		}
-		freeGameImage();
-		loadHelpBitmap();
+		//freeGameImage();
+		//loadHelpBitmap();
 		
 		helpView = new HelpView(this);
 		setContentView(helpView);
@@ -105,90 +105,90 @@ public class MainActivity extends ActionBarActivity {
 	}
 
 	public void loadBitmapImage() {
-		ImageCollection.background = BitmapFactory.decodeResource(
-				getResources(), R.drawable.playbackground);
+		ImageCollection.background = ImageCollection.readBitmap(
+				this, R.drawable.playbackground);
 
-		ImageCollection.background3 = BitmapFactory.decodeResource(
-				getResources(), R.drawable.background3);
+		ImageCollection.background3 = ImageCollection.readBitmap(
+				this, R.drawable.background3);
 
-		ImageCollection.goalA = BitmapFactory.decodeResource(getResources(),
+		ImageCollection.goalA = ImageCollection.readBitmap(this,
 				R.drawable.goala);
-		ImageCollection.goalB = BitmapFactory.decodeResource(getResources(),
+		ImageCollection.goalB = ImageCollection.readBitmap(this,
 				R.drawable.goalb);
 		
-		ImageCollection.rope2 = BitmapFactory.decodeResource(getResources(),
+		ImageCollection.rope2 = ImageCollection.readBitmap(this,
 				R.drawable.rope2);
 
 
-		ImageCollection.ropeCuteWin = BitmapFactory.decodeResource(getResources(),
+		ImageCollection.ropeCuteWin = ImageCollection.readBitmap(this,
 				R.drawable.ropewin);
 		
-		ImageCollection.ropeCuteLose = BitmapFactory.decodeResource(getResources(),
+		ImageCollection.ropeCuteLose = ImageCollection.readBitmap(this,
 				R.drawable.ropelose);
 		
-		ImageCollection.ropeCuteNormal = BitmapFactory.decodeResource(getResources(),
+		ImageCollection.ropeCuteNormal = ImageCollection.readBitmap(this,
 				R.drawable.ropenormal);
 		
 		ImageCollection.ropeWin = ImageCollection.ropeCuteWin;
 		ImageCollection.ropeLose = ImageCollection.ropeCuteLose;
 		ImageCollection.ropebit = ImageCollection.ropeCuteNormal;
 		
-		ImageCollection.imgOne = BitmapFactory.decodeResource(getResources(),
+		ImageCollection.imgOne = ImageCollection.readBitmap(this,
 				R.drawable.count1);
 
-		ImageCollection.imgTwo = BitmapFactory.decodeResource(getResources(),
+		ImageCollection.imgTwo = ImageCollection.readBitmap(this,
 				R.drawable.count2);
 
-		ImageCollection.imgThree = BitmapFactory.decodeResource(getResources(),
+		ImageCollection.imgThree = ImageCollection.readBitmap(this,
 				R.drawable.count3);
 
-		ImageCollection.imgL = BitmapFactory.decodeResource(getResources(),
+		ImageCollection.imgL = ImageCollection.readBitmap(this,
 				R.drawable.ll);
 
-		ImageCollection.imgO = BitmapFactory.decodeResource(getResources(),
+		ImageCollection.imgO = ImageCollection.readBitmap(this,
 				R.drawable.o);
 
-		ImageCollection.imgS = BitmapFactory.decodeResource(getResources(),
+		ImageCollection.imgS = ImageCollection.readBitmap(this,
 				R.drawable.s);
 
-		ImageCollection.imgE = BitmapFactory.decodeResource(getResources(),
+		ImageCollection.imgE = ImageCollection.readBitmap(this,
 				R.drawable.e);
 
-		ImageCollection.imgW = BitmapFactory.decodeResource(getResources(),
+		ImageCollection.imgW = ImageCollection.readBitmap(this,
 				R.drawable.w);
 
-		ImageCollection.imgI = BitmapFactory.decodeResource(getResources(),
+		ImageCollection.imgI = ImageCollection.readBitmap(this,
 				R.drawable.i);
 
-		ImageCollection.imgN = BitmapFactory.decodeResource(getResources(),
+		ImageCollection.imgN = ImageCollection.readBitmap(this,
 				R.drawable.n);
-		ImageCollection.player = BitmapFactory.decodeResource(getResources(),
+		ImageCollection.player = ImageCollection.readBitmap(this,
 				R.drawable.player);
-		ImageCollection.mode = BitmapFactory.decodeResource(getResources(),
+		ImageCollection.mode = ImageCollection.readBitmap(this,
 				R.drawable.mode);
-		ImageCollection.time = BitmapFactory.decodeResource(getResources(),
+		ImageCollection.time = ImageCollection.readBitmap(this,
 				R.drawable.time);
-		ImageCollection.obstacle = BitmapFactory.decodeResource(getResources(),
+		ImageCollection.obstacle = ImageCollection.readBitmap(this,
 				R.drawable.obstacle);
-		ImageCollection.music = BitmapFactory.decodeResource(getResources(),
+		ImageCollection.music = ImageCollection.readBitmap(this,
 				R.drawable.music);
-		ImageCollection.on = BitmapFactory.decodeResource(getResources(),
+		ImageCollection.on = ImageCollection.readBitmap(this,
 				R.drawable.on);
-		ImageCollection.off = BitmapFactory.decodeResource(getResources(),
+		ImageCollection.off = ImageCollection.readBitmap(this,
 				R.drawable.off);
-		ImageCollection.thirty = BitmapFactory.decodeResource(getResources(),
+		ImageCollection.thirty = ImageCollection.readBitmap(this,
 				R.drawable.thirty);
-		ImageCollection.sixty = BitmapFactory.decodeResource(getResources(),
+		ImageCollection.sixty = ImageCollection.readBitmap(this,
 				R.drawable.sixty);
-		ImageCollection.onep = BitmapFactory.decodeResource(getResources(),
+		ImageCollection.onep = ImageCollection.readBitmap(this,
 				R.drawable.onep);
-		ImageCollection.twop = BitmapFactory.decodeResource(getResources(),
+		ImageCollection.twop = ImageCollection.readBitmap(this,
 				R.drawable.twop);
-		ImageCollection.rope = BitmapFactory.decodeResource(getResources(),
+		ImageCollection.rope = ImageCollection.readBitmap(this,
 				R.drawable.rope);
-		ImageCollection.cute = BitmapFactory.decodeResource(getResources(),
+		ImageCollection.cute = ImageCollection.readBitmap(this,
 				R.drawable.cute);
-		ImageCollection.gear = BitmapFactory.decodeResource(getResources(),
+		ImageCollection.gear = ImageCollection.readBitmap(this,
 				R.drawable.gear);
 
 
@@ -196,24 +196,14 @@ public class MainActivity extends ActionBarActivity {
 	}
 
 	public void loadHelpBitmap(){
-		ImageCollection.helps[0] = BitmapFactory.decodeResource(getResources(),
-
-				R.drawable.help1);
-		ImageCollection.helps[1] = BitmapFactory.decodeResource(getResources(),
-				R.drawable.help2);
-		ImageCollection.helps[2] = BitmapFactory.decodeResource(getResources(),
-				R.drawable.help3);
-		ImageCollection.helps[3] = BitmapFactory.decodeResource(getResources(),
-				R.drawable.help4);
-		ImageCollection.helps[4] = BitmapFactory.decodeResource(getResources(),
-				R.drawable.help5);
-		ImageCollection.helps[5] = BitmapFactory.decodeResource(getResources(),
-				R.drawable.help6);
-		ImageCollection.helps[6] = BitmapFactory.decodeResource(getResources(),
-				R.drawable.help7);
-		ImageCollection.helps[7] = BitmapFactory.decodeResource(getResources(),
-
-				R.drawable.help8);
+		ImageCollection.helps[0] = ImageCollection.readBitmap(this, R.drawable.help1);
+		ImageCollection.helps[1] = ImageCollection.readBitmap(this, R.drawable.help2);
+		ImageCollection.helps[2] = ImageCollection.readBitmap(this, R.drawable.help3);
+		ImageCollection.helps[3] = ImageCollection.readBitmap(this, R.drawable.help4);
+		ImageCollection.helps[4] = ImageCollection.readBitmap(this, R.drawable.help5);
+		ImageCollection.helps[5] = ImageCollection.readBitmap(this, R.drawable.help6);
+		ImageCollection.helps[6] = ImageCollection.readBitmap(this, R.drawable.help7);
+		ImageCollection.helps[7] = ImageCollection.readBitmap(this, R.drawable.help8);
 
 	}
 	
@@ -279,6 +269,7 @@ public class MainActivity extends ActionBarActivity {
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 		loadBitmapImage();
+		loadHelpBitmap();
 		// �]�m����ù�
 		setVolumeControlStream(AudioManager.STREAM_MUSIC);// �n������
 		// setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);

@@ -1,6 +1,10 @@
 package com.example.softwarestudio_final;
 
+import java.io.InputStream;
+
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 
 public class ImageCollection{
@@ -22,5 +26,14 @@ public class ImageCollection{
 	
 	public static Bitmap ropeWin, ropeLose;
 	public static Bitmap ropeCuteWin, ropeCuteLose, ropeCuteNormal;
-
+	
+	public static Bitmap readBitmap(Context context, int resId){
+		BitmapFactory.Options opt = new BitmapFactory.Options();
+		opt.inPreferredConfig = Bitmap.Config.RGB_565;
+		opt.inPurgeable = true;
+		opt.inInputShareable = true;
+		
+		InputStream is = context.getResources().openRawResource(resId);	
+		return BitmapFactory.decodeStream(is, null, opt);
+	}
 }
