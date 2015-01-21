@@ -28,7 +28,7 @@ public class Constant {
 	public static int timeLimit=30;
 	public static boolean StlyeCute = true;
 	public static boolean onePlayer = false;
-	
+	public static boolean hard =true;
 	
 	
 	public static int life=50;

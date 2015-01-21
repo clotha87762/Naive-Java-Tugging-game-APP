@@ -49,9 +49,10 @@ public class GameView extends SurfaceView implements Callback {
 	Movable L, O, S, E;
 	Movable W, I, N;
 
+	AIThread AI;
 	BombThread bombThread;
 	Thread count;
-
+	
 	Thread resault;
 	TweenManager tm;
 	boolean countRunning = true;
@@ -83,7 +84,9 @@ public class GameView extends SurfaceView implements Callback {
 
 		two.visible = false;
 		one.visible = false;
-
+		
+		
+		
 		L = new Movable(imgL, 140, -300);
 		O = new Movable(imgO, 340, -300);
 		S = new Movable(imgS, 540, -300);
@@ -100,6 +103,9 @@ public class GameView extends SurfaceView implements Callback {
 		playerB = new PlayerB(this, Constant.life, rope);
 		playTime = new PlayTimeCounter(this);
 
+		if(Constant.onePlayer)
+			AI = new AIThread(this);
+		
 		bombThread = new BombThread(this);
 
 		dt.start();
@@ -107,7 +113,9 @@ public class GameView extends SurfaceView implements Callback {
 		if (Constant.bombOn) {
 			bombThread.start();
 		}
-
+		if(AI!=null)
+			AI.start();
+		
 		drawReady();
 	}
 
@@ -238,6 +246,8 @@ public class GameView extends SurfaceView implements Callback {
 		whoWins = who;
 		resaultRunning = true;
 		bombThread.setFlag(false);
+		if(AI!=null)
+		AI.setFlag(false);
 		tm = new TweenManager();
 
 		Constant.fps = 25;

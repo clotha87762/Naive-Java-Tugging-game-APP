@@ -166,7 +166,7 @@ public class MainActivity extends ActionBarActivity {
 				R.drawable.cute);
 		ImageCollection.gear = BitmapFactory.decodeResource(getResources(),
 				R.drawable.gear);
-		ImageCollection.helps[0] = BitmapFactory.decodeResource(getResources(),
+		/*ImageCollection.helps[0] = BitmapFactory.decodeResource(getResources(),
 				R.drawable.help1);
 		ImageCollection.helps[1] = BitmapFactory.decodeResource(getResources(),
 				R.drawable.help2);
@@ -181,7 +181,7 @@ public class MainActivity extends ActionBarActivity {
 		ImageCollection.helps[6] = BitmapFactory.decodeResource(getResources(),
 				R.drawable.help7);
 		ImageCollection.helps[7] = BitmapFactory.decodeResource(getResources(),
-				R.drawable.help8);
+				R.drawable.help8);*/
 	}
 
 	@Override
