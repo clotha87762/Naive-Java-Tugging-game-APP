@@ -143,13 +143,13 @@ public class MainView extends SurfaceView implements Callback {
 
 		p.setARGB(200, 255, 0, 0);
 		p.setTextSize(60);
-		canvas.drawText("ratio =" + Constant.RATIO + " LCUX = " + Constant.LCUX
+		/*canvas.drawText("ratio =" + Constant.RATIO + " LCUX = " + Constant.LCUX
 				+ " LCUY = " + Constant.LCUY, 0, 0, p);
 		canvas.drawText("SWidth=" + Constant.SCREEN_WIDTH + "SHeight="
 				+ Constant.SCREEN_HEIGHT, 0, 100, p);
 		canvas.drawText(
 				"Width=" + Constant.WIDTH + "Height=" + Constant.HEIGHT, 0,
-				200, p);
+				200, p);*/
 		canvas.restore();
 	}
 

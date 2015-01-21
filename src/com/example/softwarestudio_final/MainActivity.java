@@ -28,29 +28,31 @@ public class MainActivity extends ActionBarActivity {
 	AudioManager audio;
 	Bitmap temp;
 
-	WhichView curr=WhichView.main;
-	enum WhichView{game,option,help,main};
+	WhichView curr = WhichView.main;
+
+	enum WhichView {
+		game, option, help, main
+	};
+
 	SoundUtil soundUtil;
-	
-	Handler myHandler = new Handler(){//�Ψӧ�sUI�u�{��������
-        public void handleMessage(Message msg) {
-        	if(msg.what == 1){//�����^��MainView
-        		Log.d("DEBUG","----------> I GO TO MAIN <---------");
-        		gotoMain();
-        		
-        	}
-        	else if(msg.what == 2){//Main������GameView
-        		gotoGame();
-        	}
-        	else if(msg.what == 3){//Main������HelpView
-        		gotoHelp();
-        	}
-        	else if(msg.what == 4){//Main������OptionView
-        		gotoOption();
-        		
-        	}
-        	   	
-        }
+
+	Handler myHandler = new Handler() {// �Ψӧ�sUI�u�{��������
+		public void handleMessage(Message msg) {
+			if (msg.what == 1) {// �����^��MainView
+				Log.d("DEBUG", "----------> I GO TO MAIN <---------");
+				gotoMain();
+
+			} else if (msg.what == 2) {// Main������GameView
+				gotoGame();
+			} else if (msg.what == 3) {// Main������HelpView
+				
+				gotoHelp();
+			} else if (msg.what == 4) {// Main������OptionView
+				gotoOption();
+
+			}
+
+		}
 
 	};
 
@@ -64,13 +66,18 @@ public class MainActivity extends ActionBarActivity {
 	}
 
 	public void gotoMain() {
+		
 		if (gameView != null) {
 			gameView = null;
 		} else if (helpView != null) {
+			freeHelpImage();
+			loadBitmapImage();
 			helpView = null;
 		} else if (optionView != null) {
 			optionView = null;
 		}
+		
+		
 		curr = WhichView.main;
 		mainView = new MainView(this);
 		setContentView(mainView);
@@ -89,6 +96,9 @@ public class MainActivity extends ActionBarActivity {
 		if (mainView != null) {
 			mainView = null;
 		}
+		freeGameImage();
+		loadHelpBitmap();
+		
 		helpView = new HelpView(this);
 		setContentView(helpView);
 		curr = WhichView.help;
@@ -97,18 +107,32 @@ public class MainActivity extends ActionBarActivity {
 	public void loadBitmapImage() {
 		ImageCollection.background = BitmapFactory.decodeResource(
 				getResources(), R.drawable.playbackground);
+
+		ImageCollection.background3 = BitmapFactory.decodeResource(
+				getResources(), R.drawable.background3);
+
 		ImageCollection.goalA = BitmapFactory.decodeResource(getResources(),
 				R.drawable.goala);
 		ImageCollection.goalB = BitmapFactory.decodeResource(getResources(),
 				R.drawable.goalb);
-		ImageCollection.ropebit = BitmapFactory.decodeResource(getResources(),
-				R.drawable.ropenormal);
+		
+		ImageCollection.rope2 = BitmapFactory.decodeResource(getResources(),
+				R.drawable.rope2);
 
-		ImageCollection.ropeWin = BitmapFactory.decodeResource(getResources(),
+
+		ImageCollection.ropeCuteWin = BitmapFactory.decodeResource(getResources(),
 				R.drawable.ropewin);
-		ImageCollection.ropeLose = BitmapFactory.decodeResource(getResources(),
+		
+		ImageCollection.ropeCuteLose = BitmapFactory.decodeResource(getResources(),
 				R.drawable.ropelose);
-
+		
+		ImageCollection.ropeCuteNormal = BitmapFactory.decodeResource(getResources(),
+				R.drawable.ropenormal);
+		
+		ImageCollection.ropeWin = ImageCollection.ropeCuteWin;
+		ImageCollection.ropeLose = ImageCollection.ropeCuteLose;
+		ImageCollection.ropebit = ImageCollection.ropeCuteNormal;
+		
 		ImageCollection.imgOne = BitmapFactory.decodeResource(getResources(),
 				R.drawable.count1);
 
@@ -140,7 +164,7 @@ public class MainActivity extends ActionBarActivity {
 				R.drawable.n);
 		ImageCollection.player = BitmapFactory.decodeResource(getResources(),
 				R.drawable.player);
-		ImageCollection.mode =BitmapFactory.decodeResource(getResources(),
+		ImageCollection.mode = BitmapFactory.decodeResource(getResources(),
 				R.drawable.mode);
 		ImageCollection.time = BitmapFactory.decodeResource(getResources(),
 				R.drawable.time);
@@ -166,7 +190,14 @@ public class MainActivity extends ActionBarActivity {
 				R.drawable.cute);
 		ImageCollection.gear = BitmapFactory.decodeResource(getResources(),
 				R.drawable.gear);
-		/*ImageCollection.helps[0] = BitmapFactory.decodeResource(getResources(),
+
+
+
+	}
+
+	public void loadHelpBitmap(){
+		ImageCollection.helps[0] = BitmapFactory.decodeResource(getResources(),
+
 				R.drawable.help1);
 		ImageCollection.helps[1] = BitmapFactory.decodeResource(getResources(),
 				R.drawable.help2);
@@ -181,42 +212,94 @@ public class MainActivity extends ActionBarActivity {
 		ImageCollection.helps[6] = BitmapFactory.decodeResource(getResources(),
 				R.drawable.help7);
 		ImageCollection.helps[7] = BitmapFactory.decodeResource(getResources(),
-				R.drawable.help8);*/
-	}
 
+				R.drawable.help8);
+
+	}
+	
+	public void freeHelpImage(){
+		ImageCollection.helps[0].recycle();
+		ImageCollection.helps[1].recycle();
+		ImageCollection.helps[2].recycle();
+		ImageCollection.helps[3].recycle();
+		ImageCollection.helps[4].recycle();
+		ImageCollection.helps[5].recycle();
+		ImageCollection.helps[6].recycle();
+		ImageCollection.helps[7].recycle();
+	}
+	
+	public void freeGameImage() {
+		ImageCollection.background.recycle();
+
+		ImageCollection.background3.recycle();
+
+		ImageCollection.goalA.recycle();
+		ImageCollection.goalB.recycle();
+		
+		ImageCollection.rope2.recycle();
+
+
+		ImageCollection.ropeCuteWin.recycle();
+		ImageCollection.ropeCuteLose.recycle();
+		ImageCollection.ropeCuteNormal.recycle();
+		ImageCollection.imgOne.recycle();
+		ImageCollection.imgTwo.recycle();
+		ImageCollection.imgThree.recycle();
+		ImageCollection.imgL.recycle();
+		ImageCollection.imgO.recycle();
+		ImageCollection.imgS.recycle();
+		ImageCollection.imgE.recycle();
+		ImageCollection.imgW.recycle();
+		ImageCollection.imgI.recycle();
+		ImageCollection.imgN.recycle();
+		ImageCollection.player.recycle();
+		ImageCollection.mode.recycle();
+		ImageCollection.time.recycle();
+		ImageCollection.obstacle.recycle();
+		ImageCollection.music.recycle();
+		ImageCollection.on.recycle();
+		ImageCollection.off.recycle();
+		ImageCollection.thirty.recycle();
+		ImageCollection.sixty.recycle();
+		ImageCollection.onep.recycle();
+		ImageCollection.twop.recycle();
+		ImageCollection.rope.recycle();
+		ImageCollection.cute.recycle();
+		ImageCollection.gear.recycle();
+	}
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-	        getWindow().setFlags(WindowManager.LayoutParams. FLAG_FULLSCREEN ,   
-	        WindowManager.LayoutParams. FLAG_FULLSCREEN); 
-	        
-	        loadBitmapImage();
-	        //�]�m����ù�
-	    	setVolumeControlStream(AudioManager.STREAM_MUSIC);//�n������
-	       // setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-	        audio = (AudioManager) getSystemService(Service.AUDIO_SERVICE); 
-			//���o�̹��ؤo
-	       temp = BitmapFactory.decodeResource(getResources(), R.drawable.background);
-	        Constant.WIDTH = temp.getWidth();
-	        Constant.HEIGHT = temp.getHeight();
-	        DisplayMetrics dm=new DisplayMetrics();
-	        getWindowManager().getDefaultDisplay().getMetrics(dm);  
-	        
-	        if(dm.widthPixels>dm.heightPixels)
-	        {
-	        	 Constant.SCREEN_WIDTH=dm.widthPixels;
-	        	 Constant.SCREEN_HEIGHT=dm.heightPixels;
-	        }
-	        else
-	        {
-	        	Constant.SCREEN_WIDTH=dm.widthPixels;
-	        	Constant.SCREEN_HEIGHT=dm.heightPixels;
-	        }
-	
-		ScreenScale.calScale(Constant.SCREEN_WIDTH,Constant.SCREEN_HEIGHT);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+		loadBitmapImage();
+		// �]�m����ù�
+		setVolumeControlStream(AudioManager.STREAM_MUSIC);// �n������
+		// setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+		audio = (AudioManager) getSystemService(Service.AUDIO_SERVICE);
+		// ���o�̹��ؤo
+		temp = BitmapFactory.decodeResource(getResources(),
+				R.drawable.background);
+		Constant.WIDTH = temp.getWidth();
+		Constant.HEIGHT = temp.getHeight();
+		DisplayMetrics dm = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(dm);
+
+		if (dm.widthPixels > dm.heightPixels) {
+			Constant.SCREEN_WIDTH = dm.widthPixels;
+			Constant.SCREEN_HEIGHT = dm.heightPixels;
+		} else {
+			Constant.SCREEN_WIDTH = dm.widthPixels;
+			Constant.SCREEN_HEIGHT = dm.heightPixels;
+		}
+
+		ScreenScale.calScale(Constant.SCREEN_WIDTH, Constant.SCREEN_HEIGHT);
 		soundUtil = new SoundUtil(this);
 		soundUtil.initSounds();
 
@@ -247,16 +330,16 @@ public class MainActivity extends ActionBarActivity {
 	protected void onPause() {
 		super.onPause();
 		this.soundUtil.stop_bg_sound();
-		if(gameView!=null)
-		this.gameView.pause =true;
+		if (gameView != null)
+			this.gameView.pause = true;
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
 		this.soundUtil.play_bg_sound();
-		if(gameView!=null)
-		this.gameView.pause = false;
+		if (gameView != null)
+			this.gameView.pause = false;
 	}
 
 	@Override
@@ -281,6 +364,7 @@ public class MainActivity extends ActionBarActivity {
 							public void onClick(DialogInterface dialog,
 									int which) {
 								MainActivity.this.finish();
+								
 							}
 						});
 

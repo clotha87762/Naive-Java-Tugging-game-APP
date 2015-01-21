@@ -17,9 +17,9 @@ public class AIThread extends Thread {
 		runTime = 0;
 		this.flag = true;
 		if (Constant.hard)
-			argument = 175;
+			argument = 200;
 		else {
-			argument = 225;
+			argument = 250;
 		}
 
 	}
@@ -50,8 +50,8 @@ public class AIThread extends Thread {
 
 					}
 					if (!Constant.hard) {
-						temp = r.nextInt(2) + 1;
-						if (temp == 2)
+						temp = r.nextInt(3) + 1;
+						if (temp == 1)
 							continue;
 
 					}
