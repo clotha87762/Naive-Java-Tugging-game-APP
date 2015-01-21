@@ -45,6 +45,7 @@ public class MainActivity extends ActionBarActivity {
 			} else if (msg.what == 2) {// Main������GameView
 				gotoGame();
 			} else if (msg.what == 3) {// Main������HelpView
+				
 				gotoHelp();
 			} else if (msg.what == 4) {// Main������OptionView
 				gotoOption();
@@ -65,13 +66,18 @@ public class MainActivity extends ActionBarActivity {
 	}
 
 	public void gotoMain() {
+		
 		if (gameView != null) {
 			gameView = null;
 		} else if (helpView != null) {
+			freeHelpImage();
+			loadBitmapImage();
 			helpView = null;
 		} else if (optionView != null) {
 			optionView = null;
 		}
+		
+		
 		curr = WhichView.main;
 		mainView = new MainView(this);
 		setContentView(mainView);
@@ -90,6 +96,9 @@ public class MainActivity extends ActionBarActivity {
 		if (mainView != null) {
 			mainView = null;
 		}
+		freeGameImage();
+		loadHelpBitmap();
+		
 		helpView = new HelpView(this);
 		setContentView(helpView);
 		curr = WhichView.help;
@@ -106,16 +115,10 @@ public class MainActivity extends ActionBarActivity {
 				R.drawable.goala);
 		ImageCollection.goalB = BitmapFactory.decodeResource(getResources(),
 				R.drawable.goalb);
-		ImageCollection.ropebit = BitmapFactory.decodeResource(getResources(),
-				R.drawable.ropenormal);
-
+		
 		ImageCollection.rope2 = BitmapFactory.decodeResource(getResources(),
 				R.drawable.rope2);
 
-		ImageCollection.ropeWin = BitmapFactory.decodeResource(getResources(),
-				R.drawable.ropewin);
-		ImageCollection.ropeLose = BitmapFactory.decodeResource(getResources(),
-				R.drawable.ropelose);
 
 		ImageCollection.ropeCuteWin = BitmapFactory.decodeResource(getResources(),
 				R.drawable.ropewin);
@@ -125,6 +128,10 @@ public class MainActivity extends ActionBarActivity {
 		
 		ImageCollection.ropeCuteNormal = BitmapFactory.decodeResource(getResources(),
 				R.drawable.ropenormal);
+		
+		ImageCollection.ropeWin = ImageCollection.ropeCuteWin;
+		ImageCollection.ropeLose = ImageCollection.ropeCuteLose;
+		ImageCollection.ropebit = ImageCollection.ropeCuteNormal;
 		
 		ImageCollection.imgOne = BitmapFactory.decodeResource(getResources(),
 				R.drawable.count1);
@@ -183,6 +190,11 @@ public class MainActivity extends ActionBarActivity {
 				R.drawable.cute);
 		ImageCollection.gear = BitmapFactory.decodeResource(getResources(),
 				R.drawable.gear);
+		
+
+	}
+
+	public void loadHelpBitmap(){
 		ImageCollection.helps[0] = BitmapFactory.decodeResource(getResources(),
 				R.drawable.help1);
 		ImageCollection.helps[1] = BitmapFactory.decodeResource(getResources(),
@@ -199,8 +211,61 @@ public class MainActivity extends ActionBarActivity {
 				R.drawable.help7);
 		ImageCollection.helps[7] = BitmapFactory.decodeResource(getResources(),
 				R.drawable.help8);
+	
 	}
+	
+	public void freeHelpImage(){
+		ImageCollection.helps[0].recycle();
+		ImageCollection.helps[1].recycle();
+		ImageCollection.helps[2].recycle();
+		ImageCollection.helps[3].recycle();
+		ImageCollection.helps[4].recycle();
+		ImageCollection.helps[5].recycle();
+		ImageCollection.helps[6].recycle();
+		ImageCollection.helps[7].recycle();
+	}
+	
+	public void freeGameImage() {
+		ImageCollection.background.recycle();
 
+		ImageCollection.background3.recycle();
+
+		ImageCollection.goalA.recycle();
+		ImageCollection.goalB.recycle();
+		
+		ImageCollection.rope2.recycle();
+
+
+		ImageCollection.ropeCuteWin.recycle();
+		ImageCollection.ropeCuteLose.recycle();
+		ImageCollection.ropeCuteNormal.recycle();
+		ImageCollection.imgOne.recycle();
+		ImageCollection.imgTwo.recycle();
+		ImageCollection.imgThree.recycle();
+		ImageCollection.imgL.recycle();
+		ImageCollection.imgO.recycle();
+		ImageCollection.imgS.recycle();
+		ImageCollection.imgE.recycle();
+		ImageCollection.imgW.recycle();
+		ImageCollection.imgI.recycle();
+		ImageCollection.imgN.recycle();
+		ImageCollection.player.recycle();
+		ImageCollection.mode.recycle();
+		ImageCollection.time.recycle();
+		ImageCollection.obstacle.recycle();
+		ImageCollection.music.recycle();
+		ImageCollection.on.recycle();
+		ImageCollection.off.recycle();
+		ImageCollection.thirty.recycle();
+		ImageCollection.sixty.recycle();
+		ImageCollection.onep.recycle();
+		ImageCollection.twop.recycle();
+		ImageCollection.rope.recycle();
+		ImageCollection.cute.recycle();
+		ImageCollection.gear.recycle();
+	}
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
