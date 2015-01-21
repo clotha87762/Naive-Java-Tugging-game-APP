@@ -41,7 +41,13 @@ public class Rope {
 	public void drawself(Canvas canvas) {
 		Paint p = new Paint();
 		p.setAntiAlias(true);
+		
+		if(Constant.StlyeCute){
+			canvas.drawBitmap(rope, 0, currentPosition+100, p);	
+		}
+		else{
 		canvas.drawBitmap(rope, 0, currentPosition, p);
+		}
 	}
 
 	public void setBitmap(Bitmap bitmap) {
