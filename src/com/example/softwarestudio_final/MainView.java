@@ -41,16 +41,11 @@ public class MainView extends SurfaceView implements Callback {
 		Tween.registerAccessor(Movable.class, new MovableAccessor());
 		tm = new TweenManager();
 
-		helpButton = new Movable(BitmapFactory.decodeResource(getResources(),
-				R.drawable.help_button), 123f, -500f, 255, 0);
-		startButton = new Movable(BitmapFactory.decodeResource(getResources(),
-				R.drawable.start_button), 123f, -500f, 255, 0);
-		mainBack = new Movable(BitmapFactory.decodeResource(getResources(),
-				R.drawable.background3), 0, 0);
-		optionButton = new Movable(BitmapFactory.decodeResource(getResources(),
-				R.drawable.option_button), 123f, -500f, 255, 0);
-		title = new Movable(BitmapFactory.decodeResource(getResources(),
-				R.drawable.title2), 0, -500, 255, 1);
+		helpButton = new Movable(ImageCollection.helpButton, 123f, -500f, 255, 0);
+		startButton = new Movable(ImageCollection.startButton, 123f, -500f, 255, 0);
+		mainBack = new Movable(ImageCollection.mainBack, 0, 0);
+		optionButton = new Movable(ImageCollection.optionButton, 123f, -500f, 255, 0);
+		title = new Movable(ImageCollection.title, 0, -500, 255, 1);
 
 		Timeline.createSequence()
 				.pushPause(1f)

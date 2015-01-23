@@ -17,14 +17,14 @@ public class Bomb {
 		this.gv=gv;
 		cur = 0;
 		if(Constant.StlyeCute){
-		bitmaps[0] = BitmapFactory.decodeResource(gv.getResources(), R.drawable.cute1);
-		bitmaps[1] = BitmapFactory.decodeResource(gv.getResources(), R.drawable.cute2);
-		bitmaps[2] = BitmapFactory.decodeResource(gv.getResources(), R.drawable.cute3);
+		bitmaps[0] = ImageCollection.cute1;
+		bitmaps[1] = ImageCollection.cute2;
+		bitmaps[2] = ImageCollection.cute3;
 		}
 		else{
-			bitmaps[0] = BitmapFactory.decodeResource(gv.getResources(), R.drawable.rock3);
-			bitmaps[1] = BitmapFactory.decodeResource(gv.getResources(), R.drawable.rock2);
-			bitmaps[2] = BitmapFactory.decodeResource(gv.getResources(), R.drawable.rock1);
+			bitmaps[0] = ImageCollection.rock3;
+			bitmaps[1] = ImageCollection.rock2;
+			bitmaps[2] = ImageCollection.rock1;
 			
 		}
 	}

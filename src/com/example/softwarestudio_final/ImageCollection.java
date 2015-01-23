@@ -9,6 +9,8 @@ import android.graphics.BitmapFactory;
 
 public class ImageCollection{
 
+	public static Bitmap helpButton, startButton, mainBack, optionButton, title;
+	
 	public static Bitmap background, background3;
 	public static Bitmap goalA;
 	public static Bitmap goalB;
@@ -26,6 +28,9 @@ public class ImageCollection{
 	
 	public static Bitmap ropeWin, ropeLose;
 	public static Bitmap ropeCuteWin, ropeCuteLose, ropeCuteNormal;
+	
+	public static Bitmap cute1, cute2, cute3;
+	public static Bitmap rock1, rock2, rock3;
 	
 	public static Bitmap readBitmap(Context context, int resId){
 		BitmapFactory.Options opt = new BitmapFactory.Options();

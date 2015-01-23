@@ -12,54 +12,54 @@ import android.media.SoundPool;
 
 public class SoundUtil {
 	public MediaPlayer mp;
-	SoundPool soundPool;//Án­µ¦À
+	SoundPool soundPool;//ï¿½nï¿½ï¿½ï¿½ï¿½
 	HashMap<Integer, Integer> soundPoolMap;
 	MainActivity ma;
 	public SoundUtil(MainActivity ma)
 	{
 		this.ma=ma;
 	}
-	//ªì©l¤Æ
+	//ï¿½ï¿½lï¿½ï¿½
     public void initSounds()
     {
-    	 //«Ø¥ß½w½Ä¦À
+    	 //ï¿½Ø¥ß½wï¿½Ä¦ï¿½
 	     soundPool = new SoundPool
 	     (
-	    		 7, 							//¦P®É¼½©ñ­Ó¼Æ
-	    		 AudioManager.STREAM_MUSIC,     //­µÀWªºÃþ§O
-	    		 100							//Án­µªº¼½©ñ½è¶q
+	    		 7, 							//ï¿½Pï¿½É¼ï¿½ï¿½ï¿½Ó¼ï¿½
+	    		 AudioManager.STREAM_MUSIC,     //ï¿½ï¿½ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½O
+	    		 100							//ï¿½nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½q
 	     );
 	     
-	     //«Ø¥ßÁn­µ¸ê·½Map	     
+	     //ï¿½Ø¥ï¿½ï¿½nï¿½ï¿½ï¿½ê·½Map	     
 	     soundPoolMap = new HashMap<Integer, Integer>();   
-	     //±N¥[¸üªºÁn­µ¸ê·½id©ñ¶i¦¹Map
-	     soundPoolMap.put(0, soundPool.load(ma, R.raw.tug, 1)); //©ÔÃ·¤l
-	     soundPoolMap.put(1, soundPool.load(ma, R.raw.pop, 1)); // »ÙÃª¥X²{
-	     soundPoolMap.put(2, soundPool.load(ma, R.raw.kill, 1)); // «d±¼»ÙÃª
-	     soundPoolMap.put(3, soundPool.load(ma, R.raw.crystal, 1)); //¨Ï¥Î¹D¨ã
-	     soundPoolMap.put(4, soundPool.load(ma, R.raw.press, 1)); // «ö¤U¼ÐÃD¤¶­±«ö¶s
+	     //ï¿½Nï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½nï¿½ï¿½ï¿½ê·½idï¿½ï¿½iï¿½ï¿½Map
+	     soundPoolMap.put(0, soundPool.load(ma, R.raw.tug, 1)); //ï¿½ï¿½Ã·ï¿½l
+	     soundPoolMap.put(1, soundPool.load(ma, R.raw.pop, 1)); // ï¿½ï¿½Ãªï¿½Xï¿½{
+	     soundPoolMap.put(2, soundPool.load(ma, R.raw.kill, 1)); // ï¿½dï¿½ï¿½ï¿½ï¿½Ãª
+	     soundPoolMap.put(3, soundPool.load(ma, R.raw.crystal, 1)); //ï¿½Ï¥Î¹Dï¿½ï¿½
+	     soundPoolMap.put(4, soundPool.load(ma, R.raw.press, 1)); // ï¿½ï¿½ï¿½Uï¿½ï¿½ï¿½Dï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½s
 	     soundPoolMap.put(5, soundPool.load(ma, R.raw.whistle, 1));
 	     soundPoolMap.put(6, soundPool.load(ma, R.raw.count, 1));
 	     soundPoolMap.put(7, soundPool.load(ma, R.raw.exchange, 1));
-	     //¦³´X­Ó­µ®Ä´N¦³·í«e³o­Ó´X¥y  R.raw.gamestartªð¦^½s¸¹ ¤£©w     «á­±ªº1¬°Àu¥ý¯Å ¥Ø«e¤£¦Ò¼{
+	     //ï¿½ï¿½ï¿½Xï¿½Ó­ï¿½ï¿½Ä´Nï¿½ï¿½ï¿½ï¿½eï¿½oï¿½Ó´Xï¿½y  R.raw.gamestartï¿½ï¿½^ï¿½sï¿½ï¿½ ï¿½ï¿½ï¿½w     ï¿½á­±ï¿½ï¿½1ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ ï¿½Ø«eï¿½ï¿½ï¿½Ò¼{
 	} 
        
-   //¼½©ñ­µ®Äªº¤èªk
+   //ï¿½ï¿½ï¿½ñ­µ®Äªï¿½ï¿½ï¿½k
    public void playEffectsSound(int sound, int loop) {
 	   
 		   AudioManager mgr = (AudioManager)ma.getSystemService(Context.AUDIO_SERVICE);
-		    float streamVolumeCurrent = mgr.getStreamVolume(AudioManager.STREAM_MUSIC);//·í«e­µ¶q   
-		    float streamVolumeMax = mgr.getStreamMaxVolume(AudioManager.STREAM_MUSIC);//³Ì¤j­µ¶q       
+		    float streamVolumeCurrent = mgr.getStreamVolume(AudioManager.STREAM_MUSIC);//ï¿½ï¿½eï¿½ï¿½ï¿½q   
+		    float streamVolumeMax = mgr.getStreamMaxVolume(AudioManager.STREAM_MUSIC);//ï¿½Ì¤jï¿½ï¿½ï¿½q       
 		    float volume = (streamVolumeCurrent+streamVolumeMax) / streamVolumeMax;   
 		    
 		    soundPool.play
 		    (
-	    		soundPoolMap.get(sound), //Án­µ¸ê·½id
-	    		volume, 				 //¥ªÁn¹D­µ¶q
-	    		volume, 				 //¥kÁn¹D­µ¶q
-	    		1, 						 //Àu¥ý¯Å				 
-	    		loop, 					 //´`Àô¦¸¼Æ -1±aªí¥Ã»·´`Àô
-	    		1f					 //¦^©ñ³t«×0.5f¡ã2.0f¤§¶¡
+	    		soundPoolMap.get(sound), //ï¿½nï¿½ï¿½ï¿½ê·½id
+	    		volume, 				 //ï¿½ï¿½ï¿½nï¿½Dï¿½ï¿½ï¿½q
+	    		volume, 				 //ï¿½kï¿½nï¿½Dï¿½ï¿½ï¿½q
+	    		1, 						 //ï¿½uï¿½ï¿½ï¿½ï¿½				 
+	    		loop, 					 //ï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ -1ï¿½aï¿½ï¿½Ã»ï¿½ï¿½`ï¿½ï¿½
+	    		1f					 //ï¿½^ï¿½ï¿½tï¿½ï¿½0.5fï¿½ï¿½2.0fï¿½ï¿½ï¿½ï¿½
 		    );
 	   
 	}
@@ -67,7 +67,7 @@ public class SoundUtil {
    {
 	   if(Constant.soundOn)
 	   {
-		   //³z¹Lassets ¥[¸ü­µ¼Ö
+		   //ï¿½zï¿½Lassets ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	     AssetManager assetManager = ma.getAssets();  
 	     try {  
 	     mp = new MediaPlayer();  

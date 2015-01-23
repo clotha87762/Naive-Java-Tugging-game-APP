@@ -108,8 +108,7 @@ public class GameView extends SurfaceView implements Callback {
 		
 		bombThread = new BombThread(this);
 
-		dt.start();
-		secDrawThread.start();
+
 		if (Constant.bombOn) {
 			bombThread.start();
 		}
@@ -117,6 +116,8 @@ public class GameView extends SurfaceView implements Callback {
 			AI.start();
 		
 		drawReady();
+		dt.start();
+		secDrawThread.start();
 	}
 
 	public void initBitmap() {
@@ -238,7 +239,8 @@ public class GameView extends SurfaceView implements Callback {
 		Constant.soundTitle =true;
 		dt.drawStop();
 		secDrawThread.drawStop();
-		
+		if(AI!=null)
+			AI.setFlag(false);
 	}
 	
 	public void drawResault(int who) { // 0==A , 1==B;
@@ -607,7 +609,7 @@ public class GameView extends SurfaceView implements Callback {
 	@Override
 	public void surfaceDestroyed(SurfaceHolder holder) {
 		// TODO Auto-generated method stub
-		
+		Log.d("DEBUG", "I'm surface tp destroy!!!!!!!!!!");
 	}
 
 }

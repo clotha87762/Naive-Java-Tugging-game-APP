@@ -7,6 +7,7 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.AudioManager;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -105,6 +106,17 @@ public class MainActivity extends ActionBarActivity {
 	}
 
 	public void loadBitmapImage() {
+		ImageCollection.helpButton = ImageCollection.readBitmap(this,
+				R.drawable.help_button);
+		ImageCollection.startButton = ImageCollection.readBitmap(this,
+				R.drawable.start_button);
+		ImageCollection.mainBack = ImageCollection.readBitmap(this, 
+				R.drawable.background3);
+		ImageCollection.optionButton = ImageCollection.readBitmap(this,
+				R.drawable.option_button);
+		ImageCollection.title = ImageCollection.readBitmap(this,
+				R.drawable.title2);
+		
 		ImageCollection.background = ImageCollection.readBitmap(
 				this, R.drawable.playbackground);
 
@@ -191,8 +203,13 @@ public class MainActivity extends ActionBarActivity {
 		ImageCollection.gear = ImageCollection.readBitmap(this,
 				R.drawable.gear);
 
+		ImageCollection.cute1 = ImageCollection.readBitmap(this, R.drawable.cute1);
+		ImageCollection.cute2 = ImageCollection.readBitmap(this, R.drawable.cute2);
+		ImageCollection.cute3 = ImageCollection.readBitmap(this, R.drawable.cute3);
 
-
+		ImageCollection.rock1 = ImageCollection.readBitmap(this, R.drawable.rock1);
+		ImageCollection.rock2 = ImageCollection.readBitmap(this, R.drawable.rock2);
+		ImageCollection.rock3 = ImageCollection.readBitmap(this, R.drawable.rock3);
 	}
 
 	public void loadHelpBitmap(){
@@ -385,6 +402,8 @@ public class MainActivity extends ActionBarActivity {
 									int which) {
 								Constant.fps = 25;
 								Constant.soundTitle=true;
+								if( curr == WhichView.game )
+									gameView.endGameViewbyKEYBACK();
 								MainActivity.this.myHandler.sendEmptyMessage(1);
 
 							}
